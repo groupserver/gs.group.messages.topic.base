@@ -6,6 +6,10 @@ from zope.publisher.interfaces import NotFound
 from gs.group.base.page import GroupPage
 # from error import NoIDError
 
+SUBSYSTEM = 'gs.group.messages.topic'
+import logging
+log = logging.getLogger(SUBSYSTEM) #@UndefinedVariable
+
 class GSTopicTraversal(GroupPage):
     def __init__(self, context, request):
         GroupPage.__init__(self, context, request)
