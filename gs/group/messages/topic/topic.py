@@ -12,6 +12,7 @@ from Products.GSGroup.utils import is_public
 from gs.group.base.form import GroupForm
 from gs.profile.email.base.emailuser import EmailUser
 from interfaces import IGSAddToTopicFields
+from error import NoIDError
 
 class GSTopicView(GroupForm):
     """View of a single GroupServer Topic"""
@@ -22,22 +23,16 @@ class GSTopicView(GroupForm):
     
     def __init__(self, context, request):
         GroupForm.__init__(self, context, request)
-        assert self.request.has_key('postId')
-        self.postId = self.request['postId']
-        assert self.postId, 'self.postID set to %s' % self.postId
+        self.postId = self.request.get('postId', None)
+        if not self.postId:
+            raise NoIDError('No ID Specified')
         
         self.isPublic = is_public(self.groupInfo.groupObj)
         
-        self.__userInfo = None
-        self.__userPostingInfo = None
-        self.__messageQuery = None
-        self.__topicId = None
-        self.__topicName = None
-        self.__nextTopic = None
-        self.__previousTopic = None
-        self.__stickyTopics = None
-        self.__topic = None
-        self.__inReplyTo = None
+        self.__userInfo = self.__userPostingInfo = None
+        self.__topicId = self.__topicName = self.__nextTopic = None
+        self.__previousTopic = self.__stickyTopics = self.__topic = None
+        self.__inReplyTo = self.__messageQuery = None
 
     def setUpWidgets(self, ignore_request=True):
         self.adapters = {}
