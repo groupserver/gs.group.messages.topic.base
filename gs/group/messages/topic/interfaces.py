@@ -53,3 +53,21 @@ class IGSFileIndexContentProvider(Interface):
         required=False,
         default="browser/templates/fileindex.pt")
 
+class IGSTopicSummaryContentProvider(Interface):
+    """The Groupserver Topic Summary Content Provider Interface
+      
+      This interface defines the fields that must be set up, normally using
+      TAL, before creating a "GSTopicSummaryContentProvider" instance. 
+      See the latter for an example."""
+    
+    topic = Field(title=u"Topic",
+        description=u"The topic to display",
+        required=True, 
+        readonly=False)
+
+    pageTemplateFileName = ASCIILine(title=u"Page Template File Name",
+        description=u'The name of the ZPT file that is used to '\
+            u'render the post.',
+        required=False,
+        default="browser/templates/summary.pt")
+

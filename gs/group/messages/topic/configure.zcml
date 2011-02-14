@@ -46,4 +46,17 @@
     provides="zope.contentprovider.interfaces.IContentProvider"
     name="groupserver.FileIndex"/>
     
+  <!--Summary-->
+  <interface 
+    interface=".interfaces.IGSTopicSummaryContentProvider"
+    type="zope.contentprovider.interfaces.ITALNamespaceData"/>
+  <class class=".summary.GSTopicSummaryContentProvider">
+    <implements interface=".interfaces.IGSTopicSummaryContentProvider"/>
+  </class>
+  <adapter
+    for="zope.interface.Interface zope.publisher.interfaces.browser.IDefaultBrowserLayer zope.interface.Interface"
+    factory=".summary.GSTopicSummaryContentProvider"
+    provides="zope.contentprovider.interfaces.IContentProvider"
+    name="groupserver.TopicSummary"/>
+
 </configure>

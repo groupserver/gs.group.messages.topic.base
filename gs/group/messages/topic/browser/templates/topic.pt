@@ -62,8 +62,8 @@
         </div><!--buttons-->
       </form><!--toggleStickyTopic-->
       <div tal:define="topic topicList"
-        tal:replace="structure provider:groupserver.FileIndex">
-        File Index
+        tal:replace="structure provider:groupserver.TopicSummary">
+        Topic Summary
       </div>
       <div class="share-bar" 
         tal:define="topicName view/topicName;
