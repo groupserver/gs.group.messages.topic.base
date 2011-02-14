@@ -59,4 +59,18 @@
     provides="zope.contentprovider.interfaces.IContentProvider"
     name="groupserver.TopicSummary"/>
 
+  <!--Sticky Toggle-->
+  <interface 
+    interface=".interfaces.IGSStickyTopicToggleContentProvider"
+    type="zope.contentprovider.interfaces.ITALNamespaceData"/>
+  <class class=".stickytoggle.GSStickyTopicToggleContentProvider">
+    <implements interface=".interfaces.IGSStickyTopicToggleContentProvider"/>
+  </class>
+  <adapter
+    for="zope.interface.Interface zope.publisher.interfaces.browser.IDefaultBrowserLayer zope.interface.Interface"
+    factory=".stickytoggle.GSStickyTopicToggleContentProvider"
+    provides="zope.contentprovider.interfaces.IContentProvider"
+    name="groupserver.StickyTopicToggle"/>
+
 </configure>
+

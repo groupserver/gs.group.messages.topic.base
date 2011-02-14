@@ -71,3 +71,17 @@ class IGSTopicSummaryContentProvider(Interface):
         required=False,
         default="browser/templates/summary.pt")
 
+class IGSStickyTopicToggleContentProvider(Interface):
+    """A content provider for the sticky-topic toggle"""
+    topic = TextLine(title=u"Topic",
+        description=u"The name of the topic to be toggled",
+        required=True)
+    topicId = ASCIILine(title=u"Topic ID",
+        description=u"The ID of the topic to be toggled",
+        required=True)
+    pageTemplateFileName = ASCIILine(title=u"Page Template File Name",
+        description=u"""The name of the ZPT file
+        that is used to render the form.""",
+        required=False,
+        default="browser/templates/stickytoggle.pt")
+
