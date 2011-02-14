@@ -32,4 +32,18 @@
     factory=".navlinks.NavLinks"
     provides="zope.contentprovider.interfaces.IContentProvider"
     name="groupserver.TopicNavLinks"/>
+
+  <!--File Index-->
+  <interface 
+    interface=".interfaces.IGSFileIndexContentProvider"
+    type="zope.contentprovider.interfaces.ITALNamespaceData"/>
+  <class class=".fileindex.GSFileIndexContentProvider">
+    <implements interface=".interfaces.IGSFileIndexContentProvider"/>
+  </class>
+  <adapter
+    for="zope.interface.Interface zope.publisher.interfaces.browser.IDefaultBrowserLayer zope.interface.Interface"
+    factory=".fileindex.GSFileIndexContentProvider"
+    provides="zope.contentprovider.interfaces.IContentProvider"
+    name="groupserver.FileIndex"/>
+    
 </configure>
