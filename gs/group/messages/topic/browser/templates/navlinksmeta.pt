@@ -1,0 +1,12 @@
+<tal:block>
+  <link tal:condition="view/previousTopic/topicId" 
+    rel="prev" title="Previous topic" href="wibble"
+    tal:attributes="href view/previousTopic/topicId; 
+    title string:Later topic: ${view/previousTopic/subject}" />
+  <link tal:condition="view/nextTopic/topicId" 
+    rel="next" title="earlier topic" href="wibble"
+    tal:attributes="href view/nextTopic/topicId; 
+    title string:Earlier topic: ${view/nextTopic/subject};" />
+  <link rel="up" title="All topics" href="../topics.html"
+    tal:attributes="title string:Topics in ${view/groupInfo/name};"/>
+</tal:block>

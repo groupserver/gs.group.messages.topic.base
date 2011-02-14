@@ -1,0 +1,22 @@
+<tal:block>
+  <ul id="topicNav" class="navlinks inline-list">
+    <li>
+      <span tal:condition="not:view/previousTopic/topicId"
+         class="prev">No later topic</span>
+      <a href="#" class="prev"
+        tal:condition="view/previousTopic/topicId"
+        tal:attributes="href view/previousTopic/topicId;
+          title view/previousTopic/subject;">Later topic</a></li>
+    <li>
+      <a class="topics up"
+        tal:attributes="title string:Topics in ${view/groupInfo/name}"
+        href="../topics.html">All Topics</a></li>
+    <li>
+      <span tal:condition="not:view/nextTopic/topicId"
+        class="next">No earlier topic</span>
+      <a href="#" class="next"
+        tal:condition="view/nextTopic/topicId" 
+        tal:attributes="href view/nextTopic/topicId;
+          title view/nextTopic/subject;">Earlier topic</a></li>
+  </ul><!--topicNav-->
+</tal:block>
