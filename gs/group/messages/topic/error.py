@@ -4,3 +4,6 @@ from gs.group.messages.post.error import NoIDError as PostNoIDError
 class NoIDError(PostNoIDError):
     pass
 
+class NotFoundError(Exception):
+    pass
+

@@ -12,7 +12,7 @@ from Products.GSGroup.utils import is_public
 from gs.group.base.form import GroupForm
 from gs.profile.email.base.emailuser import EmailUser
 from interfaces import IGSAddToTopicFields
-from error import NoIDError
+from error import NoIDError, NotFoundError
 
 class GSTopicView(GroupForm):
     """View of a single GroupServer Topic"""
@@ -178,6 +178,8 @@ class GSTopicView(GroupForm):
         
     def topic_id_from_legacy_post_id(self, legacyPostId):
         p = self.messageQuery.post_id_from_legacy_id(legacyPostId)
+        if not p:
+          raise NotFoundError(legacyPostId)
         assert p, 'Post not found for legacy post ID (%s)' % legacyPostId
         retval = self.messageQuery.topic_id_from_post_id(p)
         assert retval, 'Topic not found for post ID (%s)' % p

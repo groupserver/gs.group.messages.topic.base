@@ -4,7 +4,7 @@ from zope.component import getMultiAdapter
 from zope.location.interfaces import LocationError
 from zope.publisher.interfaces import NotFound
 from gs.group.base.page import GroupPage
-from error import NoIDError
+from error import NoIDError, NotFoundError
 
 SUBSYSTEM = 'gs.group.messages.topic'
 import logging
@@ -30,6 +30,11 @@ class GSTopicTraversal(GroupPage):
                 (self.request.URL, uri)
             log.info(m)
             retval = self.request.RESPONSE.redirect(uri)
+        except NotFoundError, t:
+            self.request.form['q'] = self.request.URL
+            self.request.form['r'] = self.request.get('HTTP_REFERER','')
+            retval = getMultiAdapter((self.context, self.request),
+                        name="new_not_found.html")()
         except Exception, e:
             self.request.form['q'] = self.request.URL
             self.request.form['m'] = format_exc()
