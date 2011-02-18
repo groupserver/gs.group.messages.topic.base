@@ -72,5 +72,12 @@
     provides="zope.contentprovider.interfaces.IContentProvider"
     name="groupserver.StickyTopicToggle"/>
 
+  <!--Help-->
+  <browser:viewlet name="gs-group-messages-topic-help"
+    manager="gs.help.interfaces.IUserHelp"
+    template="browser/templates/help.pt"
+    permission="zope.Public"
+    weight="11" />
+    
 </configure>
 
