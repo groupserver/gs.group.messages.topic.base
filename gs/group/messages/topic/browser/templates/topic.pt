@@ -90,7 +90,9 @@
         replace="structure provider:groupserver.TopicNavLinks">
         Navigation links
       </tal:block>
-
+      <div id="hide-the-post" title="Hide the Post">
+        <p class="loading">Loading…</p>
+      </div><!--hide-the-post-->
       <form tal:condition="view/userPostingInfo/canPost"
         enctype="multipart/form-data"  method="post" action="."
         id="add-to-topic" tal:attributes="action request/URL">
@@ -133,6 +135,8 @@
         tal:content="structure provider:groupserver.UserCanPost" />
     </div><!--hfeed-->
     <tal:block metal:fill-slot="javascript">
+      <script type="text/javascript"
+        src="/++resource++hide-post-20110415.js">&#160;</script>
       <script type="text/javascript"
         src="/++resource++multiple_file_upload/jquery.form.js">&#160;</script>
       <script type="text/javascript"
