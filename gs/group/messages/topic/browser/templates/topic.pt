@@ -4,7 +4,7 @@
       <span tal:define="retval view/update;"
         tal:replace="view/topicName">
         Standard Template for a Single Post
-      </span>
+      </span>:
       <span tal:replace="view/groupInfo/name"/>:
       <span tal:replace="view/siteInfo/name"/>
     </title>
