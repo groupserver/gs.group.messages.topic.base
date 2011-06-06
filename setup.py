@@ -35,6 +35,7 @@ setup(name='gs.group.messages.topic',
         'Products.XWFMailingListManager',
         'Products.GSGroup',
         'gs.group.base',
+        'gs.group.member.canpost',
         'gs.group.messages.topic',
         'gs.content.form',
         # -*- Extra requirements: -*-

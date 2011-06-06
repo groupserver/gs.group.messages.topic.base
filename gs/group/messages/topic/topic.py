@@ -5,12 +5,12 @@ from zope.interface import implements
 from zope.formlib import form
 from zope.publisher.interfaces import NotFound
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
-from Products.GSGroupMember.interfaces import IGSPostingUser
 from Products.GSGroupMember.groupmembership import user_admin_of_group
 from Products.XWFMailingListManager.queries import MessageQuery
 from Products.XWFMailingListManager.addapost import add_a_post
 from Products.GSGroup.utils import is_public
 from gs.group.base.form import GroupForm
+from gs.group.member.canpost.interfaces import IGSPostingUser
 from gs.profile.email.base.emailuser import EmailUser
 from interfaces import IGSAddToTopicFields
 from error import NoIDError
