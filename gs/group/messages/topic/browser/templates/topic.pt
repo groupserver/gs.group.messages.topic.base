@@ -38,13 +38,6 @@
     <div class="hfeed" metal:fill-slot="body"
       tal:define="topicList view/topic"
       tal:condition="topicList">
-      <h1><cite tal:content="view/topicName">This Topic</cite></h1>
-      <tal:block 
-        define="previousTopic view/previousTopic; 
-          nextTopic view/nextTopic"
-        replace="structure provider:groupserver.TopicNavLinks">
-        Navigation links
-      </tal:block>
       <form tal:condition="view/userIsAdmin"
         class="adminTasks" id="toggleStickyTopic"
         enctype="multipart/form-data"  method="post" action="."
@@ -61,6 +54,13 @@
           </div>
         </div><!--buttons-->
       </form><!--toggleStickyTopic-->
+      <h1><cite tal:content="view/topicName">This Topic</cite></h1>
+      <tal:block 
+        define="previousTopic view/previousTopic; 
+          nextTopic view/nextTopic"
+        replace="structure provider:groupserver.TopicNavLinks">
+        Navigation links
+      </tal:block>
       <div tal:define="topic topicList"
         tal:replace="structure provider:groupserver.TopicSummary">
         Topic Summary
