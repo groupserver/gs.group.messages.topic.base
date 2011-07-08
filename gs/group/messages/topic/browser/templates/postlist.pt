@@ -1,0 +1,12 @@
+<div class="postList">
+  <tal:block repeat="post view/topic">
+    <p tal:define="position repeat/post/number;
+      rptAuth python:view.topic[position-1]['author_id'] == view.topic[position-2]['author_id'];
+      showPhoto python:(position==1) or not(rptAuth);
+      isPublic view/isPublic"
+      tal:replace="structure provider:groupserver.Post">
+      The email message is rendered by the Post content provider.
+    </p>
+  </tal:block>
+</div>
+

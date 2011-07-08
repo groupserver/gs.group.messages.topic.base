@@ -1,0 +1,8 @@
+<li>There are
+  <strong><span class="cardinal" 
+      tal:content="view/length">some</span> posts</strong>
+  &#8212; by 
+  <span class="cardinal" 
+    tal:content="view/lenAuthors">some</span> authors &#8212; 
+  in this topic.</li>
+

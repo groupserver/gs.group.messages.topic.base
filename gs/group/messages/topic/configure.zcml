@@ -19,58 +19,88 @@
     name="gstopic"
     class=".topic.GSTopicView"
     permission="zope2.Public" />
+    
+  <browser:viewletManager
+    name="groupserver.TopicPage"
+    permission="zope2.View"
+    provides=".interfaces.ITopicPage"
+    class="gs.viewlet.manager.WeightOrderedViewletManager"
+    template="browser/templates/topicpagemanager.pt"/>
 
   <!--Related Links-->
-  <interface 
-    interface=".interfaces.INavLinksContentProvider"
-    type="zope.contentprovider.interfaces.ITALNamespaceData"/>
-  <class class=".navlinks.NavLinks">
-    <implements interface=".interfaces.INavLinksContentProvider"/>
-  </class>
-  <adapter
-    for="zope.interface.Interface zope.publisher.interfaces.browser.IDefaultBrowserLayer zope.interface.Interface"
-    factory=".navlinks.NavLinks"
-    provides="zope.contentprovider.interfaces.IContentProvider"
-    name="groupserver.TopicNavLinks"/>
+  <browser:viewlet name="gs-group-messages-topic-navlinks"
+    manager=".interfaces.ITopicPage"
+    template="browser/templates/navlinks.pt"
+    class=".navlinks.NavLinks"
+    permission="zope2.View"
+    weight="0"
+    title="Navigation Links" />
+  <browser:viewlet name="gs-group-messages-topic-navlinks-bottom"
+    manager=".interfaces.ITopicPage"
+    template="browser/templates/navlinks.pt"
+    class=".navlinks.NavLinks"
+    permission="zope2.View"
+    weight="40"
+    title="Bottom Navigation Links" />
 
+  <!--The Summary is a viewlet, which contains a viewlet manager -->
+  <browser:viewlet name="gs-group-messages-topic-summary"
+    manager=".interfaces.ITopicPage"
+    template="browser/templates/topicsummary.pt"
+    class=".topicsummaryviewlet.TopicSummary"
+    permission="zope2.View"
+    weight="10"
+    title="Topic summary" />
+  <browser:viewletManager
+    name="groupserver.TopicSummaryContent"
+    permission="zope2.View"
+    provides=".interfaces.ITopicSummary"
+    class="gs.viewlet.manager.WeightOrderedViewletManager"
+    template="browser/templates/topicsummarymanager.pt" />
+  <!--Summary Statistics -->
+  <browser:viewlet name="gs-group-message-topic-summary-stats"
+    manager=".interfaces.ITopicSummary"
+    template="browser/templates/summarystats.pt"
+    class=".summarystats.SummaryStats"
+    permission="zope2.View"
+    weight="0"
+    title="Topic Summary Statistics" />
   <!--File Index-->
-  <interface 
-    interface=".interfaces.IGSFileIndexContentProvider"
-    type="zope.contentprovider.interfaces.ITALNamespaceData"/>
-  <class class=".fileindex.GSFileIndexContentProvider">
-    <implements interface=".interfaces.IGSFileIndexContentProvider"/>
-  </class>
-  <adapter
-    for="zope.interface.Interface zope.publisher.interfaces.browser.IDefaultBrowserLayer zope.interface.Interface"
-    factory=".fileindex.GSFileIndexContentProvider"
-    provides="zope.contentprovider.interfaces.IContentProvider"
-    name="groupserver.FileIndex"/>
+  <browser:viewlet name="gs-group-message-topic-summary-index"
+    manager=".interfaces.ITopicSummary"
+    template="browser/templates/fileindex.pt"
+    class=".fileindex.GSFileIndexContentProvider"
+    permission="zope2.View"
+    weight="10"
+    title="Topic Summary" />
+  <!--Latest Post-->
+  <browser:viewlet name="gs-group-message-topic-summary-latest"
+    manager=".interfaces.ITopicSummary"
+    template="browser/templates/latestpost.pt"
+    class=".latestpost.LatestPost"
+    permission="zope2.View"
+    weight="20"
+    title="Latest Post" />
     
-  <!--Summary-->
-  <interface 
-    interface=".interfaces.IGSTopicSummaryContentProvider"
-    type="zope.contentprovider.interfaces.ITALNamespaceData"/>
-  <class class=".summary.GSTopicSummaryContentProvider">
-    <implements interface=".interfaces.IGSTopicSummaryContentProvider"/>
-  </class>
-  <adapter
-    for="zope.interface.Interface zope.publisher.interfaces.browser.IDefaultBrowserLayer zope.interface.Interface"
-    factory=".summary.GSTopicSummaryContentProvider"
-    provides="zope.contentprovider.interfaces.IContentProvider"
-    name="groupserver.TopicSummary"/>
-
-  <!--Sticky Toggle-->
-  <interface 
-    interface=".interfaces.IGSStickyTopicToggleContentProvider"
-    type="zope.contentprovider.interfaces.ITALNamespaceData"/>
-  <class class=".stickytoggle.GSStickyTopicToggleContentProvider">
-    <implements interface=".interfaces.IGSStickyTopicToggleContentProvider"/>
-  </class>
-  <adapter
-    for="zope.interface.Interface zope.publisher.interfaces.browser.IDefaultBrowserLayer zope.interface.Interface"
-    factory=".stickytoggle.GSStickyTopicToggleContentProvider"
-    provides="zope.contentprovider.interfaces.IContentProvider"
-    name="groupserver.StickyTopicToggle"/>
+  <!-- Share Bar -->
+  <!--=mpj17= Should this move out?-->
+  <browser:viewlet name="gs-group-messages-topic-share"
+    manager=".interfaces.ITopicPage"
+    template="browser/templates/sharebar.pt"
+    class=".latestpost.LatestPost"
+    permission="zope2.View"
+    weight="20"
+    title="Share bar" />
+    
+  <!--Post List-->
+  <browser:viewlet name="gs-group-messages-topic-list"
+    manager=".interfaces.ITopicPage"
+    template="browser/templates/postlist.pt"
+    class=".postlist.PostList"
+    permission="zope2.View"
+    weight="30"
+    title="Post list" />
+    
     
   <!-- The Gone (410) page -->
   <browser:page 

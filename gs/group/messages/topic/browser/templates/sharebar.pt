@@ -1,0 +1,7 @@
+<div class="share-bar" 
+  tal:attributes="title string:foo;
+   public python:view.isPublic and 1 or 0;
+   href view/url">
+   &#160;
+ </div>
+

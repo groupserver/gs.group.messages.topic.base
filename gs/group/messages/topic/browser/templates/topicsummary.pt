@@ -1,0 +1,8 @@
+<div id="topicSummary">
+  <p class="label">Summary</p>
+  <ul>
+    <tal:block 
+      content="structure provider:groupserver.TopicSummaryContent"/>
+  </ul>
+</div><!--topicSummary-->
+

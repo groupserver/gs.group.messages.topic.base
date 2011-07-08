@@ -1,0 +1,14 @@
+<li 
+  tal:define="munge_date python:modules['Products.XWFCore.XWFUtils'].munge_date"
+  id="latestPost"><a title="View the latest post"
+    tal:attributes="href view/relativeUrl"
+  href="#">Latest post</a> made by
+  <a tal:omit-tag="view/authorInfo/anonymous" class="fn"
+    tal:attributes="href view/authorInfo/url"
+    tal:content="view/authorInfo/name">Me!</a>
+  at
+  <span class="date" 
+    tal:define="date python:munge_date(view.context, view.lastPostDate)"
+    tal:content="date">Today, Tomorrow, Timaru</span>
+</li>
+

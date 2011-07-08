@@ -1,6 +1,5 @@
-<li id="topic-index" tal:condition="view/show"
-  tal:define="munge_date python:modules['Products.XWFCore.XWFUtils'].munge_date;
-    entries options/entries;">
+<li id="topic-index" 
+  tal:define="munge_date python:modules['Products.XWFCore.XWFUtils'].munge_date;">
   <div class="disclosureWidget">
     <div tal:define="nf view/nFiles; np view/nPosts;">
       <a class="disclosureButton"><strong><span class="val" tal:content="nf">some</span>
@@ -20,7 +19,7 @@
           </tr>
         </thead>
         <tbody 
-          tal:define="e python:[e for e in entries if len(e['files']) > 0]">
+          tal:define="e python:[e for e in view.entries if len(e['files']) > 0]">
           <tal:block repeat="entry e">
             <tr tal:define="n repeat/entry/number; odd python:n%2"
               tal:attributes="class python:odd and 'odd' or 'even'">
@@ -52,7 +51,7 @@
                   </li>
                 </ul><!--inline-list-->
               </td>
-              <td tal:define="date python:munge_date(options['context'], entry['date'])"
+              <td tal:define="date python:munge_date(view.context, entry['date'])"
                 class="date">
                 <a tal:attributes="href entry/href">
                   <span 

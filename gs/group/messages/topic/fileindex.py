@@ -1,42 +1,43 @@
 # coding=utf-8
 from zope.contentprovider.interfaces import UpdateNotCalled
 from zope.app.pagetemplate import ViewPageTemplateFile
+from zope.cachedescriptors.property import Lazy
 from Products.XWFCore.XWFUtils import get_user, get_user_realnames
-from gs.group.base.contentprovider import GroupContentProvider
+from gs.group.base.viewlet import GroupViewlet
 
-class GSFileIndexContentProvider(GroupContentProvider):
-    def __init__(self, context, request, view):
-        GroupContentProvider.__init__(self, context, request, view)
-        self.__updated = False
-      
-    def update(self):
+class GSFileIndexContentProvider(GroupViewlet):
+    def __init__(self, messages, request, view, manager):
+        GroupViewlet.__init__(self, messages, request, view, manager)
+
+    @Lazy
+    def entries(self):
+        
         # The entries list is made up of 4-tuples representing the
         #   post ID, files, author, user authored, and post-date.
         hr = self.view.topic[-1]['post_id']
-        self.entries = [{'href':  '%s#post-%s' % (hr, post['post_id']),
+        retval = [{'href':  '%s#post-%s' % (hr, post['post_id']),
                      'files': self.get_file_from_post(post),
                      'name':  self.get_author_realnames_from_post(post),
                      'user':  self.get_user_authored_from_post(post),
                      'date':  self.get_date_from_post(post)} 
-                     for post in self.view.topic ]
-        self.nPosts = sum([1 for e in self.entries if e['files']])
-        self.nFiles = sum([len(e['files']) for e in self.entries])
-        self.show = self.nFiles > 0
-              
-        self.__updated = True
+                     for post in self.view.topic
+                        if not(post['hidden'])]
+        return retval
+        
+    @Lazy
+    def nPosts(self):
+        return sum([1 for e in self.entries if e['files']])
+    
+    @Lazy
+    def nFiles(self):
+        retval = sum([len(e['files']) for e in self.entries])
+        return retval
+    
+    @Lazy
+    def show(self):
+        retval = self.nFiles > 0
+        return retval
           
-    def render(self):
-        if not self.__updated:
-          raise UpdateNotCalled
-
-        pageTemplate = ViewPageTemplateFile(self.pageTemplateFileName)
-        return pageTemplate(self, entries=self.entries, 
-            context=self.context)
-          
-    #########################################
-    # Non standard methods below this point #
-    #########################################
-      
     def get_author_realnames_from_post(self, post):
         """Get the names of the post's author.
 

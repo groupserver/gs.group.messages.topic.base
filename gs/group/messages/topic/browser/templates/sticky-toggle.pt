@@ -1,0 +1,17 @@
+<form tal:condition="view/userIsAdmin"
+  class="adminTasks" id="toggleStickyTopic"
+  enctype="multipart/form-data"  method="post" action="."
+  tal:attributes="action request/URL">
+  <tal:block define="widgets python:[view.widgets['sticky']]">
+    <tal:block replace="structure provider:groupserver.FormWidgets"/>
+  </tal:block>
+  <div class="buttons" tal:condition="view/availableActions">
+    <div class="formelementbutton">
+      <tal:block
+        replace="structure python:view.availableActions()[1].render()">
+        Button
+      </tal:block>
+    </div>
+  </div><!--buttons-->
+</form><!--toggleStickyTopic-->
+

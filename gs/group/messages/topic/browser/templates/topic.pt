@@ -10,13 +10,13 @@
     </title>
     <tal:block metal:fill-slot="metadata" 
       tal:define="topicName view/topicName">
-      <tal:block 
+      <!--tal:block 
         define="previousTopic view/previousTopic; 
           nextTopic view/nextTopic;
           pageTemplateFileName string:browser/templates/navlinksmeta.pt"
         replace="structure provider:groupserver.TopicNavLinks">
         Navigation links
-      </tal:block>
+      </tal:block-->
       <link rel="bookmark" title="Group Homepage" href="#"
         tal:attributes="title string:${view/groupInfo/name} Homepage;
         href view/groupInfo/url" />
@@ -52,47 +52,15 @@
               Button
             </tal:block>
           </div>
-        </div><!--buttons-->
-      </form><!--toggleStickyTopic-->
+        </div>
+      </form>
+      
       <h1><cite tal:content="view/topicName">This Topic</cite></h1>
-      <tal:block 
-        define="previousTopic view/previousTopic; 
-          nextTopic view/nextTopic"
-        replace="structure provider:groupserver.TopicNavLinks">
-        Navigation links
+
+      <tal:block replace="structure provider:groupserver.TopicPage">
+        The bulk of the page
       </tal:block>
-      <div tal:define="topic topicList"
-        tal:replace="structure provider:groupserver.TopicSummary">
-        Topic Summary
-      </div>
-      <div class="share-bar" 
-        tal:define="topicName view/topicName;
-          lastPostId python:topicList[-1]['post_id']"
-        tal:attributes="title string:${topicName};
-         public python:view.isPublic and 1 or 0;
-         href string:${view/siteInfo/url}/r/topic/${lastPostId}">
-         &#160;
-       </div><!--share-bar-->
-      <div class="postList">
-        <tal:block repeat="post topicList">
-          <p tal:define="position repeat/post/number;
-            rptAuth python:topicList[position-1]['author_id'] == topicList[position-2]['author_id'];
-            showPhoto python:(position==1) or not(rptAuth);
-            isPublic view/isPublic"
-            tal:replace="structure provider:groupserver.Post">
-            The email message is rendered by the Post content provider.
-          </p>
-        </tal:block>
-      </div><!--postList-->
-      <tal:block 
-        define="previousTopic view/previousTopic; 
-          nextTopic view/nextTopic"
-        replace="structure provider:groupserver.TopicNavLinks">
-        Navigation links
-      </tal:block>
-      <div id="hide-the-post" title="Hide the Post">
-        <p class="loading">Loading…</p>
-      </div><!--hide-the-post-->
+
       <form tal:condition="view/userPostingInfo/canPost"
         enctype="multipart/form-data"  method="post" action="."
         id="add-to-topic" tal:attributes="action request/URL">
@@ -114,7 +82,7 @@
           <span
             tal:condition="python:hasattr(widget, 'tag')"
             tal:replace="structure widget">Widget</span>
-        </div><!--widget-file-upload-->
+        </div>
         <tal:block repeat="widget python:[view.widgets['inReplyTo']]">
           <span tal:replace="structure widget/hidden"/>
         </tal:block>
@@ -126,8 +94,8 @@
             <span 
               tal:replace="structure python:view.availableActions()[0].render()">Button</span>
           </div>
-        </div><!--buttons-->
-      </form><!--add-to-topic-->
+        </div>
+      </form>
       <p class="message-result"
         tal:condition="not:view/userPostingInfo/canPost"
         tal:define="statusNum view/userPostingInfo/statusNum;

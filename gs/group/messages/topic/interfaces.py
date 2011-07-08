@@ -1,7 +1,14 @@
 # coding=utf-8
 from zope.interface import Interface
+from zope.viewlet.interfaces import IViewletManager
 from zope.schema import Bool, TextLine, Field, ASCIILine
 from Products.XWFMailingListManager.interfaces import IGSPostMessage
+
+class ITopicPage(IViewletManager):
+      '''A viewlet manager for the topic page'''
+
+class ITopicSummary(IViewletManager):
+      '''A viewlet manager for the topic summary'''
 
 class IGSStickyTopic(Interface):
     sticky = Bool(title=u'Sticky',
@@ -34,24 +41,6 @@ class INavLinksContentProvider(Interface):
         that is used to render the post.""",
         required=False,
         default='browser/templates/navlinks.pt')
-                              
-class IGSFileIndexContentProvider(Interface):
-    """The Groupserver File Index Content Provider Interface
-      
-      This interface defines the fields that must be set up, normally using
-      TAL, before creating a "GSTopicSummaryContentProvider" instance. 
-      See the latter for an example."""
-    
-    topic = Field(title=u"Topic",
-        description=u"The topic to display",
-        required=True, 
-        readonly=False)
-
-    pageTemplateFileName = ASCIILine(title=u"Page Template File Name",
-        description=u"""The name of the ZPT file
-        that is used to render the post.""",
-        required=False,
-        default="browser/templates/fileindex.pt")
 
 class IGSTopicSummaryContentProvider(Interface):
     """The Groupserver Topic Summary Content Provider Interface

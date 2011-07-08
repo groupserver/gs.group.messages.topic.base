@@ -1,5 +1,6 @@
 # coding=utf-8
 from zope.security.interfaces import Unauthorized
+from zope.cachedescriptors.property import Lazy
 from zope.component import getMultiAdapter, createObject
 from zope.interface import implements
 from zope.formlib import form
@@ -8,7 +9,6 @@ from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.GSGroupMember.groupmembership import user_admin_of_group
 from Products.XWFMailingListManager.queries import MessageQuery
 from Products.XWFMailingListManager.addapost import add_a_post
-from Products.GSGroup.utils import is_public
 from gs.group.base.form import GroupForm
 from gs.group.member.canpost.interfaces import IGSPostingUser
 from gs.profile.email.base.emailuser import EmailUser
@@ -28,12 +28,7 @@ class GSTopicView(GroupForm):
         if not self.postId:
             raise NoIDError('No ID Specified')
         
-        self.isPublic = is_public(self.groupInfo.groupObj)
-        
-        self.__userInfo = self.__userPostingInfo = None
-        self.__topicId = self.__topicName = self.__nextTopic = None
-        self.__previousTopic = self.__stickyTopics = self.__topic = None
-        self.__inReplyTo = self.__messageQuery = None
+        self.__stickyTopics = self.__topic = self.__inReplyTo = None
 
     def setUpWidgets(self, ignore_request=True):
         self.adapters = {}
@@ -135,47 +130,38 @@ class GSTopicView(GroupForm):
         self.__stickyTopics == None
         assert group.hasProperty('sticky_topics')
 
-    @property
+    @Lazy
     def userInfo(self):
-        if self.__userInfo == None:
-            self.__userInfo = createObject('groupserver.LoggedInUser', 
-              self.context)
-        return self.__userInfo
+        retval = createObject('groupserver.LoggedInUser', self.context)
+        return retval
         
-    @property
+    @Lazy
     def userPostingInfo(self):
-        if self.__userPostingInfo == None:
-            g = self.groupInfo.groupObj
-            assert g
-            # --=mpj17=-- A Pixie Caramel to anyone who can tell me
-            #    why the following line does not work in Zope 2.10.
-            #   "Zope Five is screwed" is not sufficient.
-            #self.userPostingInfo = IGSPostingUser((g, userInfo))
-            self.__userPostingInfo = getMultiAdapter((g, self.userInfo), 
-                                                      IGSPostingUser)
-        assert self.__userPostingInfo
-        return self.__userPostingInfo
+        g = self.groupInfo.groupObj
+        assert g
+        # --=mpj17=-- A Pixie Caramel to anyone who can tell me
+        #    why the following line does not work in Zope 2.10.
+        #   "Zope Five is screwed" is not sufficient.
+        #self.userPostingInfo = IGSPostingUser((g, userInfo))
+        retval = getMultiAdapter((g, self.userInfo), IGSPostingUser)
+        assert retval
+        return retval
         
-    @property
+    @Lazy
     def messageQuery(self):
-        if self.__messageQuery == None:
-            da = self.context.zsqlalchemy 
-            assert da, 'No data-adaptor found'
-            self.__messageQuery = \
-              MessageQuery(self.context, da)
-        assert self.__messageQuery
-        return self.__messageQuery
+        da = self.context.zsqlalchemy 
+        assert da, 'No data-adaptor found'
+        retval = MessageQuery(self.context, da)
+        assert retval
+        return retval
 
-    @property
+    @Lazy
     def topicId(self):
-        if self.__topicId == None:
-            self.__topicId = \
-              self.messageQuery.topic_id_from_post_id(self.postId)
-            if not self.__topicId:
-                self.__topicId = \
-                  self.topic_id_from_legacy_post_id(self.postId)
-        assert self.__topicId != None
-        return self.__topicId
+        retval = self.messageQuery.topic_id_from_post_id(self.postId)
+        if not retval:
+            retval = self.topic_id_from_legacy_post_id(self.postId)
+        assert retval != None
+        return retval
         
     def topic_id_from_legacy_post_id(self, legacyPostId):
         p = self.messageQuery.post_id_from_legacy_id(legacyPostId)
@@ -188,6 +174,7 @@ class GSTopicView(GroupForm):
         
     @property
     def topic(self):
+        # This is deliberately not a Lazy property
         if ((self.__topic == None) or self.status):
             self.__topic = self.messageQuery.topic_posts(self.topicId)
             if self.__topic[0]['group_id'] != self.groupInfo.id:
@@ -200,54 +187,52 @@ class GSTopicView(GroupForm):
         
     @property
     def lastPostId(self):
+        # This is deliberately not a Lazy property
         return self.topic[-1]['post_id']
 
-    @property
+    @Lazy
     def topicName(self):
-        if self.__topicName == None:
-            self.__topicName = self.topic[0]['subject']
-        assert self.__topicName != None
-        return self.__topicName
+        retval = self.topic[0]['subject']
+        assert retval
+        return retval
     
-    @property
+    @Lazy
     def nextTopic(self):
-        if self.__nextTopic == None:
-            r = self.messageQuery.later_topic(self.topicId)
-            if r:
-                self.__nextTopic = TopicInfo(r['last_post_id'], r['subject'])
-            else:
-                self.__nextTopic = TopicInfo(None,None)
-        assert self.__nextTopic != None
-        return self.__nextTopic
+        r = self.messageQuery.later_topic(self.topicId)
+        if r:
+            retval = TopicInfo(r['last_post_id'], r['subject'])
+        else:
+            retval = TopicInfo(None,None)
+        assert retval != None
+        return retval
         
-    @property
+    @Lazy
     def previousTopic(self):
-        if self.__previousTopic == None:
-            r = self.messageQuery.earlier_topic(self.topicId)
-            if r:
-                self.__previousTopic = TopicInfo(r['last_post_id'], r['subject'])
-            else:
-                self.__previousTopic = TopicInfo(None,None)
-        assert self.__previousTopic
-        return self.__previousTopic
+        r = self.messageQuery.earlier_topic(self.topicId)
+        if r:
+            retval = TopicInfo(r['last_post_id'], r['subject'])
+        else:
+            retval = TopicInfo(None,None)
+        assert retval
+        return retval
 
     @property
     def topicSticky(self):
-        retval = self.topicId in self.get_sticky_topics()
+        # This is deliberately not a Lazy property
+        retval = self.topicId in self.get_sticky_topics
         assert type(retval) == bool
         return retval
 
+    @Lazy
     def get_sticky_topics(self):
-        if self.__stickyTopics == None:
-            stickyTopicsIds = self.groupInfo.get_property('sticky_topics', [])
-            if type(stickyTopicsIds) != list:
-                stickyTopicsIds = list(stickyTopicsIds)
-            self.__stickyTopics = stickyTopicsIds
-        assert self.__stickyTopics != None
-        assert type(self.__stickyTopics) == list
-        return self.__stickyTopics
+        retval = self.groupInfo.get_property('sticky_topics', [])
+        if type(retval) != list:
+            retval = list(retval)
+        assert retval != None
+        assert type(retval) == list
+        return retval
 
-    @property
+    @Lazy
     def userIsAdmin(self):
         return user_admin_of_group(self.userInfo, self.groupInfo)
 
