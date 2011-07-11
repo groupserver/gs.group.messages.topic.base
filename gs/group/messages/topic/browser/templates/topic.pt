@@ -59,9 +59,11 @@
       </form>
       
       <h1><cite tal:content="view/topicName">This Topic</cite></h1>
+      
       <tal:block replace="structure provider:groupserver.TopicPage">
         The bulk of the page
       </tal:block>
+
     </div><!--hfeed-->
 
     <tal:block metal:fill-slot="javascript">
