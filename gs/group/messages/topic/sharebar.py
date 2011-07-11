@@ -1,10 +1,9 @@
 # coding=utf-8
-from zope.component import createObject
 from zope.cachedescriptors.property import Lazy
 from gs.group.privacy.interfaces import IGSGroupVisibility
 from gs.group.base.viewlet import GroupViewlet
 
-class LatestPost(GroupViewlet):
+class ShareBar(GroupViewlet):
     def __init__(self, messages, request, view, manager):
         GroupViewlet.__init__(self, messages, request, view, manager)
 
@@ -15,23 +14,20 @@ class LatestPost(GroupViewlet):
         return retval
 
     @Lazy
-    def relativeUrl(self):
-        lastPost = self.topic[-1]
-        retval = '%s/messages/topic/%s#post-%s' % \
-            (self.groupInfo.relativeURL, lastPost['post_id'], 
-                lastPost['post_id'])
-        return retval
-        
-    @Lazy
-    def authorInfo(self):
-        lastPost = self.topic[-1]
-        authorId = lastPost['author_id']
-        retval = createObject('groupserver.UserFromId', self.context, 
-                                authorId)
+    def topicName(self):
+        retval = self.view.topicName
         return retval
 
     @Lazy
-    def lastPostDate(self):
-        retval = self.topic[-1]['date']
+    def url(self):
+        lastPost = self.topic[-1]
+        retval = '%s/r/topic/%s' % (self.siteInfo.url, lastPost['post_id'])
+        assert retval
+        return retval
+
+    @Lazy
+    def isPublic(self):
+        vis = IGSGroupVisibility(self.groupInfo)
+        retval = vis.isPublic
         return retval
 

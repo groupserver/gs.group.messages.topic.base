@@ -87,7 +87,7 @@
   <browser:viewlet name="gs-group-messages-topic-share"
     manager=".interfaces.ITopicPage"
     template="browser/templates/sharebar.pt"
-    class=".latestpost.LatestPost"
+    class=".sharebar.ShareBar"
     permission="zope2.View"
     weight="20"
     title="Share bar" />
