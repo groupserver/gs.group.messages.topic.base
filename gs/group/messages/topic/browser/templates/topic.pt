@@ -10,13 +10,16 @@
     </title>
     <tal:block metal:fill-slot="metadata" 
       tal:define="topicName view/topicName">
-      <!--tal:block 
-        define="previousTopic view/previousTopic; 
-          nextTopic view/nextTopic;
-          pageTemplateFileName string:browser/templates/navlinksmeta.pt"
-        replace="structure provider:groupserver.TopicNavLinks">
-        Navigation links
-      </tal:block-->
+      <link tal:condition="view/previousTopic/topicId" 
+        rel="prev" title="Previous topic" href="wibble"
+        tal:attributes="href view/previousTopic/topicId; 
+        title string:Later topic: ${view/previousTopic/subject}" />
+      <link tal:condition="view/nextTopic/topicId" 
+        rel="next" title="earlier topic" href="wibble"
+        tal:attributes="href view/nextTopic/topicId; 
+        title string:Earlier topic: ${view/nextTopic/subject};" />
+      <link rel="up" title="All topics" href="../topics.html"
+        tal:attributes="title string:Topics in ${view/groupInfo/name};"/>
       <link rel="bookmark" title="Group Homepage" href="#"
         tal:attributes="title string:${view/groupInfo/name} Homepage;
         href view/groupInfo/url" />
