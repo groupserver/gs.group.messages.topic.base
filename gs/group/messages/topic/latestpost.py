@@ -19,8 +19,9 @@ class LatestPost(GroupViewlet):
     @Lazy
     def relativeUrl(self):
         lastPost = self.topic[-1]
-        retval = '%s/messages/topic/%s/#%s' % (self.groupInfo.relativeURL, 
-            lastPost['post_id'], lastPost['post_id'])
+        retval = '%s/messages/topic/%s#post-%s' % \
+            (self.groupInfo.relativeURL, lastPost['post_id'], 
+                lastPost['post_id'])
         return retval
 
     @Lazy
