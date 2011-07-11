@@ -100,6 +100,16 @@
     permission="zope2.View"
     weight="30"
     title="Post list" />
+
+  <!-- Hide -->
+  <browser:viewlet name="gs-group-messages-topic-hide-a-post"
+    manager=".interfaces.ITopicPage"
+    template="browser/templates/hide.pt"
+    class="gs.group.base.viewlet.GroupViewlet"
+    permission="zope2.View"
+    weight="35"
+    show="True"
+    title="Hide a Post" />
     
   <!--Add to Topic-->
   <browser:viewlet name="gs-group-messages-topic-add-to-topic"
