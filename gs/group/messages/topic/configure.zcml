@@ -101,7 +101,7 @@
     weight="30"
     title="Post list" />
     
-  <!--Post List-->
+  <!--Add to Topic-->
   <browser:viewlet name="gs-group-messages-topic-add-to-topic"
     manager=".interfaces.ITopicPage"
     template="browser/templates/addtotopic.pt"
@@ -110,6 +110,15 @@
     weight="50"
     title="Add To Topic" />
     
+  <!--Cannot Add-->
+  <browser:viewlet name="gs-group-messages-topic-cannot-add"
+    manager=".interfaces.ITopicPage"
+    template="browser/templates/cannotadd.pt"
+    class=".cannotadd.CannotAddToTopic"
+    permission="zope2.View"
+    weight="60"
+    title="Cannot Add To Topic" />
+
   <!-- The Gone (410) page -->
   <browser:page 
     for="Products.XWFMailingListManager.interfaces.IGSMessagesFolder"

@@ -1,0 +1,9 @@
+<div id="gs-group-messages-topic-cannotadd" 
+  class="ui-state-highlight ui-corner-all"
+  tal:define="statusNum view/statusNum;
+    status view/status;"
+  tal:content="structure provider:groupserver.UserCanPost"
+  style="padding:1.385em;">
+    Cannot Add a Post Information.
+</div>
+
