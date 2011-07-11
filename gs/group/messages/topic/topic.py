@@ -108,7 +108,7 @@ class GSTopicView(GroupForm):
     def add_topic_to_sticky(self):
         group = self.groupInfo.groupObj
         if group.hasProperty('sticky_topics'):
-            topics = self.get_sticky_topics()
+            topics = self.sticky_topics
             if self.topicId not in topics:
                 topics.append(self.topicId)
             group.manage_changeProperties(sticky_topics=topics)
@@ -219,15 +219,17 @@ class GSTopicView(GroupForm):
     @property
     def topicSticky(self):
         # This is deliberately not a Lazy property
-        retval = self.topicId in self.get_sticky_topics
+        retval = self.topicId in self.sticky_topics
         assert type(retval) == bool
         return retval
 
-    @Lazy
-    def get_sticky_topics(self):
+    @property
+    def sticky_topics(self):
+        # This is deliberately not a Lazy property
         retval = self.groupInfo.get_property('sticky_topics', [])
         if type(retval) != list:
             retval = list(retval)
+        self.__stickyTopics = retval
         assert retval != None
         assert type(retval) == list
         return retval
