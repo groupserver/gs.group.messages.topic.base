@@ -101,6 +101,14 @@
     weight="30"
     title="Post list" />
     
+  <!--Post List-->
+  <browser:viewlet name="gs-group-messages-topic-add-to-topic"
+    manager=".interfaces.ITopicPage"
+    template="browser/templates/addtotopic.pt"
+    class=".addtotopic.AddToTopic"
+    permission="zope2.View"
+    weight="50"
+    title="Add To Topic" />
     
   <!-- The Gone (410) page -->
   <browser:page 

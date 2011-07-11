@@ -12,4 +12,9 @@ class TopicSummary(GroupViewlet):
     def topic(self):
         retval = self.view.topic
         return retval
+        
+    @Lazy
+    def show(self):
+        retval = len(self.topic) > 1
+        return retval
 

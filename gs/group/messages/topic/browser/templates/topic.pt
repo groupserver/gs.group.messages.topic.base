@@ -60,42 +60,6 @@
       <tal:block replace="structure provider:groupserver.TopicPage">
         The bulk of the page
       </tal:block>
-
-      <form tal:condition="view/userPostingInfo/canPost"
-        enctype="multipart/form-data"  method="post" action="."
-        id="add-to-topic" tal:attributes="action request/URL">
-        <h2>Add to the topic
-          <cite class="topic" 
-            tal:content="view/topicName">topicName</cite></h2>
-        <tal:block define="widgets python:[view.widgets['fromAddress'], view.widgets['message']]">
-          <tal:block replace="structure provider:groupserver.FormWidgets"/>
-        </tal:block>
-        <div class="form-widget" id="widget-file-upload" 
-          tal:define="widget python:view.widgets['uploadedFile'];"
-          tal:attributes="id string:widget-${widget/name};">
-          <label for="abc123" title="The hint for the widget"
-            tal:attributes="for widget/name; title widget/hint"
-            tal:content="widget/label">
-            A label
-          </label>
-          <div id="fileList"><span style="display:none;">&#160;</span></div>
-          <span
-            tal:condition="python:hasattr(widget, 'tag')"
-            tal:replace="structure widget">Widget</span>
-        </div>
-        <tal:block repeat="widget python:[view.widgets['inReplyTo']]">
-          <span tal:replace="structure widget/hidden"/>
-        </tal:block>
-        <p tal:replace="structure provider:groupserver.PostPrivacy">
-          Privacy statement
-        </p>
-        <div class="buttons" tal:condition="view/availableActions">
-          <div class="formelementbutton">
-            <span 
-              tal:replace="structure python:view.availableActions()[0].render()">Button</span>
-          </div>
-        </div>
-      </form>
       <p class="message-result"
         tal:condition="not:view/userPostingInfo/canPost"
         tal:define="statusNum view/userPostingInfo/statusNum;
