@@ -16,22 +16,29 @@ class LatestPost(GroupViewlet):
 
     @Lazy
     def relativeUrl(self):
-        lastPost = self.topic[-1]
-        retval = '%s/messages/topic/%s#post-%s' % \
-            (self.groupInfo.relativeURL, lastPost['post_id'], 
-                lastPost['post_id'])
+        retval = ''
+        if self.topic:
+            lastPost = self.topic[-1]
+            retval = '%s/messages/topic/%s#post-%s' % \
+                (self.groupInfo.relativeURL, lastPost['post_id'], 
+                    lastPost['post_id'])
         return retval
         
     @Lazy
     def authorInfo(self):
-        lastPost = self.topic[-1]
-        authorId = lastPost['author_id']
+        if self.topic:
+            lastPost = self.topic[-1]
+            authorId = lastPost['author_id']
+        else:
+            authorId = ''
         retval = createObject('groupserver.UserFromId', self.context, 
                                 authorId)
         return retval
 
     @Lazy
     def lastPostDate(self):
-        retval = self.topic[-1]['date']
+        retval = None
+        if self.topic:
+            retval = self.topic[-1]['date']
         return retval
 

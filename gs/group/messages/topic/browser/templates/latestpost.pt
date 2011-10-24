@@ -1,4 +1,4 @@
-<li 
+<li tal:condition="view/topic"
   tal:define="munge_date python:modules['Products.XWFCore.XWFUtils'].munge_date"
   id="latestPost"><a title="View the latest post"
     tal:attributes="href view/relativeUrl"
