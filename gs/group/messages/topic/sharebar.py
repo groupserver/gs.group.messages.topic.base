@@ -9,8 +9,7 @@ class ShareBar(GroupViewlet):
 
     @Lazy
     def topic(self):
-        retval = [post for post in self.view.topic 
-                  if not(post['hidden'])]
+        retval = [post for post in self.view.topic]
         return retval
 
     @Lazy
