@@ -124,7 +124,7 @@
   <browser:viewlet name="gs-group-messages-topic-cannot-add"
     manager=".interfaces.ITopicPage"
     template="browser/templates/cannotadd.pt"
-    class=".cannotadd.CannotAddToTopic"
+    class="gs.group.base.viewlet.GroupViewlet"
     permission="zope2.View"
     weight="60"
     title="Cannot Add To Topic" />
