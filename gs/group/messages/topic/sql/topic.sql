@@ -11,7 +11,8 @@ CREATE TABLE topic (
     last_post_id      TEXT                     NOT NULL REFERENCES post (post_id),
     last_post_date    TIMESTAMP WITH TIME ZONE NOT NULL,
     num_posts         INTEGER                  NOT NULL CHECK (num_posts > 0),
-    hidden            TIMESTAMP WITH TIME ZONE
+    hidden            TIMESTAMP WITH TIME ZONE DEFAULT NULL,
+    sticky            TIMESTAMP WITH TIME ZONE DEFAULT NULL
 );  
 CREATE INDEX GROUP_ID_SITE_ID_IDX ON topic USING BTREE (group_id, site_id);
 -- ALTER TABLE topic ADD column hidden TIMESTAMP WITH TIME ZONE;
