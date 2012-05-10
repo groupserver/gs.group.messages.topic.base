@@ -1,5 +1,4 @@
 # coding=utf-8
-from operator import and_
 import sqlalchemy as sa
 from datetime import datetime
 from pytz import UTC
@@ -35,5 +34,12 @@ class TopicQuery(object):
         return retval
 
     def set_sticky(self, topicId, sticky):
-        pass
+        tt = self.topicTable
+        if sticky:
+            v = datetime.utcnow()
+        else:
+            v = None
+        u = tt.update(tt.c.topic_id == topicId, 
+                        values = {'sticky': v})
+        u.execute()
 

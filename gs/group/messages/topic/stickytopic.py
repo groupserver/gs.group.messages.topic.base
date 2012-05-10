@@ -4,17 +4,18 @@ from zope.component import getMultiAdapter, createObject
 from gs.group.base.page import GroupPage
 from queries import TopicQuery
 
-class StickyGetter(GroupPage):
-
+class StickyPage(GroupPage):
     @Lazy
     def topicQuery(self):
         da = self.context.zsqlalchemy
         retval = TopicQuery(self.context, da)
         return retval
 
+class StickyGetter(StickyPage):
+
     def __init__(self, virtualMailingListFolder, request):
-        GroupPage.__init__(self, virtualMailingListFolder, request)
-        self.topicId = request.get('topicId', None);
+        StickyPage.__init__(self, virtualMailingListFolder, request)
+        self.topicId = request.get('topicId', None)
         
         response = self.request.response
         response.setHeader("Content-Type", 'text/plain; charset=UTF-8')
@@ -31,11 +32,11 @@ class StickyGetter(GroupPage):
             retval = u'0'
         return retval.encode('UTF-8')
 
-class StickySetter(GroupPage):
+class StickySetter(StickyPage):
 
     def __init__(self, virtualMailingListFolder, request):
-        GroupPage.__init__(self, virtualMailingListFolder, request)
-        self.topicId = request.get('topicId', None);
+        StickyPage.__init__(self, virtualMailingListFolder, request)
+        self.topicId = request.get('topicId', None)
         
         response = self.request.response
         response.setHeader("Content-Type", 'text/plain; charset=UTF-8')
@@ -46,5 +47,7 @@ class StickySetter(GroupPage):
                             'inline; filename="%s"' % filename)
     
     def __call__(self):
+        sticky = self.request.get('sticky', None) == '1'
+        self.topicQuery.set_sticky(self.topicId, sticky)
         return u'-1'.encode('UTF-8')
 
