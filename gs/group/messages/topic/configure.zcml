@@ -27,7 +27,13 @@
     provides=".interfaces.ITopicAdmin"
     class="gs.viewlet.manager.WeightOrderedViewletManager"
     template="browser/templates/topicadminmanager.pt"/>
-
+  <browser:viewlet name="gs-group-messages-topic-admin-stickytoggle"
+    manager=".interfaces.ITopicAdmin"
+    template="browser/templates/stickytoggle.pt"
+    class="gs.group.base.viewlet.GroupViewlet"
+    permission="zope2.ManageProperties"
+    weight="0"
+    title="Sticky Toggle" />
   <!--The bulk of the content of the topic page-->
   <browser:viewletManager
     name="groupserver.TopicPage"
