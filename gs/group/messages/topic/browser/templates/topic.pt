@@ -46,7 +46,9 @@
         Topic Administration Tasks
       </tal:block>
       
-      <h1><cite tal:content="view/topicName">This Topic</cite></h1>
+      <h1 id="gs-group-messages-topic-title">
+        <cite tal:attributes="id view/topicId"
+            tal:content="view/topicName">This Topic</cite></h1>
       
       <tal:block replace="structure provider:groupserver.TopicPage">
         The bulk of the page
