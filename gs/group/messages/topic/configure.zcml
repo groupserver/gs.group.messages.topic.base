@@ -191,7 +191,13 @@
     for="Products.XWFMailingListManager.interfaces.IGSMessagesFolder"
     name="gs-group-messages-topic-sticky-getter"
     class=".stickytopic.StickyGetter" 
-    permission="zope2.Public" />
+    permission="zope2.View" />
+  <!--The getter for the toggle-->
+  <browser:page 
+    for="Products.XWFMailingListManager.interfaces.IGSMessagesFolder"
+    name="gs-group-messages-topic-sticky-setter"
+    class=".stickytopic.StickySetter" 
+    permission="zope2.ManageProperties" />
 
   <!--The error pages-->
   <!-- The Gone (410) page -->

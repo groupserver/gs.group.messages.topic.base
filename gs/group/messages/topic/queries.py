@@ -24,3 +24,16 @@ class TopicQuery(object):
         retval = bool(x['hidden'])
         return retval
 
+    def topic_sticky(self, topicId):
+        s = sa.select([self.topicTable.c.sticky])
+        s.append_whereclause(self.topicTable.c.topic_id == topicId)
+        
+        r = s.execute()
+        
+        x = r.fetchone()
+        retval = bool(x['sticky'])
+        return retval
+
+    def set_sticky(self, topicId, sticky):
+        pass
+
