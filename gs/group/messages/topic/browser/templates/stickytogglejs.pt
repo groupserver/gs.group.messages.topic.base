@@ -1,0 +1,10 @@
+<!--gs-group-messages-topic-javascript-stickytoggle-->
+<tal:block>
+  <script type="text/javascript"
+    src="/++resource++stickytoggle-20120510.js">&#160;</script>
+  <script type="text/javascript">
+    GSStickyTopicToggle.init();
+  </script>
+</tal:block>
+<!--END gs-group-messages-topic-javascript-stickytoggle-->
+

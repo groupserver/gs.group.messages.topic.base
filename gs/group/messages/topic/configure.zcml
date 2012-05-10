@@ -173,6 +173,17 @@
     permission="zope2.View"
     weight="30"
     title="Popup Help" />
+  <browser:viewlet name="gs-group-messages-topic-javascript-stickytoggle"
+    manager=".interfaces.ITopicJavaScript"
+    template="browser/templates/stickytogglejs.pt"
+    class="gs.group.base.viewlet.GroupViewlet"
+    permission="zope2.ManageProperties"
+    weight="9"
+    title="Sticky Topic Toggle" />
+  <browser:resource 
+    name="stickytoggle-20120510.js"
+    file="browser/javascript/stickytoggle.js"
+    permission="zope2.Public" />
 
   <!--The error pages-->
   <!-- The Gone (410) page -->
