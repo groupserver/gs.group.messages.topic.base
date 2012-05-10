@@ -20,6 +20,14 @@
     class=".topic.GSTopicView"
     permission="zope2.Public" />
 
+  <!-- Topic Admin -->
+  <browser:viewletManager
+    name="groupserver.TopicAdmin"
+    permission="zope2.View"
+    provides=".interfaces.ITopicAdmin"
+    class="gs.viewlet.manager.WeightOrderedViewletManager"
+    template="browser/templates/topicadminmanager.pt"/>
+
   <!--The bulk of the content of the topic page-->
   <browser:viewletManager
     name="groupserver.TopicPage"

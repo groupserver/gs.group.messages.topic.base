@@ -10,6 +10,9 @@ class ITopicPage(IViewletManager):
 class ITopicSummary(IViewletManager):
       '''A viewlet manager for the topic summary'''
 
+class ITopicAdmin(IViewletManager):
+      '''A viewlet manager for the topic administration function'''
+
 class IGSStickyTopic(Interface):
     sticky = Bool(title=u'Sticky',
       description=u'Display this topic before all other topics on '\
