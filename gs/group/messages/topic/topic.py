@@ -28,7 +28,7 @@ class GSTopicView(GroupForm):
         if not self.postId:
             raise NoIDError('No ID Specified')
         
-        self.__stickyTopics = self.__topic = self.__inReplyTo = None
+        self.__topic = self.__inReplyTo = None
 
     def setUpWidgets(self, ignore_request=True):
         self.adapters = {}
@@ -44,7 +44,6 @@ class GSTopicView(GroupForm):
         data = {
           'fromAddress': fromAddr,
           'message':     u'',
-          'sticky':      self.topicSticky,
           'inReplyTo':   self.lastPostId,
         }
         self.widgets = form.setUpWidgets(
@@ -84,51 +83,11 @@ class GSTopicView(GroupForm):
       assert self.status
       assert type(self.status) == unicode
 
-    @form.action(label=u'Change', failure='handle_action_failure')
-    def handle_add_to_sticky(self,action, data):
-        if data['sticky']:
-            self.add_topic_to_sticky()
-            self.status = u'<cite>%s</cite> has been '\
-              u'<strong>added</strong> to the list of sticky '\
-              u'topics in %s' % (self.topicName, self.groupInfo.name)
-        else:
-            self.remove_topic_from_sticky()
-            self.status = u'<cite>%s</cite> has been '\
-              u'<strong>removed</strong> from the list of sticky '\
-              u'topics in %s' % (self.topicName, self.groupInfo.name)
-        assert self.status
-        assert type(self.status) == unicode
-       
     def handle_action_failure(self, action, data, errors):
       if len(errors) == 1:
           self.status = u'<p>There is an error:</p>'
       else:
           self.status = u'<p>There are errors:</p>'
-
-    def add_topic_to_sticky(self):
-        group = self.groupInfo.groupObj
-        if group.hasProperty('sticky_topics'):
-            topics = self.sticky_topics
-            if self.topicId not in topics:
-                topics.append(self.topicId)
-            group.manage_changeProperties(sticky_topics=topics)
-        else:
-            group.manage_addProperty('sticky_topics', [self.topicId],
-                'lines')
-        self.__stickyTopics == None
-        assert group.hasProperty('sticky_topics')
-
-    def remove_topic_from_sticky(self):
-        group = self.groupInfo.groupObj
-        if group.hasProperty('sticky_topics'):
-            topics = list(group.getProperty('sticky_topics'))
-            if self.topicId in topics:
-                topics.remove(self.topicId)
-            group.manage_changeProperties(sticky_topics=topics)
-        else:
-            group.manage_addProperty('sticky_topics', [], 'lines')
-        self.__stickyTopics == None
-        assert group.hasProperty('sticky_topics')
 
     @Lazy
     def userInfo(self):
@@ -214,24 +173,6 @@ class GSTopicView(GroupForm):
         else:
             retval = TopicInfo(None,None)
         assert retval
-        return retval
-
-    @property
-    def topicSticky(self):
-        # This is deliberately not a Lazy property
-        retval = self.topicId in self.sticky_topics
-        assert type(retval) == bool
-        return retval
-
-    @property
-    def sticky_topics(self):
-        # This is deliberately not a Lazy property
-        retval = self.groupInfo.get_property('sticky_topics', [])
-        if type(retval) != list:
-            retval = list(retval)
-        self.__stickyTopics = retval
-        assert retval != None
-        assert type(retval) == list
         return retval
 
     @Lazy
