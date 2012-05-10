@@ -13,6 +13,9 @@ class ITopicSummary(IViewletManager):
 class ITopicAdmin(IViewletManager):
       '''A viewlet manager for the topic administration function'''
 
+class ITopicJavaScript(IViewletManager):
+      '''A viewlet manager for the JavaScript on the topic page'''
+
 class IGSStickyTopic(Interface):
     sticky = Bool(title=u'Sticky',
       description=u'Display this topic before all other topics on '\

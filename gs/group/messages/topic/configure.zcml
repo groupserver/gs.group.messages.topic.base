@@ -34,6 +34,7 @@
     permission="zope2.ManageProperties"
     weight="0"
     title="Sticky Toggle" />
+    
   <!--The bulk of the content of the topic page-->
   <browser:viewletManager
     name="groupserver.TopicPage"
@@ -143,6 +144,14 @@
     permission="zope2.View"
     weight="60"
     title="Cannot Add To Topic" />
+
+  <!--The JavaScript-->
+  <browser:viewletManager
+    name="groupserver.TopicJavaScript"
+    permission="zope2.View"
+    provides=".interfaces.ITopicJavaScript"
+    class="gs.viewlet.manager.WeightOrderedViewletManager"
+    template="browser/templates/javascriptmanager.pt"/>
 
   <!--The error pages-->
   <!-- The Gone (410) page -->
