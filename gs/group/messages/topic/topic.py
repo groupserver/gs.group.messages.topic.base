@@ -2,11 +2,9 @@
 from zope.security.interfaces import Unauthorized
 from zope.cachedescriptors.property import Lazy
 from zope.component import getMultiAdapter, createObject
-from zope.interface import implements
 from zope.formlib import form
 from zope.publisher.interfaces import NotFound
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
-from Products.GSGroupMember.groupmembership import user_admin_of_group
 from Products.XWFMailingListManager.queries import MessageQuery
 from Products.XWFMailingListManager.addapost import add_a_post
 from gs.group.base.form import GroupForm
@@ -174,10 +172,6 @@ class GSTopicView(GroupForm):
             retval = TopicInfo(None,None)
         assert retval
         return retval
-
-    @Lazy
-    def userIsAdmin(self):
-        return user_admin_of_group(self.userInfo, self.groupInfo)
 
 class TopicInfo(object):
     def __init__(self, topicId, subject):
