@@ -9,7 +9,8 @@
       for="gs-group-messages-topic-admin-stickytoggle-widget-checkbox"
       class="checkboxLabel">Sticky</label>
   </div>
-  <p id="gs-group-messages-topic-admin-stickytoggle-loading">
+  <p id="gs-group-messages-topic-admin-stickytoggle-loading"
+    style="display:none;">
     <img style="margin:0px 0.69em 0px 0px;padding:0px;"
       src="/++resource++anim/wait.gif"/> 
     Adding to the sticky topics&#8230;

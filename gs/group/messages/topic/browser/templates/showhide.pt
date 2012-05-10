@@ -1,0 +1,9 @@
+<!--gs-group-messages-topic-javascript-showhide-->
+<tal:block>
+  <script type="text/javascript"
+    src="/++resource++hide-post-20110415.js">&#160;</script>
+  <script type="text/javascript"
+    src="/++resource++sharebox-20100721.js">&#160;</script>
+</tal:block>
+<!--END gs-group-messages-topic-javascript-showhide-->
+

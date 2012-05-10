@@ -51,33 +51,11 @@
       <tal:block replace="structure provider:groupserver.TopicPage">
         The bulk of the page
       </tal:block>
-
     </div><!--hfeed-->
 
-    <tal:block metal:fill-slot="javascript">
-      <script type="text/javascript"
-        src="/++resource++hide-post-20110415.js">&#160;</script>
-      <script type="text/javascript"
-        src="/++resource++multiple_file_upload/jquery.form.js">&#160;</script>
-      <script type="text/javascript"
-        src="/++resource++multiple_file_upload/jquery.MetaData.js">&#160;</script>
-      <script type="text/javascript"
-        src="/++resource++multiple_file_upload/jquery.MultiFile.js">&#160;</script>
-      <script type="text/javascript"
-        src="/++resource++multiple_file_upload/jquery.blockUI.js">&#160;</script>
-      <script type="text/javascript"
-        src="/++resource++gsfileupload-20090622.js">&#160;</script>
-      <script type="text/javascript"
-        src="/++resource++popup_help-20071218.js">&#160;</script>
-      <script type="text/javascript"
-        src="/++resource++sharebox-20100721.js">&#160;</script>
-      <script type="text/javascript">
-        jQuery.noConflict();
-        jQuery(document).ready( function () {
-          GSPopupFormHelp.init('#add-to-topic');
-          GSFileUpload.init();
-        });
-      </script>
+    <tal:block metal:fill-slot="javascript" 
+      content="structure provider:groupserver.TopicJavaScript">
+      The JavaScript that is specific to the Topic page.
     </tal:block>
   </body>
 </html>
