@@ -9,12 +9,14 @@
       for="gs-group-messages-topic-admin-stickytoggle-widget-checkbox"
       class="checkboxLabel">Sticky</label>
   </div>
-  <div class="buttons">
-    <div class="formelementbutton">
-      <input type="submit" class="button" value="Change"
-        name="form.actions.change" 
-        id="gs-group-messages-topic-admin-stickytoggle-changebutton">
-    </div>
-  </div>
+  <p id="gs-group-messages-topic-admin-stickytoggle-loading">
+    <img style="margin:0px 0.69em 0px 0px;padding:0px;"
+      src="/++resource++anim/wait.gif"/> 
+    Adding to the sticky topics&#8230;
+  </p><!--gs-group-messages-topic-admin-stickytoggle-loading-->
+  <p id="gs-group-messages-topic-admin-stickytoggle-done"
+    style="display:none;">
+    This is now a sticky topic.
+  </p><!--gs-group-messages-topic-admin-stickytoggle-done-->
 </div><!--gs-group-messages-topic-admin-stickytoggle-->
 
