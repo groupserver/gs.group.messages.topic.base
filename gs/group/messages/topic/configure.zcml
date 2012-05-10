@@ -5,6 +5,7 @@
   xmlns:sqlos="http://namespaces.sqlobject.org/sqlos"
   xmlns:five="http://namespaces.zope.org/five">
 
+  <!-- The topic page, and its redirector. -->
   <class class=".traverse.GSTopicTraversal">
     <implements interface="zope.publisher.interfaces.IPublishTraverse"/>
   </class>
@@ -13,13 +14,13 @@
     name="topic"
     class=".traverse.GSTopicTraversal"
     permission="zope2.View" />
-
   <browser:page 
     for="Products.XWFMailingListManager.interfaces.IGSMessagesFolder" 
     name="gstopic"
     class=".topic.GSTopicView"
     permission="zope2.Public" />
-    
+
+  <!--The bulk of the content of the topic page-->
   <browser:viewletManager
     name="groupserver.TopicPage"
     permission="zope2.View"
@@ -129,6 +130,7 @@
     weight="60"
     title="Cannot Add To Topic" />
 
+  <!--The error pages-->
   <!-- The Gone (410) page -->
   <browser:page 
     for="Products.XWFMailingListManager.interfaces.IGSMessagesFolder"
