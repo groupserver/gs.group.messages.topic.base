@@ -213,6 +213,10 @@
     template="browser/templates/help.pt"
     permission="zope.Public"
     weight="11" />
-    
+    <browser:viewlet name="gs-group-messages-topic-adminhelp"
+    manager="gs.help.interfaces.IAdminHelp"
+    template="browser/templates/adminhelp.pt"
+    permission="zope.Public"
+    weight="11" />
 </configure>
 
