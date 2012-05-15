@@ -18,17 +18,9 @@
         rel="next" title="earlier topic" href="wibble"
         tal:attributes="href view/nextTopic/topicId; 
         title string:Earlier topic: ${view/nextTopic/subject};" />
-      <link rel="up" title="All topics" href="../topics.html"
-        tal:attributes="title string:Topics in ${view/groupInfo/name};"/>
-      <link rel="bookmark" title="Group Homepage" href="#"
-        tal:attributes="title string:${view/groupInfo/name} Homepage;
-        href view/groupInfo/url" />
-      <link rel="home" 
-        tal:attributes="title string:${view/siteInfo/name} Homepage;
-        href view/siteInfo/url" />
-      <link rel="help" 
-        tal:attributes="title string:${view/siteInfo/name} Help;
-        href string:${view/siteInfo/url}/help" />
+      <link rel="up" title="All topics" href="#"
+        tal:attributes="title view/groupInfo/name;
+            href view/groupInfo/relativeURL"/>
       <meta name="description"
             tal:attributes="content python:view.topic[0]['summary']" />
     </tal:block>
