@@ -35,9 +35,10 @@ setup(name='gs.group.messages.topic',
         'Products.XWFMailingListManager',
         'Products.GSGroup',
         'gs.group.base',
+        'gs.group.privacy',
         'gs.group.member.canpost',
-        'gs.group.messages.topic',
-        'gs.content.form',
+        'gs.group.messages.post',
+        'gs.profile.email.base',
         # -*- Extra requirements: -*-
     ],
     entry_points="""
