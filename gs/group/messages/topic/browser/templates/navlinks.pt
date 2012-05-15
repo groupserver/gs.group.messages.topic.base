@@ -8,9 +8,10 @@
         tal:attributes="href view/previousTopic/topicId;
           title view/previousTopic/subject;">Later topic</a></li>
     <li>
-      <a class="topics up"
-        tal:attributes="title string:Topics in ${view/groupInfo/name}"
-        href="../topics.html">All Topics</a></li>
+      <a class="group up"
+        tal:attributes="title string:${view/groupInfo/name};
+            href view/groupInfo/relativeURL;"
+        href="#">Group</a></li>
     <li>
       <span tal:condition="not:view/nextTopic/topicId"
         class="next">No earlier topic</span>
