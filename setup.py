@@ -32,13 +32,13 @@ setup(name='gs.group.messages.topic',
     zip_safe=True,
     install_requires=[
         'setuptools',
-        'Products.XWFMailingListManager',
-        'Products.GSGroup',
         'gs.group.base',
-        'gs.group.privacy',
         'gs.group.member.canpost',
+        'gs.group.messages.add',
         'gs.group.messages.post',
+        'gs.group.privacy',
         'gs.profile.email.base',
+        'Products.XWFMailingListManager',
         # -*- Extra requirements: -*-
     ],
     entry_points="""
