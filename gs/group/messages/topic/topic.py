@@ -6,9 +6,9 @@ from zope.formlib import form
 from zope.publisher.interfaces import NotFound
 from Products.Five.browser.pagetemplatefile import ZopeTwoPageTemplateFile
 from Products.XWFMailingListManager.queries import MessageQuery
-from Products.XWFMailingListManager.addapost import add_a_post
 from gs.group.base.form import GroupForm
 from gs.group.member.canpost.interfaces import IGSPostingUser
+from gs.group.messages.add import add_a_post
 from gs.profile.email.base.emailuser import EmailUser
 from interfaces import IGSAddToTopicFields
 from error import NoIDError
