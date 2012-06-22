@@ -1,8 +1,7 @@
 # coding=utf-8
 from zope.interface import Interface
 from zope.viewlet.interfaces import IViewletManager
-from zope.schema import Bool, TextLine, Field, ASCIILine
-from Products.XWFMailingListManager.interfaces import IGSPostMessage
+from zope.schema import ASCIILine, Bool, Bytes, Choice, Field, Text, TextLine
 
 class ITopicPage(IViewletManager):
       '''A viewlet manager for the topic page'''
@@ -15,6 +14,22 @@ class ITopicAdmin(IViewletManager):
 
 class ITopicJavaScript(IViewletManager):
       '''A viewlet manager for the JavaScript on the topic page'''
+
+class IGSPostMessage(Interface):
+    fromAddress = Choice(title=u'Email From',
+      description=u'The email address that you want in the "From" '\
+        u'line in the email you send.',
+      vocabulary = 'EmailAddressesForLoggedInUser',
+      required=True)
+
+    message = Text(title=u'Message',
+      description=u'The message you want to post to this topic.',
+      required=True)
+    
+    uploadedFile = Bytes(title=u'Files',
+                         description=u'A file you wish to add.',
+                         required=False)
+
 
 class IGSAddToTopicFields(IGSPostMessage):
     u'''Fields used on the topic page.'''
