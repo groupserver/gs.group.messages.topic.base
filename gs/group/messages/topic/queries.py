@@ -5,7 +5,7 @@ from pytz import UTC
 from gs.database import getSession, getTable
 
 class TopicQuery(object):
-    def __init__(self, context, da):
+    def __init__(self, context):
         self.context = context
         
         self.topicTable = getTable('topic')

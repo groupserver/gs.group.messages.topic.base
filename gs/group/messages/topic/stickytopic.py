@@ -7,8 +7,7 @@ from queries import TopicQuery
 class StickyPage(GroupPage):
     @Lazy
     def topicQuery(self):
-        da = self.context.zsqlalchemy
-        retval = TopicQuery(self.context, da)
+        retval = TopicQuery(self.context)
         return retval
 
 class StickyGetter(StickyPage):
