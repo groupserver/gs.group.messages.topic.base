@@ -30,19 +30,8 @@ class GSTopicTraversal(GroupPage):
                 (self.request.URL, uri)
             log.info(m)
             retval = self.request.RESPONSE.redirect(uri)
-        except NotFound, f:
-            self.request.form['q'] = self.request.get('URL', '')
-            self.request.form['r'] = self.request.get('HTTP_REFERER','')
-            retval = getMultiAdapter((self.context, self.request),
-                        name="new_not_found.html")()
         except Hidden, h:
             retval = getMultiAdapter((self.context, self.request),
                         name="topic_hidden.html")()
-        except Exception, e:
-            self.request.form['q'] = self.request.get('URL', '')
-            self.request.form['m'] = format_exc()
-            log.error(format_exc())
-            retval = getMultiAdapter((self.context, self.request),
-                        name="new_unexpected_error.html")()
         return retval
 
