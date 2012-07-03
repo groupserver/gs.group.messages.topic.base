@@ -2,6 +2,7 @@
 import sqlalchemy as sa
 from datetime import datetime
 from pytz import UTC
+from zope.sqlalchemy import mark_changed
 from gs.database import getSession, getTable
 
 class TopicQuery(object):
@@ -45,4 +46,4 @@ class TopicQuery(object):
             v = None
         d = {'sticky': v}
         session.execute(u, params=d)
-
+        mark_changed(session)
