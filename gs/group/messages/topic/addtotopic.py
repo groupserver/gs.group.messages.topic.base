@@ -2,7 +2,7 @@
 from zope.cachedescriptors.property import Lazy
 from gs.group.base.viewlet import GroupViewlet
 
-# TODO: Move all post-creation code to gs.group.messages.add
+# TODO: Move all post-creation code to gs.group.messages.add.base
 # TODO: Convert to z3c.form.
 # TODO: Make this a sub-form.
 #   http://pypi.python.org/pypi/z3c.form#sub-forms
