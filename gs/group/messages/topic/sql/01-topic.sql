@@ -12,22 +12,17 @@ CREATE TABLE topic (
     last_post_date    TIMESTAMP WITH TIME ZONE NOT NULL,
     num_posts         INTEGER                  NOT NULL CHECK (num_posts > 0),
     hidden            TIMESTAMP WITH TIME ZONE DEFAULT NULL,
-    sticky            TIMESTAMP WITH TIME ZONE DEFAULT NULL
+    sticky            TIMESTAMP WITH TIME ZONE DEFAULT NULL,
+    keywords          TEXT                     DEFAULT NULL,
+    fts_vectors       tsvector -- PostgreSQL dependency
 );  
+
+-- Installs up to and including GS 12.05 will need to update the topic
+-- table:
+-- ALTER TABLE topic ADD COLUMN keywords TEXT DEFAULT NULL;
+-- ALTER TABLE topic ADD COLUMN fts_vectors tsvector;
+-- DROP TABLE topic_word_count;
+-- DROP TABLE word_count;
+
 CREATE INDEX GROUP_ID_SITE_ID_IDX ON topic USING BTREE (group_id, site_id);
 -- ALTER TABLE topic ADD column hidden TIMESTAMP WITH TIME ZONE;
-
--- A faux full-text system
-CREATE TABLE topic_word_count (
-    topic_id          TEXT                     NOT NULL REFERENCES topic (topic_id),
-    word              TEXT                     NOT NULL,
-    count             INTEGER                  NOT NULL CHECK (count > 0)
-);
-CREATE UNIQUE INDEX TOPIC_WORD_PKEY ON topic_word_count USING BTREE (topic_id, word);
-
-CREATE TABLE word_count (
-    word text NOT NULL,
-    count integer NOT NULL
-);
-CREATE UNIQUE INDEX WORD_COUNT_PKEY ON word_count USING BTREE (word);
-
