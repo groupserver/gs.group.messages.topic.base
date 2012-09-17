@@ -46,5 +46,29 @@ CREATE OR REPLACE FUNCTION topic_tf (topic_id TEXT)
         FROM (SELECT ts.word, ts.nentry FROM ts_stat(ts_stat_inner) AS ts
                 ORDER BY nentry DESC LIMIT 16) as cw; -- Power of 2;
     END;
-  $$  LANGUAGE plpgsql;
+  $$ LANGUAGE plpgsql;
 -- select topic_tf('4GzdcBvbj8f70QexVQHUo3');
+
+-- Term Frequency -- Inverse Document Frequency
+-- TF_IDF = TF * IDF
+-- IDF = log(total topic count / number of topics containing the word)
+CREATE OR REPLACE FUNCTION topic_tf_idf (topic_id TEXT)
+  RETURNS TABLE (word TEXT, tf_idf REAL) AS $$
+    DECLARE
+      total_topics REAL;
+    BEGIN
+      SELECT CAST(total_rows AS REAL) INTO total_topics 
+        FROM rowcount WHERE table_name = 'topic';
+      RETURN QUERY 
+        SELECT ttf.word, 
+               CAST(ttf.tf * 
+                    LOG(total_topics / 
+                        (SELECT COUNT(*) FROM topic 
+                           WHERE fts_vectors @@ CAST(ttf.word AS tsquery)))
+                    AS REAL)
+                  AS tf_idf
+        FROM topic_tf(topic_id) as ttf
+        ORDER BY tf_idf DESC
+        LIMIT 5;
+    END;
+  $$ LANGUAGE plpgsql;
