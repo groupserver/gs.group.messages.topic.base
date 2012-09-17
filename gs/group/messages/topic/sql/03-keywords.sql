@@ -73,24 +73,6 @@ CREATE OR REPLACE FUNCTION topic_tf_idf (topic_id TEXT)
     END;
   $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION generate_topic_keywords (topic_id TEXT, 
-                                                    topic_text TEXT,
-                                                    topic_tsv tsvector)
-  RETURNS TEXT AS $$
-    DECLARE 
-      r RECORD;
-      v TABLE(word TEXT, pos TEXT);
-    BEGIN
-      select * into v from regexp_split_to_table(tsvector, E'\S');
-      FOR r IN SELECT * FROM topic_tf_idf(topic_id) LOOP
-        RAISE NOTICE 'Word %s', r.word;
-        
-      END LOOP;
-      RETURN 'foo';
-    END;
-  $$ LANGUAGE plpgsql;
-
-
 -- Get the first vector-offset for a stem
 --
 -- Description
@@ -105,7 +87,7 @@ CREATE OR REPLACE FUNCTION generate_topic_keywords (topic_id TEXT,
 -- Returns
 --   The value of the first offset for the stem.
 CREATE OR REPLACE FUNCTION get_tsv_offset_for_stem (tsvs tsvector, stem TEXT)
-  RETURNS INT as $$
+  RETURNS INT AS $$
     DECLARE
       stem_exp TEXT;
       ret TEXT[];
@@ -116,5 +98,26 @@ CREATE OR REPLACE FUNCTION get_tsv_offset_for_stem (tsvs tsvector, stem TEXT)
       SELECT regexp_matches(CAST(tsvs AS TEXT), stem_exp) INTO ret;
       -- No, this is not the work of the just or the good.
       RETURN ret[1];
+    END;
+  $$ LANGUAGE plpgsql;
+
+-- Get the word that starts at the offset
+--
+-- Arguments
+--   o: The offset.
+--   s: The string to search.
+--
+-- Returns
+--   The word that starts at o.
+CREATE OR REPLACE FUNCTION get_word_from_offset(o INT, s TEXT)
+  RETURNS TEXT AS $$
+    DECLARE
+      chunk TEXT;
+      retval TEXT;
+    BEGIN
+      -- Get a chunk, so we know we will stop (putting an elephant in Cairo).
+      chunk := substring(s from o for 128);
+      retval := regexp_matches(chunk, E'(.+?)[^\\w\\-/]');
+      RETURN retval;
     END;
   $$ LANGUAGE plpgsql;
