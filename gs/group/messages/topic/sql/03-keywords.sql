@@ -1,21 +1,174 @@
+-- The TF * IDF algorithm, in PL/pgSQL.
+--
+-- The TF-IDF value for a word = TF * log(IDF). The code below calculates
+--   the five top TF-IDF values for a newly updated topic.
 SET CLIENT_ENCODING = 'UTF8';
 SET CHECK_FUNCTION_BODIES = FALSE;
 SET CLIENT_MIN_MESSAGES = WARNING;
 
--- The TF * IDF algorithm, in PL/pgSQL.
+
+-- Calculate the term-frequencies for a topic.
 --
--- IDF (inverse document frequency) =
---          Total number of topics
---   _________________________________________
---    Count of the topics containing the term
+-- DESCRIPTION
 --
--- The TF-IDF value for a word = TF * log(IDF). The code below calculates
---   the five top TF-IDF values for a newly updated topic.
+--   The core of the TF-IDF algorithm, the term frequency is
+--
+--   TF (term frequency) = 
+--                 Count of the word in the topic
+--     _________________________________________________________
+--      Count of the most frequently occuring word in the topic
+--
+--   Sixteen term-frequencies are returned so the rest of the TF-IDF
+--   algorithm does not have to deal with all the words that are likely to
+--   be dross. However, this does mean that occasionally a great keyword is
+--   lost. The speed gain is worth it.
+--
+-- ARGUMENTS
+--
+--   topic_id  The identifier of the topic.
+--
+-- RETURNS
+--
+--   The stems of the top sixteen words in the topic, as stem-tf pairs.
+CREATE OR REPLACE FUNCTION topic_tf (topic_id TEXT)
+  RETURNS TABLE (stem TEXT, tf REAL) AS $$
+    DECLARE
+      ts_stat_inner TEXT;
+      most_frequent_word_count REAL;
+    BEGIN
+      ts_stat_inner := 'SELECT fts_vectors FROM topic WHERE topic_id = ''' || topic_id || '''';
+      SELECT CAST(ts.nentry AS REAL) INTO most_frequent_word_count 
+        FROM ts_stat(ts_stat_inner) as ts
+        ORDER BY nentry DESC LIMIT 1;
+      RETURN QUERY SELECT cw.word AS stem,
+                     CAST(cw.nentry  / most_frequent_word_count AS REAL) AS tf
+        FROM (SELECT ts.word, ts.nentry FROM ts_stat(ts_stat_inner) AS ts
+                ORDER BY nentry DESC LIMIT 16) as cw; -- Power of 2;
+    END;
+  $$ LANGUAGE plpgsql;
+
+
+-- TF-IDF: Term Frequency --- Inverse Document Frequency
+--
+-- DESCRIPTION
+--
+--   Calculate the five stems with the highest TF-IDF value for a topic.
+--
+--   TF_IDF = TF * IDF
+--   IDF (inverse document frequency) =
+--                Total number of topics
+--        _________________________________________
+--         Count of the topics containing the word
+--
+--   The IDF value for a word is quite slow to calculate, as all topics
+--   have to be searched to get a count. This is why we only do the TF-IDF
+--   calculation for the 16 most frequently occurring stems.
+--
+-- ARGUMENTS
+--
+--   topic_id  The identifier of the topic.
+--
+-- RETURNS
+--
+--   The five stems with the highest TF-IDF values. Returned as a table of
+--   stem-value pairs.
+CREATE OR REPLACE FUNCTION topic_tf_idf (topic_id TEXT)
+  RETURNS TABLE (stem TEXT, tf_idf REAL) AS $$
+    DECLARE
+      total_topics REAL;
+    BEGIN
+      SELECT CAST(total_rows AS REAL) INTO total_topics 
+        FROM rowcount WHERE table_name = 'topic';
+      RETURN QUERY 
+        SELECT ttf.stem,
+               CAST(ttf.tf * 
+                    LOG(total_topics / 
+                        (SELECT COUNT(*) FROM topic 
+                           WHERE fts_vectors @@ CAST(ttf.stem AS tsquery)))
+                    AS REAL)
+                  AS tf_idf
+        FROM topic_tf(topic_id) as ttf
+        ORDER BY tf_idf DESC
+        LIMIT 5;
+    END;
+  $$ LANGUAGE plpgsql;
+
+
+-- Get all the stem-word pairs for the given topic text
+--
+-- DESCRIPTION
+--
+--   The TF-IDF algorithm (above) works on stems, because it gets the topic
+--   statistics from the text-search vector (it is faster that
+--   way). However, we do not want to present stems to the user, so we
+--   generate stem-word pairs so we can map the stems back to "real" words.
+--
+-- ARGUMENTS
+--
+--   topic_text  The body of the topic.
+--
+-- RETURNS
+--
+--    A table of stem-word pairs. Only one stem is returned, with the
+--    shortest version of the word considered canonical.
+CREATE OR REPLACE FUNCTION topic_words (topic_text TEXT)
+  RETURNS TABLE(stem TEXT, word TEXT) as $$
+    BEGIN
+      -- The text is processed using the ts_debug function. Let this be a
+      --   warning to all: even if you label the function "debug", and put
+      --   it in the Debug section of the documentation, evil people such
+      --   as myself will still use it for *real* *applications* *outside*
+      --   *debugging*. Sorry.
+      --   <http://www.postgresql.org/docs/9.1/static/textsearch-debugging.html>
+      --
+      -- Get one word, and one word only using a combination of DISTINCT ON and
+      --   ORDER BY.
+      RETURN QUERY SELECT DISTINCT ON (stem) lexemes[1] AS stem, token AS word
+                     FROM ts_debug('english', topic_text)
+                     WHERE lexemes IS NOT NULL
+                       AND lexemes[1] IS NOT NULL
+                     ORDER BY stem ASC, word ASC;
+    END;
+  $$ LANGUAGE plpgsql;
+
+
+-- Generate the five words that most characterise the topic
+--
+-- DESCRIPTION
+--
+--   The keywords in a topic are words that appear frequently in *this*
+--   topic but do not appear frequently in other topics. It is calculated
+--   using the TF-IDF algorithm above. The stems generated by that
+--   algorithm are them mapped back onto real words using the result of the
+--   call to the topic_words function.
+--
+--  ARGUMENTS
+--
+--    topic_id    The identifier of the topic.
+--    topic_text  The body of the topic (passed in for speed).
+--
+-- RETURNS
+--
+--   A table of five word-stem-tf_idf 3-tuples. The rows are sorted from
+--   highest TF-IDF value (most characterising word) to lowest.
+CREATE OR REPLACE FUNCTION topic_keywords (topic_id TEXT, topic_text TEXT)
+  RETURNS TABLE(word TEXT, stem TEXT, tf_idf REAL) AS $$
+    DECLARE 
+      
+    BEGIN
+      RETURN QUERY SELECT tw.word, tw.stem, tfidf.tf_idf
+                     FROM topic_tf_idf(topic_id) AS tfidf, 
+                          topic_words(topic_text) AS tw
+                     WHERE tfidf.stem = tw.stem
+                     ORDER BY tfidf.tf_idf DESC;
+    END;
+  $$ LANGUAGE plpgsql;
+
 CREATE OR REPLACE FUNCTION update_topic_keywords ()
   RETURNS TRIGGER
   AS $$
     DECLARE
-      total_number_of_topics integer;
+      total_number_of_topics INTEGER;
     BEGIN
       SELECT total_rows INTO total_number_of_topics 
         FROM rowcount WHERE table_name = 'topic';
@@ -26,98 +179,5 @@ CREATE TRIGGER update_topic_keywords_trigger
   AFTER INSERT OR UPDATE ON post -- Yes, AFTER; yes, post.
   EXECUTE PROCEDURE update_topic_keywords ();
 
-
--- TF (term frequency) = 
---               Count of the word in the topic
---   _________________________________________________________
---    Count of the most frequently occuring word in the topic
-CREATE OR REPLACE FUNCTION topic_tf (topic_id TEXT)
-  RETURNS TABLE (word TEXT, tf REAL) AS $$
-    DECLARE
-      ts_stat_inner TEXT;
-      most_frequent_word_count REAL;
-    BEGIN
-      ts_stat_inner := 'SELECT fts_vectors FROM topic WHERE topic_id = ''' || topic_id || '''';
-      SELECT CAST(ts.nentry AS REAL) INTO most_frequent_word_count 
-        FROM ts_stat(ts_stat_inner) as ts
-        ORDER BY nentry DESC LIMIT 1;
-      RETURN QUERY SELECT cw.word, 
-                     CAST(cw.nentry  / most_frequent_word_count AS REAL) AS tf
-        FROM (SELECT ts.word, ts.nentry FROM ts_stat(ts_stat_inner) AS ts
-                ORDER BY nentry DESC LIMIT 16) as cw; -- Power of 2;
-    END;
-  $$ LANGUAGE plpgsql;
--- select topic_tf('4GzdcBvbj8f70QexVQHUo3');
-
--- TF-IDF: Term Frequency --- Inverse Document Frequency
--- TF_IDF = TF * IDF
--- IDF = log(total topic count / number of topics containing the word)
-CREATE OR REPLACE FUNCTION topic_tf_idf (topic_id TEXT)
-  RETURNS TABLE (word TEXT, tf_idf REAL) AS $$
-    DECLARE
-      total_topics REAL;
-    BEGIN
-      SELECT CAST(total_rows AS REAL) INTO total_topics 
-        FROM rowcount WHERE table_name = 'topic';
-      RETURN QUERY 
-        SELECT ttf.word, 
-               CAST(ttf.tf * 
-                    LOG(total_topics / 
-                        (SELECT COUNT(*) FROM topic 
-                           WHERE fts_vectors @@ CAST(ttf.word AS tsquery)))
-                    AS REAL)
-                  AS tf_idf
-        FROM topic_tf(topic_id) as ttf
-        ORDER BY tf_idf DESC
-        LIMIT 5;
-    END;
-  $$ LANGUAGE plpgsql;
-
--- Get the first vector-offset for a stem
---
--- Description
---   The texts search vectors, used by the full-text retrieval system, is a
---   large list of "'stem':offset0,offset1,offset2". This function looks up
---   the vector for the stem, and returns the first offset.
---
--- Arguments
---   tsvs: The Text Search Vectors to search.
---   stem: The stem to look up in the text search vectors.
---
--- Returns
---   The value of the first offset for the stem.
-CREATE OR REPLACE FUNCTION get_tsv_offset_for_stem (tsvs tsvector, stem TEXT)
-  RETURNS INT AS $$
-    DECLARE
-      stem_exp TEXT;
-      ret TEXT[];
-    BEGIN
-      -- Yes, we are using regular expressions.
-      stem_exp :=  E'.*''' || stem || E''':(\\d+?)[, $].*';
-      -- Yes, we are turning the text search vector into a string.
-      SELECT regexp_matches(CAST(tsvs AS TEXT), stem_exp) INTO ret;
-      -- No, this is not the work of the just or the good.
-      RETURN ret[1];
-    END;
-  $$ LANGUAGE plpgsql;
-
--- Get the word that starts at the offset
---
--- Arguments
---   o: The offset.
---   s: The string to search.
---
--- Returns
---   The word that starts at o.
-CREATE OR REPLACE FUNCTION get_word_from_offset(o INT, s TEXT)
-  RETURNS TEXT AS $$
-    DECLARE
-      chunk TEXT;
-      retval TEXT;
-    BEGIN
-      -- Get a chunk, so we know we will stop (putting an elephant in Cairo).
-      chunk := substring(s from o for 128);
-      retval := regexp_matches(chunk, E'(.+?)[^\\w\\-/]');
-      RETURN retval;
-    END;
-  $$ LANGUAGE plpgsql;
+select * from topic_keywords('4GzdcBvbj8f70QexVQHUo3', 
+       (select string_agg(body, ' ') from post where topic_id = '4GzdcBvbj8f70QexVQHUo3'));
