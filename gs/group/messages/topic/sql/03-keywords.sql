@@ -49,7 +49,7 @@ CREATE OR REPLACE FUNCTION topic_tf (topic_id TEXT)
   $$ LANGUAGE plpgsql;
 -- select topic_tf('4GzdcBvbj8f70QexVQHUo3');
 
--- Term Frequency -- Inverse Document Frequency
+-- TF-IDF: Term Frequency --- Inverse Document Frequency
 -- TF_IDF = TF * IDF
 -- IDF = log(total topic count / number of topics containing the word)
 CREATE OR REPLACE FUNCTION topic_tf_idf (topic_id TEXT)
@@ -70,5 +70,51 @@ CREATE OR REPLACE FUNCTION topic_tf_idf (topic_id TEXT)
         FROM topic_tf(topic_id) as ttf
         ORDER BY tf_idf DESC
         LIMIT 5;
+    END;
+  $$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION generate_topic_keywords (topic_id TEXT, 
+                                                    topic_text TEXT,
+                                                    topic_tsv tsvector)
+  RETURNS TEXT AS $$
+    DECLARE 
+      r RECORD;
+      v TABLE(word TEXT, pos TEXT);
+    BEGIN
+      select * into v from regexp_split_to_table(tsvector, E'\S');
+      FOR r IN SELECT * FROM topic_tf_idf(topic_id) LOOP
+        RAISE NOTICE 'Word %s', r.word;
+        
+      END LOOP;
+      RETURN 'foo';
+    END;
+  $$ LANGUAGE plpgsql;
+
+
+-- Get the first vector-offset for a stem
+--
+-- Description
+--   The texts search vectors, used by the full-text retrieval system, is a
+--   large list of "'stem':offset0,offset1,offset2". This function looks up
+--   the vector for the stem, and returns the first offset.
+--
+-- Arguments
+--   tsvs: The Text Search Vectors to search.
+--   stem: The stem to look up in the text search vectors.
+--
+-- Returns
+--   The value of the first offset for the stem.
+CREATE OR REPLACE FUNCTION get_tsv_offset_for_stem (tsvs tsvector, stem TEXT)
+  RETURNS INT as $$
+    DECLARE
+      stem_exp TEXT;
+      ret TEXT[];
+    BEGIN
+      -- Yes, we are using regular expressions.
+      stem_exp :=  E'.*''' || stem || E''':(\\d+?)[, $].*';
+      -- Yes, we are turning the text search vector into a string.
+      SELECT regexp_matches(CAST(tsvs AS TEXT), stem_exp) INTO ret;
+      -- No, this is not the work of the just or the good.
+      RETURN ret[1];
     END;
   $$ LANGUAGE plpgsql;
