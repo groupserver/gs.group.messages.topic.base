@@ -79,6 +79,8 @@ CREATE OR REPLACE FUNCTION topic_tf_idf (topic_id TEXT)
     BEGIN
       SELECT CAST(total_rows AS REAL) INTO total_topics 
         FROM rowcount WHERE table_name = 'topic';
+      -- The cast of the ttf.stem to tsquery, rather than calling "to_tsquery"
+      -- is deliberate.
       RETURN QUERY 
         SELECT ttf.stem,
                CAST(ttf.tf * 
@@ -90,6 +92,22 @@ CREATE OR REPLACE FUNCTION topic_tf_idf (topic_id TEXT)
         FROM topic_tf(topic_id) as ttf
         ORDER BY tf_idf DESC
         LIMIT 5;
+    EXCEPTION
+      -- Sometimes the stem that is returned cannot be used (sanely) in a
+      -- query, and a syntax error is raised. In that case lets just go
+      -- with the TF values. It ain't as good as the TF-IDF values, but it
+      -- will do.
+      --   
+      -- Similarly, binary blobs can make it into the database, in which
+      -- case we can get division-by-zero errors. Once again, just return
+      -- the TF values.
+      WHEN syntax_error OR division_by_zero THEN
+        RAISE NOTICE 'Caught syntax error';
+        RETURN QUERY 
+          SELECT ttf.stem, ttf.tf AS tf_idf
+            FROM topic_tf(topic_id) as ttf
+            ORDER BY tf_idf DESC
+            LIMIT 5;    
     END;
   $$ LANGUAGE plpgsql;
 
@@ -153,8 +171,6 @@ CREATE OR REPLACE FUNCTION topic_words (topic_text TEXT)
 --   highest TF-IDF value (most characterising word) to lowest.
 CREATE OR REPLACE FUNCTION topic_keywords (topic_id TEXT, topic_text TEXT)
   RETURNS TABLE(word TEXT, stem TEXT, tf_idf REAL) AS $$
-    DECLARE 
-      
     BEGIN
       RETURN QUERY SELECT tw.word, tw.stem, tfidf.tf_idf
                      FROM topic_tf_idf(topic_id) AS tfidf, 
@@ -164,14 +180,65 @@ CREATE OR REPLACE FUNCTION topic_keywords (topic_id TEXT, topic_text TEXT)
     END;
   $$ LANGUAGE plpgsql;
 
-CREATE OR REPLACE FUNCTION update_topic_keywords ()
-  RETURNS TRIGGER
-  AS $$
+
+-- The topic fts_vectors column contains the full-text retrieval
+--   information for all the posts in the topic. It is updated after a
+--   *post* has been added to the database. In effect it concatenates all
+--   the bodies together (string_agg(post.body, ' ')) and turns them into a
+--   text-search vector (to_tsvector).
+CREATE OR REPLACE FUNCTION topic_fts_vectors_update ()
+  RETURNS TRIGGER AS $$
     DECLARE
-      total_number_of_topics INTEGER;
+      topic_text TEXT;
+      keywords TEXT[];
     BEGIN
-      SELECT total_rows INTO total_number_of_topics 
-        FROM rowcount WHERE table_name = 'topic';
+      SELECT string_agg(post.body, ' ') into topic_text
+        FROM post
+        WHERE post.topic_id = NEW.topic_id;
+      SELECT ARRAY(SELECT word FROM topic_keywords(NEW.topic_id, topic_text))
+        INTO keywords;
+      UPDATE topic 
+        SET topic.fts_vectors = to_tsvector('english', topic_text),
+            topic.keywords = keywords
+        WHERE topic.topic_id = NEW.topic_id;
+      RETURN NULL;
+    END;  
+  $$ LANGUAGE plpgsql;
+CREATE TRIGGER topic_fts_vectors_update_trigger 
+  AFTER INSERT OR UPDATE ON post -- Yes, AFTER; yes, post.
+  EXECUTE PROCEDURE topic_fts_vectors_update ();
+
+-- Installs up to and including GS 12.05 will need to populate the
+--   full-text search column of the topic table.
+-- CREATE OR REPLACE FUNCTION topic_fts_vectors_populate () RETURNS void AS $$
+-- DECLARE
+--    topic_text TEXT;
+--    keywords TEXT[];
+--    trecord RECORD;
+--  BEGIN
+--    FOR trecord IN SELECT * FROM topic WHERE fts_vectors IS NULL LOOP
+--      SELECT string_agg(post.body, ' ') into topic_text
+--        FROM post, topic
+--        WHERE post.topic_id = trecord.topic_id
+--              AND post.topic_id = topic.topic_id
+--              AND topic.fts_vectors IS NULL;
+--      SELECT ARRAY(SELECT word 
+--                     FROM topic_keywords(trecord.topic_id, topic_text))
+--        INTO keywords;
+--      UPDATE topic 
+--        SET topic.fts_vectors = to_tsvector('english', topic_text),
+--            topic.keywords = keywords
+--        WHERE topic_id=trecord.topic_id;
+--    END LOOP;
+--  END;
+-- $$ LANGUAGE 'plpgsql';
+
+--
+--
+
+CREATE OR REPLACE FUNCTION update_topic_keywords ()
+  RETURNS TRIGGER AS $$
+    BEGIN
       RETURN NULL;
     END;  
   $$ LANGUAGE plpgsql;
