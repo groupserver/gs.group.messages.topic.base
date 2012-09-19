@@ -18,6 +18,8 @@ CREATE TABLE topic (
     fts_vectors       tsvector
 );  
 
+-- ALTER TABLE topic ADD column hidden TIMESTAMP WITH TIME ZONE;
+
 -- Installs up to and including GS 12.05 will need to update the topic
 -- table:
 -- ALTER TABLE topic ADD COLUMN keywords TEXT[] DEFAULT NULL;
@@ -26,7 +28,6 @@ CREATE TABLE topic (
 -- DROP TABLE word_count;
 
 CREATE INDEX GROUP_ID_SITE_ID_IDX ON topic USING BTREE (group_id, site_id);
--- ALTER TABLE topic ADD column hidden TIMESTAMP WITH TIME ZONE;
 CREATE INDEX topic_fts_vectors ON topic USING gin(fts_vectors);
 
 -- See 03-keywords.sql in this directory for the trigger that updates the
