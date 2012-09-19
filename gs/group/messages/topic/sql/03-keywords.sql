@@ -181,12 +181,13 @@ CREATE OR REPLACE FUNCTION topic_keywords (topic_id TEXT, topic_text TEXT)
   $$ LANGUAGE plpgsql;
 
 
--- The topic fts_vectors column contains the full-text retrieval
---   information for all the posts in the topic. It is updated after a
---   *post* has been added to the database. In effect it concatenates all
---   the bodies together (string_agg(post.body, ' ')) and turns them into a
---   text-search vector (to_tsvector).
-CREATE OR REPLACE FUNCTION topic_fts_vectors_update ()
+-- The trigger for updating the full-text retrieval information, and the
+-- keywords, in a topic. The topic fts_vectors column contains the
+-- full-text retrieval information for all the posts in the topic. It is
+-- updated after a *post* has been added to the database. In effect it
+-- concatenates all the bodies together (string_agg(post.body, ' ')) and
+-- turns them into a text-search vector (to_tsvector).
+CREATE OR REPLACE FUNCTION topic_fts_keywords_update ()
   RETURNS TRIGGER AS $$
     DECLARE
       topic_text TEXT;
@@ -195,6 +196,7 @@ CREATE OR REPLACE FUNCTION topic_fts_vectors_update ()
       SELECT string_agg(post.body, ' ') into topic_text
         FROM post
         WHERE post.topic_id = NEW.topic_id;
+      topic_text := NEW.subject || ' ' || topic_text;
       SELECT ARRAY(SELECT word FROM topic_keywords(NEW.topic_id, topic_text))
         INTO keywords;
       UPDATE topic 
@@ -206,45 +208,39 @@ CREATE OR REPLACE FUNCTION topic_fts_vectors_update ()
   $$ LANGUAGE plpgsql;
 CREATE TRIGGER topic_fts_vectors_update_trigger 
   AFTER INSERT OR UPDATE ON post -- Yes, AFTER; yes, post.
-  EXECUTE PROCEDURE topic_fts_vectors_update ();
-
+  EXECUTE PROCEDURE topic_fts_keywords_update ();
 -- Installs up to and including GS 12.05 will need to populate the
---   full-text search column of the topic table.
--- CREATE OR REPLACE FUNCTION topic_fts_vectors_populate () RETURNS void AS $$
--- DECLARE
---    topic_text TEXT;
---    keywords TEXT[];
---    trecord RECORD;
---  BEGIN
---    FOR trecord IN SELECT * FROM topic WHERE fts_vectors IS NULL LOOP
---      SELECT string_agg(post.body, ' ') into topic_text
---        FROM post, topic
---        WHERE post.topic_id = trecord.topic_id
---              AND post.topic_id = topic.topic_id
---              AND topic.fts_vectors IS NULL;
---      SELECT ARRAY(SELECT word 
---                     FROM topic_keywords(trecord.topic_id, topic_text))
---        INTO keywords;
---      UPDATE topic 
---        SET topic.fts_vectors = to_tsvector('english', topic_text),
---            topic.keywords = keywords
---        WHERE topic_id=trecord.topic_id;
---    END LOOP;
---  END;
+-- keyword column, and full-text retrieval column of the topic table.
+-- CREATE OR REPLACE FUNCTION topic_keywords_ftr_populate () 
+--   RETURNS void AS $$ 
+--     DECLARE
+--       topic_text TEXT;
+--       new_keywords TEXT[];
+--       trecord RECORD;
+--       total_topics REAL;
+--       i REAL DEFAULT 0;
+--       p REAL;
+--     BEGIN
+--       SELECT CAST(total_rows AS REAL) INTO total_topics
+--         FROM rowcount WHERE table_name = 'topic';
+--       FOR trecord IN SELECT * FROM topic 
+--                        WHERE (keywords IS NULL) 
+--                          AND (fts_vectors IS NULL) LOOP
+--         RAISE NOTICE 'Topic %', trecord.topic_id;
+--         SELECT string_agg(post.body, ' ') into topic_text
+--           FROM post, topic
+--           WHERE post.topic_id = trecord.topic_id
+--                 AND post.topic_id = topic.topic_id;
+--         SELECT ARRAY(SELECT word 
+--                        FROM topic_keywords(trecord.topic_id, topic_text))
+--           INTO new_keywords;
+--         UPDATE topic
+--           SET keywords = new_keywords, 
+--               fts_vectors = to_tsvector('english', topic_text)
+--           WHERE topic.topic_id = trecord.topic_id;
+--         i := i + 1;
+--         p := (i / total_topics) * 100;
+--         RAISE NOTICE '  Progress % %%', p;
+--       END LOOP;
+--     END;
 -- $$ LANGUAGE 'plpgsql';
-
---
---
-
-CREATE OR REPLACE FUNCTION update_topic_keywords ()
-  RETURNS TRIGGER AS $$
-    BEGIN
-      RETURN NULL;
-    END;  
-  $$ LANGUAGE plpgsql;
-CREATE TRIGGER update_topic_keywords_trigger 
-  AFTER INSERT OR UPDATE ON post -- Yes, AFTER; yes, post.
-  EXECUTE PROCEDURE update_topic_keywords ();
-
-select * from topic_keywords('4GzdcBvbj8f70QexVQHUo3', 
-       (select string_agg(body, ' ') from post where topic_id = '4GzdcBvbj8f70QexVQHUo3'));
