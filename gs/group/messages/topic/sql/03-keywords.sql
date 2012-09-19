@@ -109,7 +109,7 @@ CREATE OR REPLACE FUNCTION topic_tf_idf (topic_id TEXT)
             ORDER BY tf_idf DESC
             LIMIT 5;    
     END;
-  $$ LANGUAGE plpgsql;
+$$ LANGUAGE 'plpgsql';
 
 
 -- Get all the stem-word pairs for the given topic text
@@ -147,7 +147,7 @@ CREATE OR REPLACE FUNCTION topic_words (topic_text TEXT)
                        AND lexemes[1] IS NOT NULL
                      ORDER BY stem ASC, word ASC;
     END;
-  $$ LANGUAGE plpgsql;
+$$ LANGUAGE 'plpgsql';
 
 
 -- Generate the five words that most characterise the topic
@@ -181,34 +181,58 @@ CREATE OR REPLACE FUNCTION topic_keywords (topic_id TEXT, topic_text TEXT)
   $$ LANGUAGE plpgsql;
 
 
+-- Get the body of all the posts in a topic as a single string
+--
+-- ARGUMENTS
+--
+--   topic_id  The identifier for the topic.
+--
+-- RETURNS
+--
+--   A single string that is made up from of all bodies of all the posts in
+--   the topic. It is limited to 1048575 characters, as that is the maximum
+--   length for a vector.
+CREATE OR REPLACE FUNCTION topic_body (topic_id TEXT)
+  RETURNS TEXT AS $$
+  DECLARE
+      topic_text TEXT;
+      subject TEXT;
+      retval TEXT;
+  BEGIN
+    SELECT string_agg(post.body, ' ') INTO topic_text
+      FROM post WHERE post.topic_id = topic_body.topic_id;
+    SELECT COALESCE(original_subject, '') INTO subject
+      FROM topic WHERE topic.topic_id = topic_body.topic_id;
+    retval := left(subject || ' ' || topic_text, 1048575); -- Max for a vector
+    RETURN retval;
+  END;
+$$ LANGUAGE 'plpgsql';
+
+
 -- The trigger for updating the full-text retrieval information, and the
 -- keywords, in a topic. The topic fts_vectors column contains the
 -- full-text retrieval information for all the posts in the topic. It is
--- updated after a *post* has been added to the database. In effect it
--- concatenates all the bodies together (string_agg(post.body, ' ')) and
--- turns them into a text-search vector (to_tsvector).
+-- updated after a *post* has been added to the database.
 CREATE OR REPLACE FUNCTION topic_fts_keywords_update ()
   RETURNS TRIGGER AS $$
     DECLARE
       topic_text TEXT;
       keywords TEXT[];
     BEGIN
-      SELECT string_agg(post.body, ' ') into topic_text
-        FROM post
-        WHERE post.topic_id = NEW.topic_id;
-      topic_text := NEW.subject || ' ' || topic_text;
+      topic_text := topic_body(NEW.topic_id);
+      UPDATE topic SET topic.fts_vectors = to_tsvector('english', topic_text)
+        WHERE topic.topic_id = NEW.topic_id;
       SELECT ARRAY(SELECT word FROM topic_keywords(NEW.topic_id, topic_text))
         INTO keywords;
-      UPDATE topic 
-        SET topic.fts_vectors = to_tsvector('english', topic_text),
-            topic.keywords = keywords
+      UPDATE topic SET topic.keywords = keywords
         WHERE topic.topic_id = NEW.topic_id;
       RETURN NULL;
     END;  
-  $$ LANGUAGE plpgsql;
+$$ LANGUAGE 'plpgsql';
 CREATE TRIGGER topic_fts_vectors_update_trigger 
   AFTER INSERT OR UPDATE ON post -- Yes, AFTER; yes, post.
   EXECUTE PROCEDURE topic_fts_keywords_update ();
+
 -- Installs up to and including GS 12.05 will need to populate the
 -- keyword column, and full-text retrieval column of the topic table.
 -- CREATE OR REPLACE FUNCTION topic_keywords_ftr_populate () 
