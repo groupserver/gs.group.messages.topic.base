@@ -234,33 +234,49 @@ CREATE TRIGGER topic_fts_vectors_update_trigger
   EXECUTE PROCEDURE topic_fts_keywords_update ();
 
 -- Installs up to and including GS 12.05 will need to populate the
--- keyword column, and full-text retrieval column of the topic table.
--- CREATE OR REPLACE FUNCTION topic_keywords_ftr_populate () 
+-- full-text retrieval column, and hte keyword column of the topic table.
+-- CREATE OR REPLACE FUNCTION topic_ftr_populate () 
 --   RETURNS void AS $$ 
 --     DECLARE
---       topic_text TEXT;
---       new_keywords TEXT[];
---       trecord RECORD;
 --       total_topics REAL;
+--       trecord RECORD;
+--       topic_vector tsvector;
+--       topic_text TEXT;
 --       i REAL DEFAULT 0;
 --       p REAL;
 --     BEGIN
 --       SELECT CAST(total_rows AS REAL) INTO total_topics
 --         FROM rowcount WHERE table_name = 'topic';
---       FOR trecord IN SELECT * FROM topic 
---                        WHERE (keywords IS NULL) 
---                          AND (fts_vectors IS NULL) LOOP
+--       FOR trecord IN SELECT * FROM topic WHERE fts_vectors IS NULL LOOP
 --         RAISE NOTICE 'Topic %', trecord.topic_id;
---         SELECT string_agg(post.body, ' ') into topic_text
---           FROM post, topic
---           WHERE post.topic_id = trecord.topic_id
---                 AND post.topic_id = topic.topic_id;
+--         topic_vector = to_tsvector('english', topic_body(trecord.topic_id));
+--         UPDATE topic SET fts_vectors = topic_vector
+--           WHERE topic.topic_id = trecord.topic_id;
+--         i := i + 1;
+--         p := (i / total_topics) * 100;
+--         RAISE NOTICE '  Progress % %%', p;
+--       END LOOP;
+--     END;
+-- $$ LANGUAGE 'plpgsql';
+-- CREATE OR REPLACE FUNCTION topic_keywords_populate () 
+--   RETURNS void AS $$ 
+--     DECLARE
+--       total_topics REAL;
+--       trecord RECORD;
+--       topic_text TEXT;
+--       new_keywords TEXT[];
+--       i REAL DEFAULT 0;
+--       p REAL;
+--     BEGIN
+--       SELECT CAST(total_rows AS REAL) INTO total_topics
+--         FROM rowcount WHERE table_name = 'topic';
+--       FOR trecord IN SELECT * FROM topic WHERE keywords IS NULL LOOP
+--         RAISE NOTICE 'Topic %', trecord.topic_id;
+--         topic_text = topic_body(trecord.topic_id);
 --         SELECT ARRAY(SELECT word 
 --                        FROM topic_keywords(trecord.topic_id, topic_text))
 --           INTO new_keywords;
---         UPDATE topic
---           SET keywords = new_keywords, 
---               fts_vectors = to_tsvector('english', topic_text)
+--         UPDATE topic SET keywords = new_keywords
 --           WHERE topic.topic_id = trecord.topic_id;
 --         i := i + 1;
 --         p := (i / total_topics) * 100;
