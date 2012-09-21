@@ -52,8 +52,8 @@ CREATE OR REPLACE FUNCTION topic_body (topic_id TEXT)
       FROM post 
       WHERE post.topic_id = topic_body.topic_id
         AND post.hidden IS NULL;
-    SELECT COALESCE(original_subject, '') INTO subject
-      FROM topic WHERE topic.topic_id = topic_body.topic_id;
+    SELECT COALESCE(post.subject, '') INTO subject
+      FROM post WHERE post.topic_id = topic_body.topic_id LIMIT 1;
     retval := left(subject || ' ' || topic_text, 1048575); -- Max for a vector
     RETURN retval;
   END;
