@@ -14,7 +14,6 @@ CREATE TABLE topic (
     hidden            TIMESTAMP WITH TIME ZONE DEFAULT NULL,
     sticky            TIMESTAMP WITH TIME ZONE DEFAULT NULL,
     -- A PostgreSQL dependency is created by the TEXT array and tsvector.
-    keywords          TEXT[]                   DEFAULT NULL,
     fts_vectors       tsvector
 );  
 
@@ -61,10 +60,7 @@ CREATE OR REPLACE FUNCTION topic_body (topic_id TEXT)
 $$ LANGUAGE 'plpgsql';
 
 
--- The trigger for updating the full-text retrieval information, and the
--- keywords, in a topic. The topic fts_vectors column contains the
--- full-text retrieval information for all the posts in the topic. It is
--- updated after a *post* has been added to the database.
+-- The trigger for updating the full-text retrieval information in a topic.
 CREATE OR REPLACE FUNCTION topic_fts_update ()
   RETURNS TRIGGER AS $$
     DECLARE
