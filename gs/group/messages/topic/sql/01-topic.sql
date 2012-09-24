@@ -19,16 +19,11 @@ CREATE TABLE topic (
 
 -- ALTER TABLE topic ADD column hidden TIMESTAMP WITH TIME ZONE;
 
--- Installs up to and including GS 12.05 will need to update the topic
--- table:
--- ALTER TABLE topic ADD COLUMN keywords TEXT[] DEFAULT NULL;
--- ALTER TABLE topic ADD COLUMN fts_vectors tsvector;
--- DROP TABLE topic_word_count;
--- DROP TABLE word_count;
-
 CREATE INDEX GROUP_ID_SITE_ID_IDX ON topic USING BTREE (group_id, site_id);
+-- To make searching faster.
 CREATE INDEX topic_fts_vectors ON topic USING gin(fts_vectors);
-
+-- To make the generation of the most-recent topics list faster.
+CREATE INDEX topic_last_post_date_idx ON topic (last_post_date DESC);
 
 -- Get the body of all the posts in a topic as a single string
 --
@@ -60,6 +55,39 @@ CREATE OR REPLACE FUNCTION topic_body (topic_id TEXT)
 $$ LANGUAGE 'plpgsql';
 
 
+-- Installs up to and including GS 12.05 will need to update the topic
+-- table:
+-- ALTER TABLE topic ADD COLUMN fts_vectors tsvector;
+-- DROP TABLE topic_word_count;
+-- DROP TABLE word_count;
+-- 
+-- Installs up to and including GS 12.05 will need to populate the
+-- full-text retrieval column of the topic table.
+-- CREATE OR REPLACE FUNCTION topic_ftr_populate () 
+--   RETURNS void AS $$ 
+--     DECLARE
+--       total_topics REAL;
+--       trecord RECORD;
+--       topic_vector tsvector;
+--       topic_text TEXT;
+--       i REAL DEFAULT 0;
+--       p REAL;
+--     BEGIN
+--       SELECT CAST(total_rows AS REAL) INTO total_topics
+--         FROM rowcount WHERE table_name = 'topic';
+--       FOR trecord IN SELECT * FROM topic WHERE fts_vectors IS NULL LOOP
+--         RAISE NOTICE 'Topic %', trecord.topic_id;
+--         topic_vector := to_tsvector('english', topic_body(trecord.topic_id));
+--         UPDATE topic SET fts_vectors = topic_vector 
+--           WHERE topic.topic_id = trecord.topic_id;
+--         i := i + 1;
+--         p := (i / total_topics) * 100;
+--         RAISE NOTICE '  Progress % %%', p;
+--       END LOOP;
+--     END;
+-- $$ LANGUAGE 'plpgsql';
+
+
 -- The trigger for updating the full-text retrieval information in a topic.
 CREATE OR REPLACE FUNCTION topic_fts_update ()
   RETURNS TRIGGER AS $$
@@ -74,3 +102,4 @@ $$ LANGUAGE 'plpgsql';
 CREATE TRIGGER topic_update_trigger_01
   BEFORE INSERT OR UPDATE ON topic
   FOR EACH ROW EXECUTE PROCEDURE topic_fts_update ();
+
