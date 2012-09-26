@@ -45,7 +45,7 @@ CREATE OR REPLACE FUNCTION topic_tf (topic_id TEXT)
         FROM (SELECT ts.word, ts.nentry FROM ts_stat(ts_stat_inner) AS ts
                 ORDER BY nentry DESC LIMIT 16) as cw; -- Power of 2;
     END;
-  $$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 
 -- TF-IDF: Term Frequency --- Inverse Document Frequency
@@ -214,29 +214,6 @@ CREATE TRIGGER topic_update_trigger_02
 
 -- Installs up to and including GS 12.05 will need to populate the
 -- full-text retrieval column, and hte keyword column of the topic table.
--- CREATE OR REPLACE FUNCTION topic_ftr_populate () 
---   RETURNS void AS $$ 
---     DECLARE
---       total_topics REAL;
---       trecord RECORD;
---       topic_vector tsvector;
---       topic_text TEXT;
---       i REAL DEFAULT 0;
---       p REAL;
---     BEGIN
---       SELECT CAST(total_rows AS REAL) INTO total_topics
---         FROM rowcount WHERE table_name = 'topic';
---       FOR trecord IN SELECT * FROM topic WHERE fts_vectors IS NULL LOOP
---         RAISE NOTICE 'Topic %', trecord.topic_id;
---         topic_vector = to_tsvector('english', topic_body(trecord.topic_id));
---         UPDATE topic SET fts_vectors = topic_vector
---           WHERE topic.topic_id = trecord.topic_id;
---         i := i + 1;
---         p := (i / total_topics) * 100;
---         RAISE NOTICE '  Progress % %%', p;
---       END LOOP;
---     END;
--- $$ LANGUAGE 'plpgsql';
 -- CREATE OR REPLACE FUNCTION topic_keywords_populate () 
 --   RETURNS void AS $$ 
 --     DECLARE
