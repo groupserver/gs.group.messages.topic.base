@@ -1,14 +1,14 @@
 # coding=utf-8
 import sqlalchemy as sa
 from datetime import datetime
-from pytz import UTC
 from zope.sqlalchemy import mark_changed
 from gs.database import getSession, getTable
+
 
 class TopicQuery(object):
     def __init__(self, context):
         self.context = context
-        
+
         self.topicTable = getTable('topic')
         self.postTable = getTable('post')
 
@@ -18,8 +18,8 @@ class TopicQuery(object):
         s1.alias('ss')
 
         s2 = sa.select(self.topicTable.hidden)
-        s2.append_whereclause(ss.c.topic_id)
-        
+        s2.append_whereclause(ss.c.topic_id)  # lint:ok
+
         session = getSession()
         r = session.execute(s2)
         x = r.fetchone()
@@ -31,7 +31,7 @@ class TopicQuery(object):
         s.append_whereclause(self.topicTable.c.topic_id == topicId)
         session = getSession()
         r = session.execute(s)
-        
+
         x = r.fetchone()
         retval = bool(x['sticky'])
         return retval
