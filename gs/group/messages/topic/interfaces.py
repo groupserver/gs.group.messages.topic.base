@@ -8,6 +8,8 @@ class ITopicPage(IViewletManager):
 
 class ITopicSummary(IViewletManager):
       '''A viewlet manager for the topic summary'''
+class ITopicFreeformSummary(IViewletManager):
+      '''A viewlet manager for the topic summary'''
 
 class ITopicAdmin(IViewletManager):
       '''A viewlet manager for the topic administration function'''

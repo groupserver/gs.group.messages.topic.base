@@ -73,6 +73,13 @@
     provides=".interfaces.ITopicSummary"
     class="gs.viewlet.manager.WeightOrderedViewletManager"
     template="browser/templates/topicsummarymanager.pt" />
+  <browser:viewletManager
+    name="groupserver.TopicSummaryFreeformContent"
+    provides=".interfaces.ITopicFreeformSummary"
+    class="gs.viewlet.manager.WeightOrderedViewletManager"
+    template="browser/templates/topicsummarymanager.pt" 
+    permission="zope2.View"
+    />
   <!--Summary Statistics -->
   <browser:viewlet name="gs-group-message-topic-summary-stats"
     manager=".interfaces.ITopicSummary"

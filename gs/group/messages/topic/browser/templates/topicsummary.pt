@@ -2,5 +2,6 @@
   <ul>
     <tal:block content="structure provider:groupserver.TopicSummaryContent"/>
   </ul>
-  <p>TODO: Keywords</p>
+  <tal:block 
+    content="structure provider:groupserver.TopicSummaryFreeformContent"/>
 </div><!--gs-group-messages-topic-summary-->
