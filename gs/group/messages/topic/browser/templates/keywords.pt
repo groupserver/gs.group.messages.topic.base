@@ -1,0 +1,8 @@
+<div id="gs-group-messages-topic-summary-keyowords" class="minor">
+  <p>Keywords:</p>
+  <ul>
+    <tal:block repeat="keyword view/keywords">
+      <li class="keyword"><em tal:content="keyword">keyword</em></li>
+    </tal:block>
+  </ul>
+</div><!--gs-group-messages-topic-summary-keyowords-->

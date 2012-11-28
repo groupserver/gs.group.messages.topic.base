@@ -81,7 +81,8 @@
     permission="zope2.View"
     />
   <!--Summary Statistics -->
-  <browser:viewlet name="gs-group-message-topic-summary-stats"
+  <browser:viewlet 
+    name="gs-group-message-topic-summary-stats"
     manager=".interfaces.ITopicSummary"
     template="browser/templates/summarystats.pt"
     class=".summarystats.SummaryStats"
@@ -97,13 +98,23 @@
     weight="10"
     title="Files List" /-->
   <!--Latest Post-->
-  <browser:viewlet name="gs-group-message-topic-summary-latest"
+  <browser:viewlet 
+    name="gs-group-message-topic-summary-latest"
     manager=".interfaces.ITopicSummary"
     template="browser/templates/latestpost.pt"
     class=".latestpost.LatestPost"
     permission="zope2.View"
     weight="20"
     title="Latest Post" />
+  <browser:viewlet 
+    name="gs-group-message-topic-summary-latest"
+    manager=".interfaces.ITopicFreeformSummary"
+    template="browser/templates/keywords.pt"
+    class=".keywords.Keywords"
+    weight="10"
+    title="Keywords" 
+    permission="zope2.View" />
+  
     
   <!-- Share Bar -->
   <!--=mpj17= Should this move out?-->
