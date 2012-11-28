@@ -27,28 +27,29 @@
   </head>
   
   <body>
+    <ul metal:fill-slot="breadcrumb"><li>Breadcrumb</li></ul>
+    
     <tal:block content="structure provider:groupserver.FormStatusMessage"
-      define="errors view/errors; status view/status; widgets view/widgets"
-      metal:fill-slot="messages">&#160;</tal:block>
+               define="errors view/errors; status view/status; widgets view/widgets"
+               metal:fill-slot="messages">&#160;</tal:block>
     <div class="hfeed" metal:fill-slot="body"
-      tal:define="topicList view/topic"
-      tal:condition="topicList">
-      
+         tal:define="topicList view/topic"
+         tal:condition="topicList">
       <tal:block replace="structure provider:groupserver.TopicAdmin">
         Topic Administration Tasks
       </tal:block>
       
       <h1 id="gs-group-messages-topic-title">
         <cite tal:attributes="id view/topicId"
-            tal:content="view/topicName">This Topic</cite></h1>
+              tal:content="view/topicName">This Topic</cite>
+      </h1>
       
       <tal:block replace="structure provider:groupserver.TopicPage">
         The bulk of the page
       </tal:block>
     </div><!--hfeed-->
-
     <tal:block metal:fill-slot="javascript" 
-      content="structure provider:groupserver.TopicJavaScript">
+               content="structure provider:groupserver.TopicJavaScript">
       The JavaScript that is specific to the Topic page.
     </tal:block>
   </body>

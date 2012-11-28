@@ -1,8 +1,6 @@
-<div id="topicSummary">
-  <p class="label">Summary</p>
+<div id="gs-group-messages-topic-summary">
   <ul>
-    <tal:block 
-      content="structure provider:groupserver.TopicSummaryContent"/>
+    <tal:block content="structure provider:groupserver.TopicSummaryContent"/>
   </ul>
-</div><!--topicSummary-->
-
+  <p>TODO: Keywords</p>
+</div><!--gs-group-messages-topic-summary-->

@@ -1,8 +1,11 @@
-<li>There are
-  <strong><span class="cardinal" 
-      tal:content="view/length">some</span> posts</strong>
-  &#8212; by 
-  <span class="cardinal" 
-    tal:content="view/lenAuthors">some</span> authors &#8212; 
-  in this topic.</li>
-
+<li id="gs-group-messages-topic-summary-stats" class="minor">
+  <span id="gs-group-messages-topic-summary-stats-nposts">
+    <span class="val" tal:content="view/length">some</span> 
+    posts
+  </span>
+  by 
+  <span id="gs-group-messages-topic-summary-stats-nauthors">
+    <span class="val" tal:content="view/lenAuthors">some</span> 
+    authors
+  </span>
+</li><!--gs-group-messages-topic-summary-stats-->

@@ -1,5 +1,5 @@
 <tal:block>
-  <ul id="topicNav" class="navlinks inline-list">
+  <ul id="gs-group-messages-topic-navlinks" class="navlinks inline-list">
     <li>
       <span tal:condition="not:view/previousTopic/topicId"
          class="prev">No later topic</span>
