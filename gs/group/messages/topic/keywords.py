@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from zope.cachedescriptors.property import Lazy
 from gs.group.base.viewlet import GroupViewlet
+from queries import TopicQuery
 
 
 class Keywords(GroupViewlet):
@@ -10,6 +11,10 @@ class Keywords(GroupViewlet):
 
     @Lazy
     def keywords(self):
-        retval = []
+        tq = TopicQuery()
+        # --=mpj17=-- self.view is the Viewlet Manager, self.view.view is the
+        # Topic page.
+        topicId = self.view.view.topicId
+        retval = tq.topic_keywords(topicId)
         assert type(retval) == list
         return retval

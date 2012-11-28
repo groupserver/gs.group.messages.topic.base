@@ -6,10 +6,9 @@ from gs.database import getSession, getTable
 
 
 class TopicQuery(object):
-    def __init__(self, context):
-        self.context = context
-
+    def __init__(self, context=None):
         self.topicTable = getTable('topic')
+        self.topicKeywordsTable = getTable('topic_keywords')
         self.postTable = getTable('post')
 
     def topic_hidden(self, postId):
@@ -47,3 +46,16 @@ class TopicQuery(object):
         d = {'sticky': v}
         session.execute(u, params=d)
         mark_changed(session)
+
+    def topic_keywords(self, topicId):
+        tkt = self.topicKeywordsTable
+        s = tkt.select()
+        s.append_whereclause(tkt.c.topic_id == topicId)
+
+        session = getSession()
+        r = session.execute(s)
+        retval = []
+        if r.rowcount:
+            x = r.fetchone()
+            retval = x['keywords']
+        return retval
