@@ -82,13 +82,13 @@
     weight="0"
     title="Topic Summary Statistics" />
   <!--File Index-->
-  <browser:viewlet name="gs-group-message-topic-summary-index"
+  <!--browser:viewlet name="gs-group-message-topic-summary-index"
     manager=".interfaces.ITopicSummary"
     template="browser/templates/fileindex.pt"
     class=".fileindex.GSFileIndexContentProvider"
     permission="zope2.View"
     weight="10"
-    title="Topic Summary" />
+    title="Files List" /-->
   <!--Latest Post-->
   <browser:viewlet name="gs-group-message-topic-summary-latest"
     manager=".interfaces.ITopicSummary"
