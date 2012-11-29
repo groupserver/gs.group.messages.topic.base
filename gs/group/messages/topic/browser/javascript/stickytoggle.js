@@ -3,6 +3,7 @@ jQuery.noConflict();
 var GSStickyTopicToggle = function () {
     // Private variables
     var stickyToggle = null;
+    var stickyWidget = null;
     var topicTitle = null;
     var loading = null;
     var done = null;
@@ -15,8 +16,13 @@ var GSStickyTopicToggle = function () {
     // Private methods
     var handle_change = function () {
         stickyToggle.attr('disabled', 'disabled');
+        stickyWidget.fadeOut(FADE_SPEED, FADE_METHOD, show_doing);
+    };
+    
+    var show_doing = function () {
         loading.fadeIn(FADE_SPEED, FADE_METHOD, do_toggle);
     };
+    
     var do_toggle = function () {
         var data = null;
         var topicId = '';
@@ -42,15 +48,17 @@ var GSStickyTopicToggle = function () {
         if (stickyToggle.attr('checked')) {
             m = '<cite>'+topicTitle.text()+'</cite> is now sticky.';
         } else {
-            m = '<cite>'+topicTitle.text()+'</cite> is now a normal topic.';
-            
+            m = '<cite>'+topicTitle.text()+'</cite> is now a normal topic.';    
         }
         done.html(m)
             .fadeIn(FADE_SPEED, FADE_METHOD)
             .delay(1000)
-            .fadeOut(FADE_SPEED, FADE_METHOD);
-        stickyToggle.removeAttr('disabled');
+            .fadeOut(FADE_SPEED, FADE_METHOD, complete);
     };
+    var complete = function () {
+        stickyToggle.removeAttr('disabled');
+        stickyWidget.fadeIn(FADE_SPEED, FADE_METHOD);
+    }
     var set_checkbox = function (responseText, textStatus, request) {
         stickyToggle.attr('checked', responseText == '1' )
             .removeAttr('disabled');
@@ -59,7 +67,7 @@ var GSStickyTopicToggle = function () {
     return {
         init: function () {
             var topicId = null;
-            
+            stickyWidget = jQuery('#gs-group-messages-topic-admin-stickytoggle-widget');
             stickyToggle = jQuery('#gs-group-messages-topic-admin-stickytoggle-widget-checkbox');
             stickyToggle.change(handle_change)
                 .attr('disabled', 'disabled');
