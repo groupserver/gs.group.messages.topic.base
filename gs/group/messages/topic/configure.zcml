@@ -191,6 +191,7 @@
     permission="zope2.View"
     weight="30"
     title="Popup Help" />
+
   <!--The Sticky Topic Tooggle-->
   <browser:viewlet name="gs-group-messages-topic-javascript-stickytoggle"
     manager=".interfaces.ITopicJavaScript"
@@ -201,7 +202,7 @@
     title="Sticky Topic Toggle" />
   <!--The JavaScript library for the toggle-->
   <browser:resource 
-    name="stickytoggle-20120510.js"
+    name="stickytoggle-20121129.js"
     file="browser/javascript/stickytoggle.js"
     permission="zope2.Public" />
   <!--The getter for the toggle-->
