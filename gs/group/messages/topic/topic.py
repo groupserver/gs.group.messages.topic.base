@@ -152,6 +152,17 @@ class GSTopicView(GroupForm):
         return retval
 
     @Lazy
+    def shortTopicName(self):
+        '''The short name of the topic, for the breadcrumb trail.'''
+        ts = self.topicName.split(' ')
+        if len(ts) < 4:
+            retval = self.topicName
+        else:
+            retval = ' '.join(ts[:3]) + '&#8230;'
+        assert retval, 'There is no retval'
+        return retval
+
+    @Lazy
     def nextTopic(self):
         r = self.messageQuery.later_topic(self.topicId)
         if r:

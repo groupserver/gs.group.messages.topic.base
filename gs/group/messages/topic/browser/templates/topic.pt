@@ -27,7 +27,17 @@
   </head>
   
   <body>
-    <ul metal:fill-slot="breadcrumb"><li>Breadcrumb</li></ul>
+    <ul metal:fill-slot="breadcrumb">
+      <li><a tal:attributes="title string:${view/siteInfo/name} Homepage"
+             href="/" title="Home">&#8962;</a></li>
+      <li>
+        <a tal:attributes="href view/groupInfo/relativeURL">
+          <strong class="group" 
+                  tal:content="view/groupInfo/name">This group</strong>
+        </a>
+      </li>
+      <li tal:content="structure view/shortTopicName">Topic</li>
+    </ul>
     
     <tal:block content="structure provider:groupserver.FormStatusMessage"
                define="errors view/errors; status view/status; widgets view/widgets"
