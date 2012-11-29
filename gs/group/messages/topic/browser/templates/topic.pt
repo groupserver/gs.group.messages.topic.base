@@ -58,9 +58,26 @@
         The bulk of the page
       </tal:block>
     </div><!--hfeed-->
-    <tal:block metal:fill-slot="javascript" 
-               content="structure provider:groupserver.TopicJavaScript">
-      The JavaScript that is specific to the Topic page.
+    <tal:block metal:fill-slot="javascript" >
+      <tal:block
+        content="structure provider:groupserver.TopicJavaScript">
+        The JavaScript that is specific to the Topic page.
+      </tal:block>
+      <script src="/++resource++jquery-ui-1.8.9.custom.min.js" 
+              type="text/javascript">&#160;</script>
+      <script type="text/javascript">
+        var prev = {icons: { primary: "ui-icon-carat-1-w" }, text: true,}
+        var up = {icons: { primary: "ui-icon-arrowthick-1-n" }, text: false,};
+        var next = {icons: { secondary: "ui-icon-carat-1-e" }, text: true,}
+
+        jQuery('#gs-group-messages-topic-navlinks a.prev').button(prev);
+        jQuery('#gs-group-messages-topic-navlinks span.prev')
+            .button(prev)
+            .button("disable");
+        jQuery('#gs-group-messages-topic-navlinks .up').button(up);
+        jQuery('#gs-group-messages-topic-navlinks a.next').button(next);
+        
+      </script>
     </tal:block>
   </body>
 </html>

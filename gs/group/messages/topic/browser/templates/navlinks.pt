@@ -2,22 +2,22 @@
   <ul id="gs-group-messages-topic-navlinks" class="navlinks inline-list">
     <li>
       <span tal:condition="not:view/previousTopic/topicId"
-         class="prev">No later topic</span>
+         class="prev">Prev</span>
       <a href="#" class="prev"
         tal:condition="view/previousTopic/topicId"
         tal:attributes="href view/previousTopic/topicId;
-          title view/previousTopic/subject;">Later topic</a></li>
+          title string:Later: ${view/previousTopic/subject};">Prev</a></li>
     <li>
       <a class="group up"
-        tal:attributes="title string:${view/groupInfo/name};
+        tal:attributes="title string:Group: ${view/groupInfo/name};
             href view/groupInfo/relativeURL;"
-        href="#">Group</a></li>
+        href="#">Up</a></li>
     <li>
       <span tal:condition="not:view/nextTopic/topicId"
-        class="next">No earlier topic</span>
+        class="next">Next</span>
       <a href="#" class="next"
         tal:condition="view/nextTopic/topicId" 
         tal:attributes="href view/nextTopic/topicId;
-          title view/nextTopic/subject;">Earlier topic</a></li>
+          title string:Earlier: ${view/nextTopic/subject};">Next</a></li>
   </ul><!--topicNav-->
 </tal:block>
