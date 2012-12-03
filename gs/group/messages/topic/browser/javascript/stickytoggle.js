@@ -15,7 +15,7 @@ var GSStickyTopicToggle = function () {
 
     // Private methods
     var handle_change = function () {
-        stickyToggle.attr('disabled', 'disabled');
+        stickyToggle.button('disable');
         stickyWidget.fadeOut(FADE_SPEED, FADE_METHOD, show_doing);
     };
     
@@ -56,12 +56,12 @@ var GSStickyTopicToggle = function () {
             .fadeOut(FADE_SPEED, FADE_METHOD, complete);
     };
     var complete = function () {
-        stickyToggle.removeAttr('disabled');
+        stickyToggle.button("enable");
         stickyWidget.fadeIn(FADE_SPEED, FADE_METHOD);
     }
     var set_checkbox = function (responseText, textStatus, request) {
         stickyToggle.attr('checked', responseText == '1' )
-            .removeAttr('disabled');
+            .button("enable");
     };
     
     return {

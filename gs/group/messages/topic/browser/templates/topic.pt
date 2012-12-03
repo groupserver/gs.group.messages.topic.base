@@ -77,6 +77,9 @@
         jQuery('#gs-group-messages-topic-navlinks .up').button(up);
         jQuery('#gs-group-messages-topic-navlinks a.next').button(next);
         
+        var sticky = {icons: {primary: "ui-icon-pin-s"}, text: true};
+        jQuery('#gs-group-messages-topic-admin-stickytoggle-widget-checkbox')
+          .button(sticky);
       </script>
     </tal:block>
   </body>
