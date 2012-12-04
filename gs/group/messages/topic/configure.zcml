@@ -184,13 +184,6 @@
     permission="zope2.View"
     weight="20"
     title="Show and Hide Buttons" />
-  <browser:viewlet name="gs-group-messages-topic-javascript-help"
-    manager=".interfaces.ITopicJavaScript"
-    template="browser/templates/popuphelp.pt"
-    class="gs.group.base.viewlet.GroupViewlet"
-    permission="zope2.View"
-    weight="30"
-    title="Popup Help" />
 
   <!--The Sticky Topic Tooggle-->
   <browser:viewlet name="gs-group-messages-topic-javascript-stickytoggle"
