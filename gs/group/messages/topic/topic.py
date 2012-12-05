@@ -51,7 +51,7 @@ class GSTopicView(GroupForm):
             ignore_request=ignore_request)
         assert self.widgets
 
-    @form.action(label=u'Add', failure='handle_action_failure')
+    @form.action(label=u'Post', failure='handle_action_failure')
     def handle_add(self, action, data):
         if self.__inReplyTo != data['inReplyTo']:
             # --=mpj17=-- Formlib sometimes submits twice submits twice
