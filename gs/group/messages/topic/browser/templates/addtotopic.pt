@@ -1,9 +1,21 @@
 <form enctype="multipart/form-data"  method="post" action="."
-  id="add-to-topic" tal:attributes="action request/URL">
-  <h2>Add to the topic
-    <cite class="topic" 
-      tal:content="view/topicName">topicName</cite></h2>
-  <tal:block define="widgets view/visibleWidgets">
+  id="add-to-topic" tal:attributes="action request/URL"
+  tal:define="allWidgets view/visibleWidgets">
+  <h2>Post a reply</h2>
+  <div id="gs-group-messages-topic-add-from" 
+       tal:define="widget python:allWidgets[0]">
+    <p class="minor">
+      Post as
+      <strong tal:content="view/loggedInUser/name" class="fn">you</strong>
+    </p>
+    <span tal:condition="python:hasattr(widget, 'tag')"
+          tal:replace="structure widget">Widget</span>
+    <span class="readonlyWidget"
+          tal:condition="python:not(hasattr(widget, 'tag'))"
+          tal:content="structure widget"/>
+  </div><!--gs-group-messages-topic-add-from-->
+
+  <tal:block define="widgets python:allWidgets[1:]">
     <tal:block replace="structure provider:groupserver.FormWidgets"/>
   </tal:block>
   <div class="form-widget" id="widget-file-upload" 
@@ -26,9 +38,10 @@
     Privacy statement
   </p>
   <div class="buttons" tal:condition="view/availableActions">
-    <div class="formelementbutton">
+    <div class="formelementbutton"
+         tal:define="actions view/availableActions">
       <span 
-        tal:replace="structure python:view.availableActions()[0].render()">Button</span>
+        tal:replace="structure python:actions[0].render()">Button</span>
     </div>
   </div>
 </form>
