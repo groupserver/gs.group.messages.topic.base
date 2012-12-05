@@ -1,15 +1,9 @@
 <!--gs-group-messages-topic-javascript-multifile-->
 <tal:block>
   <script type="text/javascript"
-    src="/++resource++multiple_file_upload/jquery.form.js">&#160;</script>
+    src="/++resource++multiple_file_upload-1.48/jquery.MultiFile.js">&#160;</script>
   <script type="text/javascript"
-    src="/++resource++multiple_file_upload/jquery.MetaData.js">&#160;</script>
-  <script type="text/javascript"
-    src="/++resource++multiple_file_upload/jquery.MultiFile.js">&#160;</script>
-  <script type="text/javascript"
-    src="/++resource++multiple_file_upload/jquery.blockUI.js">&#160;</script>
-  <script type="text/javascript"
-    src="/++resource++gsfileupload-20090622.js">&#160;</script>
+    src="/++resource++gsfileupload-20121206.js">&#160;</script>
   <script type="text/javascript">
     jQuery.noConflict();
     jQuery(document).ready( function () {
