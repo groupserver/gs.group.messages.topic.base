@@ -5,6 +5,10 @@
   <div id="gs-group-messages-topic-add-from" 
        tal:define="widget python:allWidgets[0]">
     <p class="minor">
+      <span tal:define="width string:18; height string:24;"
+            tal:replace="structure provider:groupserver.UserImage">
+        &#9786;
+      </span>
       Post as
       <strong tal:content="view/loggedInUser/name" class="fn">you</strong>
     </p>
@@ -34,10 +38,10 @@
   <tal:block repeat="widget view/hiddenWidgets">
     <span tal:replace="structure widget/hidden"/>
   </tal:block>
-  <p tal:replace="structure provider:groupserver.PostPrivacy">
-    Privacy statement
-  </p>
   <div class="buttons" tal:condition="view/availableActions">
+    <p tal:replace="structure provider:groupserver.PostPrivacy">
+      Privacy statement
+    </p>
     <div class="formelementbutton"
          tal:define="actions view/availableActions">
       <span 
