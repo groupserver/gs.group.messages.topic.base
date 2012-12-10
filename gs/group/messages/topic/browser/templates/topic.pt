@@ -1,4 +1,7 @@
-<html metal:use-macro="context/@@groupserver_site_home_layout/page">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="context/@@groupserver_site_home_layout/page">
   <head>
     <title metal:fill-slot="title">
       <span tal:define="retval view/update;"
@@ -81,8 +84,9 @@
         var sticky = {icons: {primary: "ui-icon-pin-s"}, text: true};
         jQuery('#gs-group-messages-topic-admin-stickytoggle-widget-checkbox')
           .button(sticky);
+
+       jQuery('#form\\.actions\\.post').button();
       </script>
     </tal:block>
   </body>
 </html>
-
