@@ -1,5 +1,5 @@
-<!--gs-group-messages-topic-javascript-multifile-->
 <tal:block>
+  <!--gs-group-messages-topic-javascript-multifile-->
   <script type="text/javascript"
     src="/++resource++multiple_file_upload-1.48/jquery.MultiFile.js">&#160;</script>
   <script type="text/javascript"
@@ -10,5 +10,5 @@
         GSFileUpload.init();
     });
   </script>
+  <!--END gs-group-messages-topic-javascript-multifile-->
 </tal:block>
-<!--END gs-group-messages-topic-javascript-multifile-->
