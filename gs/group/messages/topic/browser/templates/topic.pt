@@ -71,15 +71,15 @@
       <script type="text/javascript">
 
         var prev = {icons: { primary: "ui-icon-carat-1-w" }, text: true,}
-        jQuery('#gs-group-messages-topic-navlinks .prev').button(prev);
-        jQuery('#gs-group-messages-topic-navlinks span.prev').button("disable");
+        jQuery('.gs-group-messages-topic-navlinks .prev').button(prev);
+        jQuery('.gs-group-messages-topic-navlinks span.prev').button("disable");
 
         var up = {icons: { primary: "ui-icon-arrowthick-1-n" }, text: false,};
-        jQuery('#gs-group-messages-topic-navlinks .up').button(up);
+        jQuery('.gs-group-messages-topic-navlinks .up').button(up);
 
         var next = {icons: { secondary: "ui-icon-carat-1-e" }, text: true,}
-        jQuery('#gs-group-messages-topic-navlinks .next').button(next);
-        jQuery('#gs-group-messages-topic-navlinks span.next').button("disable");
+        jQuery('.gs-group-messages-topic-navlinks .next').button(next);
+        jQuery('.gs-group-messages-topic-navlinks span.next').button("disable");
         
         var sticky = {icons: {primary: "ui-icon-pin-s"}, text: true};
         jQuery('#gs-group-messages-topic-admin-stickytoggle-widget-checkbox')
