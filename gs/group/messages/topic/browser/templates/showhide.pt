@@ -3,7 +3,26 @@
   <script type="text/javascript"
     src="/++resource++hide-post-20110415.js">&#160;</script>
   <script type="text/javascript"
-    src="/++resource++sharebox-20100721.js">&#160;</script>
+    src="/++resource++sharebox-20121213.js">&#160;</script>
+  <script type="text/javascript">
+    jQuery.noConflict();
+    jQuery(document).ready(function(){
+      var buttons = null;
+      var i = 0;
+      var button = null;
+      var public = false;
+      var shareWidget = null;
+
+      buttons = jQuery('.gs-content-js-share');
+      for (i=0;i<buttons.length;i++) {
+        button = buttons[i];
+        // TODO: make public not sux
+        public = Boolean(Number(jQuery(button).attr('public')));
+        shareWidget = GSShareBox(button, public);
+        shareWidget.init();
+      }
+    });
+  </script>
 </tal:block>
 <!--END gs-group-messages-topic-javascript-showhide-->
 

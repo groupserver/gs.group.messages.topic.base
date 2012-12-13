@@ -1,7 +1,5 @@
-<div class="share-bar" 
-  tal:attributes="title view/topicName;
-   public python:view.isPublic and 1 or 0;
-   href view/url">
-   &#160;
- </div>
-
+<a class="gs-content-js-share"
+   tal:attributes="title view/topicName;
+                   public python:view.isPublic and 1 or 0;
+                   href view/url"
+   href="#">Share</a>
