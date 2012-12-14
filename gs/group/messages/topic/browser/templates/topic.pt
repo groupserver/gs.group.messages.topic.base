@@ -45,13 +45,10 @@
     <tal:block content="structure provider:groupserver.FormStatusMessage"
                define="errors view/errors; status view/status; widgets view/widgets"
                metal:fill-slot="messages">&#160;</tal:block>
-    <div class="hfeed" metal:fill-slot="body"
+    <div id="gs-group-messages-topic-body" 
+         metal:fill-slot="body"
          tal:define="topicList view/topic"
          tal:condition="topicList">
-      <tal:block replace="structure provider:groupserver.TopicAdmin">
-        Topic Administration Tasks
-      </tal:block>
-      
       <h1 id="gs-group-messages-topic-title">
         <cite tal:attributes="id view/topicId"
               tal:content="view/topicName">This Topic</cite>
@@ -60,7 +57,8 @@
       <tal:block replace="structure provider:groupserver.TopicPage">
         The bulk of the page
       </tal:block>
-    </div><!--hfeed-->
+    </div><!--gs-group-messages-topic-body-->
+
     <tal:block metal:fill-slot="javascript" >
       <tal:block
         content="structure provider:groupserver.TopicJavaScript">

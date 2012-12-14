@@ -1,4 +1,4 @@
-<div class="postList"
+<div class="postList hfeed"
      tal:define="topicName view/topicName; 
                  isPublic view/isPublic;">
   <tal:block repeat="post view/topic">
