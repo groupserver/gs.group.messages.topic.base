@@ -3,19 +3,26 @@ from zope.interface import Interface
 from zope.viewlet.interfaces import IViewletManager
 from zope.schema import ASCIILine, Bool, Bytes, Choice, Field, Text, TextLine
 
+
 class ITopicPage(IViewletManager):
       '''A viewlet manager for the topic page'''
 
+
 class ITopicSummary(IViewletManager):
       '''A viewlet manager for the topic summary'''
+
+
 class ITopicFreeformSummary(IViewletManager):
       '''A viewlet manager for the topic summary'''
 
-class ITopicAdmin(IViewletManager):
-      '''A viewlet manager for the topic administration function'''
+
+class ITopicTasks(IViewletManager):
+      '''A viewlet manager for the topic tasks function'''
+
 
 class ITopicJavaScript(IViewletManager):
       '''A viewlet manager for the JavaScript on the topic page'''
+
 
 class IGSPostMessage(Interface):
     fromAddress = Choice(title=u'Email From',
@@ -38,4 +45,3 @@ class IGSAddToTopicFields(IGSPostMessage):
     inReplyTo = TextLine(title=u'In Reply To Identifier',
       description=u'The ID of the most recent post to the topic',
       required=True)
-

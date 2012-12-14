@@ -3,18 +3,19 @@ from zope.cachedescriptors.property import Lazy
 from gs.group.privacy.interfaces import IGSGroupVisibility
 from gs.group.base.viewlet import GroupViewlet
 
+
 class ShareBar(GroupViewlet):
     def __init__(self, messages, request, view, manager):
-        GroupViewlet.__init__(self, messages, request, view, manager)
+        super(ShareBar, self).__init__(messages, request, view, manager)
 
     @Lazy
     def topic(self):
-        retval = [post for post in self.view.topic]
+        retval = [post for post in self.view.view.topic]
         return retval
 
     @Lazy
     def topicName(self):
-        retval = self.view.topicName
+        retval = self.view.view.topicName
         return retval
 
     @Lazy

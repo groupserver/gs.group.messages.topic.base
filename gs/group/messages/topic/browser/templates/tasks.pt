@@ -1,0 +1,4 @@
+<div id="gs-group-messages-topic-tasks">
+  <p tal:replace="structure provider:groupserver.TopicTasks">Viewlet Manager</p>
+</div><!--gs-group-messages-topic-tasks-->
+

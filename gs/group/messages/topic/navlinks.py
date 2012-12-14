@@ -5,14 +5,14 @@ from gs.group.base.viewlet import GroupViewlet
 
 class NavLinks(GroupViewlet):
     def __init__(self, group, request, view, manager):
-        GroupViewlet.__init__(self, group, request, view, manager)
+        super(NavLinks, self).__init__(group, request, view, manager)
 
     @Lazy
     def previousTopic(self):
-        retval = self.view.previousTopic
+        retval = self.view.view.previousTopic
         return retval
 
     @Lazy
     def nextTopic(self):
-        retval = self.view.nextTopic
+        retval = self.view.view.nextTopic
         return retval

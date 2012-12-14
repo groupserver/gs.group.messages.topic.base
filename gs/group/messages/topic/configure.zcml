@@ -20,21 +20,6 @@
     class=".topic.GSTopicView"
     permission="zope2.Public" />
 
-  <!-- Topic Admin -->
-  <browser:viewletManager
-    name="groupserver.TopicAdmin"
-    permission="zope2.View"
-    provides=".interfaces.ITopicAdmin"
-    class="gs.viewlet.manager.WeightOrderedViewletManager"
-    template="browser/templates/topicadminmanager.pt"/>
-  <browser:viewlet name="gs-group-messages-topic-admin-stickytoggle"
-    manager=".interfaces.ITopicAdmin"
-    template="browser/templates/stickytoggle.pt"
-    class="gs.group.base.viewlet.GroupViewlet"
-    permission="zope2.ManageProperties"
-    weight="0"
-    title="Sticky Toggle" />
-    
   <!--The bulk of the content of the topic page-->
   <browser:viewletManager
     name="groupserver.TopicPage"
@@ -43,24 +28,62 @@
     class="gs.viewlet.manager.WeightOrderedViewletManager"
     template="browser/templates/topicpagemanager.pt"/>
 
-  <!--Related Links-->
-  <browser:viewlet name="gs-group-messages-topic-navlinks"
+  <!-- Command Buttons -->
+  <browser:viewlet 
+    name="gs-group-messages-topic-tasks"
     manager=".interfaces.ITopicPage"
+    template="browser/templates/tasks.pt"
+    class="gs.group.base.viewlet.GroupViewlet"
+    permission="zope2.ManageProperties"
+    weight="0"
+    title="Topic Tasks" />
+  <browser:viewletManager
+    name="groupserver.TopicTasks"
+    permission="zope2.View"
+    provides=".interfaces.ITopicTasks"
+    class="gs.viewlet.manager.WeightOrderedViewletManager"
+    template="browser/templates/simpleviewletmanager.pt"/>
+
+ <browser:viewlet 
+   name="gs-group-messages-topic-admin-stickytoggle"
+   manager=".interfaces.ITopicTasks"
+   template="browser/templates/stickytoggle.pt"
+   class="gs.group.base.viewlet.GroupViewlet"
+   permission="zope2.ManageProperties"
+   weight="10"
+   title="Sticky Toggle" />
+
+  <!-- Share Bar -->
+  <browser:viewlet 
+    name="gs-group-messages-topic-share"
+    manager=".interfaces.ITopicTasks"
+    template="browser/templates/sharebar.pt"
+    class=".sharebar.ShareBar"
+    permission="zope2.View"
+    weight="20"
+    title="Share bar" />
+    
+  <!--Related Links-->
+  <browser:viewlet 
+    name="gs-group-messages-topic-navlinks"
+    manager=".interfaces.ITopicTasks"
     template="browser/templates/navlinks.pt"
     class=".navlinks.NavLinks"
     permission="zope2.View"
-    weight="0"
+    weight="30"
     title="Navigation Links" />
-  <browser:viewlet name="gs-group-messages-topic-navlinks-bottom"
+  <!--browser:viewlet 
+    name="gs-group-messages-topic-navlinks-bottom"
     manager=".interfaces.ITopicPage"
     template="browser/templates/navlinks.pt"
     class=".navlinks.NavLinks"
     permission="zope2.View"
     weight="40"
-    title="Bottom Navigation Links" />
+    title="Bottom Navigation Links" /-->
 
   <!--The Summary is a viewlet, which contains a viewlet manager -->
-  <browser:viewlet name="gs-group-messages-topic-summary"
+  <browser:viewlet
+    name="gs-group-messages-topic-summary"
     manager=".interfaces.ITopicPage"
     template="browser/templates/topicsummary.pt"
     class=".topicsummaryviewlet.TopicSummary"
@@ -115,17 +138,6 @@
     title="Keywords" 
     permission="zope2.View" />
   
-    
-  <!-- Share Bar -->
-  <!--=mpj17= Should this move out?-->
-  <browser:viewlet name="gs-group-messages-topic-share"
-    manager=".interfaces.ITopicPage"
-    template="browser/templates/sharebar.pt"
-    class=".sharebar.ShareBar"
-    permission="zope2.View"
-    weight="20"
-    title="Share bar" />
-    
   <!--Post List-->
   <browser:viewlet name="gs-group-messages-topic-list"
     manager=".interfaces.ITopicPage"
@@ -186,7 +198,9 @@
     title="Show and Hide Buttons" />
 
   <!--The Sticky Topic Tooggle-->
-  <browser:viewlet name="gs-group-messages-topic-javascript-stickytoggle"
+  <!-- TODO: Move to gs.group.messages.topic.sticky -->
+  <browser:viewlet 
+    name="gs-group-messages-topic-javascript-stickytoggle"
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/stickytogglejs.pt"
     class="gs.group.base.viewlet.GroupViewlet"
