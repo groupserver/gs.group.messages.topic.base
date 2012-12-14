@@ -1,8 +1,7 @@
-<div id="topic-page-content">
+<div id="gs-group-messages-topic-page-content">
   <tal:block repeat="viewlet options/viewlets">
     <tal:block content="structure viewlet/render">
       Some viewlets
     </tal:block>
   </tal:block>
-</div><!--topic-page-content-->
-
+</div><!--gs-group-messages-topic-page-content-->
