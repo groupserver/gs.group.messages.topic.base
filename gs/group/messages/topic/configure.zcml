@@ -33,7 +33,7 @@
     name="gs-group-messages-topic-tasks"
     manager=".interfaces.ITopicPage"
     template="browser/templates/tasks.pt"
-    class="gs.group.base.viewlet.GroupViewlet"
+    class=".tasks.TasksViewlet"
     permission="zope2.ManageProperties"
     weight="0"
     title="Topic Tasks" />
@@ -44,42 +44,40 @@
     class="gs.viewlet.manager.WeightOrderedViewletManager"
     template="browser/templates/simpleviewletmanager.pt"/>
 
- <browser:viewlet 
-   name="gs-group-messages-topic-admin-stickytoggle"
-   manager=".interfaces.ITopicTasks"
-   template="browser/templates/stickytoggle.pt"
-   class="gs.group.base.viewlet.GroupViewlet"
-   permission="zope2.ManageProperties"
-   weight="10"
-   title="Sticky Toggle" />
-
-  <!-- Share Bar -->
-  <browser:viewlet 
-    name="gs-group-messages-topic-share"
-    manager=".interfaces.ITopicTasks"
-    template="browser/templates/sharebar.pt"
-    class=".sharebar.ShareBar"
-    permission="zope2.View"
-    weight="20"
-    title="Share bar" />
-    
-  <!--Related Links-->
   <browser:viewlet 
     name="gs-group-messages-topic-navlinks"
     manager=".interfaces.ITopicTasks"
     template="browser/templates/navlinks.pt"
     class=".navlinks.NavLinks"
     permission="zope2.View"
-    weight="30"
+    weight="10"
     title="Navigation Links" />
-  <!--browser:viewlet 
+ <browser:viewlet 
+   name="gs-group-messages-topic-admin-stickytoggle"
+   manager=".interfaces.ITopicTasks"
+   template="browser/templates/stickytoggle.pt"
+   class="gs.group.base.viewlet.GroupViewlet"
+   permission="zope2.ManageProperties"
+   weight="20"
+   title="Sticky Toggle" />
+  <browser:viewlet 
+    name="gs-group-messages-topic-share"
+    manager=".interfaces.ITopicTasks"
+    template="browser/templates/sharebar.pt"
+    class=".sharebar.ShareBar"
+    permission="zope2.View"
+    weight="30"
+    title="Share bar" />
+
+  <!--The navigation links appear twice, appear twice. -->
+  <browser:viewlet 
     name="gs-group-messages-topic-navlinks-bottom"
     manager=".interfaces.ITopicPage"
     template="browser/templates/navlinks.pt"
     class=".navlinks.NavLinks"
     permission="zope2.View"
     weight="40"
-    title="Bottom Navigation Links" /-->
+    title="Bottom Navigation Links" />
 
   <!--The Summary is a viewlet, which contains a viewlet manager -->
   <browser:viewlet
