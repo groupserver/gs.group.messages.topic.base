@@ -36,7 +36,7 @@ var GSStickyTopicToggle = function () {
         
         data = {
             'topicId':    topicId,
-            'sticky':     sticky,
+            'sticky':     sticky
         };
         jQuery.post(AJAX_PAGE, data, load_complete);
     };
@@ -78,6 +78,6 @@ var GSStickyTopicToggle = function () {
             
             topicId = topicTitle.attr('id');
             jQuery.post(GET_PAGE, {'topicId': topicId}, set_checkbox);
-        },
+        }//init
     };
 }();
