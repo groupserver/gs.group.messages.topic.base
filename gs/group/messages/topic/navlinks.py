@@ -9,10 +9,10 @@ class NavLinks(GroupViewlet):
 
     @Lazy
     def previousTopic(self):
-        retval = self.view.view.previousTopic
+        retval = self.view.previousTopic
         return retval
 
     @Lazy
     def nextTopic(self):
-        retval = self.view.view.nextTopic
+        retval = self.view.nextTopic
         return retval
