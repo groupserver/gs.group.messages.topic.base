@@ -1,9 +1,12 @@
 <!--gs-group-messages-topic-javascript-stickytoggle-->
 <tal:block>
-  <script type="text/javascript"
-    src="/++resource++stickytoggle-20121129.js">&#160;</script>
+  <script 
+    type="text/javascript"
+    src="/++resource++stickytoggle-20121219.js">&#160;</script>
   <script type="text/javascript">
-    GSStickyTopicToggle.init();
+    jQuery(window).load(function () {
+        GSStickyTopicToggle.init();
+    });
   </script>
 </tal:block>
 <!--END gs-group-messages-topic-javascript-stickytoggle-->
