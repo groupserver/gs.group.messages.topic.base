@@ -77,7 +77,8 @@
           var d = {autoOpen: false, closeOnEscape: true, modal: false,
                            resizable: true};
           jQuery('.gs-group-messages-privacy').dialog(d);
-          jQuery('#gs-group-messages-topic-privacy-summary').click(dialogOpen);
+          jQuery('#gs-group-messages-topic-add-privacy-summary')
+              .click(dialogOpen);
         });
       </script>
     </tal:block>
