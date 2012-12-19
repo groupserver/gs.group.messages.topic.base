@@ -38,10 +38,15 @@
   <tal:block repeat="widget view/hiddenWidgets">
     <span tal:replace="structure widget/hidden"/>
   </tal:block>
+  <p id="gs-group-messages-topic-privacy-summary">
+    <span class="minor">The post will be
+    <span class="vis">lurid</span></span>
+    (?)
+  </p>
+  <p tal:replace="structure provider:groupserver.PostPrivacy">
+    Privacy statement
+  </p>
   <div class="buttons" tal:condition="view/availableActions">
-    <p tal:replace="structure provider:groupserver.PostPrivacy">
-      Privacy statement
-    </p>
     <div class="formelementbutton"
          tal:define="actions view/availableActions">
       <span 
@@ -49,4 +54,3 @@
     </div>
   </div>
 </form>
-

@@ -60,30 +60,25 @@
     </div><!--gs-group-messages-topic-body-->
 
     <tal:block metal:fill-slot="javascript" >
+      <script src="/++resource++jquery-ui-1.8.9.custom.min.js" 
+              type="text/javascript">&#160;</script>
       <tal:block
         content="structure provider:groupserver.TopicJavaScript">
         The JavaScript that is specific to the Topic page.
       </tal:block>
-      <script src="/++resource++jquery-ui-1.8.9.custom.min.js" 
-              type="text/javascript">&#160;</script>
       <script type="text/javascript">
-
-        var prev = {icons: { primary: "ui-icon-carat-1-w" }, text: true,}
-        jQuery('.gs-group-messages-topic-navlinks .prev').button(prev);
-        jQuery('.gs-group-messages-topic-navlinks span.prev').button("disable");
-
-        var up = {icons: { primary: "ui-icon-arrowthick-1-n" }, text: false,};
-        jQuery('.gs-group-messages-topic-navlinks .up').button(up);
-
-        var next = {icons: { secondary: "ui-icon-carat-1-e" }, text: true,}
-        jQuery('.gs-group-messages-topic-navlinks .next').button(next);
-        jQuery('.gs-group-messages-topic-navlinks span.next').button("disable");
-        
-        var sticky = {icons: {primary: "ui-icon-pin-s"}, text: true};
-        jQuery('#gs-group-messages-topic-admin-stickytoggle-widget-checkbox')
-          .button(sticky);
-
-       jQuery('#form\\.actions\\.post').button();
+        var dialogOpen = function (event) {
+            var foo = null;
+            foo = jQuery('.gs-group-messages-privacy');
+            foo.dialog("open");
+            console.info('wibble');
+        }; 
+        jQuery(window).load(function () {
+          var d = {autoOpen: false, closeOnEscape: true, modal: false,
+                           resizable: true};
+          jQuery('.gs-group-messages-privacy').dialog(d);
+          jQuery('#gs-group-messages-topic-privacy-summary').click(dialogOpen);
+        });
       </script>
     </tal:block>
   </body>

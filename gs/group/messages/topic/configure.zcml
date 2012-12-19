@@ -223,6 +223,20 @@
     class=".stickytopic.StickySetter" 
     permission="zope2.ManageProperties" />
 
+  <!-- The JavaScript for the buttons -->
+  <browser:resource 
+    name="gs-group-messages-topic-buttons-20121219.js"
+    file="browser/javascript/buttons.js"
+    permission="zope2.Public" />
+  <browser:viewlet 
+    name="gs-group-messages-topic-javascript-buttons"
+    manager=".interfaces.ITopicJavaScript"
+    template="browser/templates/buttons-js.pt"
+    class="gs.group.base.viewlet.GroupViewlet"
+    permission="zope2.ManageProperties"
+    weight="40"
+    title="Buttons JS" />
+
   <!--The error pages-->
   <!-- The Gone (410) page -->
   <browser:page 
