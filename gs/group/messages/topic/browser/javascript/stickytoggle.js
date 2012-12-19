@@ -46,9 +46,9 @@ var GSStickyTopicToggle = function () {
     var show_done = function() {
         var m = null;
         if (stickyToggle.attr('checked')) {
-            m = '<cite>'+topicTitle.text()+'</cite> is now sticky.';
+            m = 'Now sticky.';
         } else {
-            m = '<cite>'+topicTitle.text()+'</cite> is now a normal topic.';    
+            m = 'Now normal.';    
         }
         done.html(m)
             .fadeIn(FADE_SPEED, FADE_METHOD)
@@ -67,10 +67,14 @@ var GSStickyTopicToggle = function () {
     return {
         init: function () {
             var topicId = null;
+            var stickyButtonConfig = {icons: {primary: "ui-icon-pin-s"}, 
+                                      text: true};
+
             stickyWidget = jQuery('#gs-group-messages-topic-admin-stickytoggle-widget');
             stickyToggle = jQuery('#gs-group-messages-topic-admin-stickytoggle-widget-checkbox');
             stickyToggle.change(handle_change)
-                .attr('disabled', 'disabled');
+                .attr('disabled', 'disabled')
+                .button(stickyButtonConfig);
                 
             loading = jQuery('#gs-group-messages-topic-admin-stickytoggle-loading');
             done = jQuery('#gs-group-messages-topic-admin-stickytoggle-done');
