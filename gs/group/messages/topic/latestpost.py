@@ -10,8 +10,7 @@ class LatestPost(GroupViewlet):
 
     @Lazy
     def topic(self):
-        retval = [post for post in self.view.topic
-                  if not(post['hidden'])]
+        retval = [post for post in self.view.topic if not(post['hidden'])]
         return retval
 
     @Lazy
@@ -40,4 +39,9 @@ class LatestPost(GroupViewlet):
         retval = None
         if self.topic:
             retval = self.topic[-1]['date']
+        return retval
+
+    @Lazy
+    def show(self):
+        retval = len(self.topic) > 1
         return retval

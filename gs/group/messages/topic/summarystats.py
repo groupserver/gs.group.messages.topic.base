@@ -1,8 +1,7 @@
 # coding=utf-8
-from zope.contentprovider.interfaces import UpdateNotCalled
-from zope.app.pagetemplate import ViewPageTemplateFile
 from zope.cachedescriptors.property import Lazy
 from gs.group.base.viewlet import GroupViewlet
+
 
 class SummaryStats(GroupViewlet):
     def __init__(self, messages, request, view, manager):
@@ -10,8 +9,7 @@ class SummaryStats(GroupViewlet):
 
     @Lazy
     def topic(self):
-        retval = [post for post in self.view.topic 
-                  if not(post['hidden'])]
+        retval = [post for post in self.view.topic if not(post['hidden'])]
         return retval
 
     @Lazy
@@ -25,3 +23,7 @@ class SummaryStats(GroupViewlet):
         retval = len(aIds)
         return retval
 
+    @Lazy
+    def show(self):
+        retval = self.length > 1
+        return retval

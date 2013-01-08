@@ -63,4 +63,3 @@ setup(name='gs.group.messages.topic',
     entry_points="""
     # -*- Entry points: -*-
     """,)
-
