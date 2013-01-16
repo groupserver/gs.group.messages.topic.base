@@ -30,4 +30,3 @@ class ShareBar(GroupViewlet):
         vis = IGSGroupVisibility(self.groupInfo)
         retval = vis.isPublic
         return retval
-
