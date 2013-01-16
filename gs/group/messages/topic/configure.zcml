@@ -23,10 +23,10 @@
   <!--The bulk of the content of the topic page-->
   <browser:viewletManager
     name="groupserver.TopicPage"
-    permission="zope2.View"
     provides=".interfaces.ITopicPage"
     class="gs.viewlet.manager.WeightOrderedViewletManager"
-    template="browser/templates/topicpagemanager.pt"/>
+    template="browser/templates/topicpagemanager.pt"
+    permission="zope2.View"/>
 
   <!-- Command Buttons -->
   <browser:viewlet 
@@ -34,7 +34,7 @@
     manager=".interfaces.ITopicPage"
     template="browser/templates/tasks.pt"
     class=".tasks.TasksViewlet"
-    permission="zope2.ManageProperties"
+    permission="zope2.View"
     weight="0"
     title="Topic Tasks" />
   <browser:viewletManager
@@ -233,7 +233,7 @@
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/buttons-js.pt"
     class="gs.group.base.viewlet.GroupViewlet"
-    permission="zope2.ManageProperties"
+    permission="zope2.View"
     weight="40"
     title="Buttons JS" />
 
