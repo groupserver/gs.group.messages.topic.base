@@ -60,8 +60,6 @@
     </div><!--gs-group-messages-topic-body-->
 
     <tal:block metal:fill-slot="javascript" >
-      <script src="/++resource++jquery-ui-1.8.9.custom.min.js" 
-              type="text/javascript">&#160;</script>
       <tal:block
         content="structure provider:groupserver.TopicJavaScript">
         The JavaScript that is specific to the Topic page.
