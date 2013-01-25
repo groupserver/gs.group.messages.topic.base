@@ -1,23 +1,17 @@
-<div id="gs-group-messages-topic-admin-stickytoggle">
-  <div id="gs-group-messages-topic-admin-stickytoggle-widget" 
-    class="form-widget not-required">
+<tal:block>
+  <div id="gs-group-messages-topic-admin-stickytoggle" class="btn-group">
+    <button type="button" class="btn" data-toggle="button"
+            data-loading-text="Changing&#8230;"
+            data-sticky-text="Now sticky"
+            data-normal-text="Now normal">Sticky</button>
+  </div><!--gs-group-messages-topic-admin-stickytoggle-->
+  <div id="gs-group-messages-topic-admin-stickytoggle-fuck-you-bootstrap" 
+       class="btn-group"  style="display:none;"> 
     <input type="checkbox" value="on" name="form.sticky" 
       id="gs-group-messages-topic-admin-stickytoggle-widget-checkbox"
-      class="checkboxType">
-    <label 
+      class="checkboxType" />
+    <label for="gs-group-messages-topic-admin-stickytoggle-widget-checkbox"
       title="Display this topic before all other topics in the Topics tab." 
-      for="gs-group-messages-topic-admin-stickytoggle-widget-checkbox"
       class="checkboxLabel">Sticky</label>
   </div>
-  <p id="gs-group-messages-topic-admin-stickytoggle-loading"
-    style="display:none;">
-    <img style="margin:0px 0.69em 0px 0px;padding:0px;"
-      src="/++resource++anim/wait.gif"/> 
-    Changing&#8230;
-  </p><!--gs-group-messages-topic-admin-stickytoggle-loading-->
-  <p id="gs-group-messages-topic-admin-stickytoggle-done"
-    style="display:none;">
-    This is now a sticky topic.
-  </p><!--gs-group-messages-topic-admin-stickytoggle-done-->
-</div><!--gs-group-messages-topic-admin-stickytoggle-->
-
+</tal:block>

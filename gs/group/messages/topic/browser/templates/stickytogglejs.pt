@@ -5,6 +5,9 @@
     src="/++resource++stickytoggle-20121219.js">&#160;</script>
   <script type="text/javascript">
     jQuery(window).load(function () {
+        var button = null;
+        button = jQuery('#gs-group-messages-topic-admin-stickytoggle-widget-checkbox');
+        button.button();
         GSStickyTopicToggle.init();
     });
   </script>
