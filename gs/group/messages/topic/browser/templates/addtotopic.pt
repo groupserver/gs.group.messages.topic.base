@@ -4,7 +4,7 @@
   <h2>Post a reply</h2>
   <div id="gs-group-messages-topic-add-from" 
        tal:define="widget python:allWidgets[0]">
-    <p class="minor">
+    <p class="muted">
       <span tal:define="width string:18; height string:24;"
             tal:replace="structure provider:groupserver.UserImage">
         &#9786;
@@ -39,8 +39,10 @@
     <span tal:replace="structure widget/hidden"/>
   </tal:block>
   <div class="buttons" tal:condition="view/availableActions">
-    <span id="gs-group-messages-topic-add-privacy-summary">
-      <span class="minor">Post will be
+    <span id="gs-group-messages-topic-add-privacy-summary"
+          title="Privacy"
+          tal:attributes="title string:Privacy: ${view/privacy/visibility};">
+      <span class="muted">Post will be
       <span class="vis"
             tal:content="view/privacy/visibility">lurid</span></span>
       (?)
@@ -51,7 +53,8 @@
         tal:replace="structure python:actions[0].render()">Button</span>
     </div>
   </div><!--buttons-->
-  <p tal:replace="structure provider:groupserver.PostPrivacy">
+  <div id="gs-group-messages-topic-add-privacy" style="display:none;"
+       tal:content="structure provider:groupserver.PostPrivacy">
     Privacy statement
-  </p>
+  </div><!--gs-group-messages-topic-add-privacy-->
 </form><!--add-to-topic-->
