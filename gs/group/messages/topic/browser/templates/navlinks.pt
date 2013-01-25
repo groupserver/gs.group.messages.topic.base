@@ -1,24 +1,18 @@
-<ul class="navlinks inline-list gs-group-messages-topic-navlinks">
-  <li>
-    <span tal:condition="not:view/previousTopic/topicId"
-          class="prev">Prev</span>
-    <a href="#" class="prev"
-       tal:condition="view/previousTopic/topicId"
-       tal:attributes="href view/previousTopic/topicId;
-                       title string:Later: ${view/previousTopic/subject};">Prev</a>
-  </li>
-  <li>
-    <a class="group up"
-       tal:attributes="title string:Group: ${view/groupInfo/name};
-                       href view/groupInfo/relativeURL;"
-       href="#">Up</a>
-  </li>
-  <li>
-    <span tal:condition="not:view/nextTopic/topicId"
-          class="next">Next</span>
-    <a href="#" class="next"
-       tal:condition="view/nextTopic/topicId" 
-       tal:attributes="href view/nextTopic/topicId;
-                       title string:Earlier: ${view/nextTopic/subject};">Next</a>
-  </li>
-</ul><!--gs-group-messages-topic-navlinks-->
+<div class="gs-group-messages-topic-navlinks btn-group">
+  <span tal:condition="not:view/previousTopic/topicId"
+        class="prev btn disabled">Prev</span>
+  <a href="#" class="prev btn"
+     tal:condition="view/previousTopic/topicId"
+     tal:attributes="href view/previousTopic/topicId;
+                     title string:Later: ${view/previousTopic/subject};">Prev</a>
+  <a class="group up btn"
+     tal:attributes="title string:Group: ${view/groupInfo/name};
+                     href string:${view/groupInfo/relativeURL}/;"
+     href="#">Up</a>
+  <span tal:condition="not:view/nextTopic/topicId"
+        class="next btn disabled">Next</span>
+  <a href="#" class="next btn"
+     tal:condition="view/nextTopic/topicId" 
+     tal:attributes="href view/nextTopic/topicId;
+                     title string:Earlier: ${view/nextTopic/subject};">Next</a>
+</div><!--gs-group-messages-topic-navlinks-->
