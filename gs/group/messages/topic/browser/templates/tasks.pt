@@ -1,4 +1,4 @@
-<div id="gs-group-messages-topic-tasks">
+<div id="gs-group-messages-topic-tasks" class="btn-toolbar">
   <p tal:replace="structure provider:groupserver.TopicTasks">Viewlet Manager</p>
 </div><!--gs-group-messages-topic-tasks-->
 
