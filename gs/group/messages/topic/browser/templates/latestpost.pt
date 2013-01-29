@@ -1,5 +1,5 @@
 <li tal:define="munge_date python:modules['Products.XWFCore.XWFUtils'].munge_date"
-    id="gs-group-messages-topic-summary-lastpost" class="minor">
+    id="gs-group-messages-topic-summary-lastpost" class="muted">
   <a title="View the latest post" 
      id="gs-group-messages-topic-summary-lastpost-link"
      tal:attributes="href view/relativeUrl"

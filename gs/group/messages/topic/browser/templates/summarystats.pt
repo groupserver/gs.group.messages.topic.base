@@ -1,4 +1,4 @@
-<li id="gs-group-messages-topic-summary-stats" class="minor">
+<li id="gs-group-messages-topic-summary-stats" class="muted">
   <span id="gs-group-messages-topic-summary-stats-nposts">
     <span class="val" tal:content="view/length">some</span> 
     posts
