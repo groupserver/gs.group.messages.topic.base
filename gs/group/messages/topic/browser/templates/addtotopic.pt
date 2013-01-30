@@ -22,19 +22,26 @@
   <tal:block define="widgets python:allWidgets[1:]">
     <tal:block replace="structure provider:groupserver.FormWidgets"/>
   </tal:block>
-  <div class="form-widget" id="widget-file-upload" 
+  <div class="form-widget gs-group-messages-topic-add-file" 
     tal:define="widget python:view.widgets['uploadedFile'];"
     tal:attributes="id string:widget-${widget/name};">
-    <label for="abc123" title="The hint for the widget"
+    <label id="gs-group-messages-topic-add-file-label"
+      for="abc123" title="The hint for the widget"
       tal:attributes="for widget/name; title widget/hint"
       tal:content="widget/label">
       A label
     </label>
-    <div id="fileList"><span style="display:none;">&#160;</span></div>
-    <span
-      tal:condition="python:hasattr(widget, 'tag')"
-      tal:replace="structure widget">Widget</span>
-  </div>
+    <div id="gs-group-messages-topic-add-file-files">
+      <div id="fileList" class="gs-group-messages-topic-add-file-files-list">
+        <span style="display:none;">&#160;</span>
+      </div><!--gs-group-messages-topic-add-file-files-list-->
+      <div class="gs-group-messages-topic-add-file-files-widget"
+           tal:condition="python:hasattr(widget, 'tag')"
+           tal:content="structure widget">
+        Widget
+      </div><!--gs-group-messages-topic-add-file-files-widget-->
+    </div><!--gs-group-messages-topic-add-file-files-->
+  </div><!--gs-group-messages-topic-add-file-->
   <tal:block repeat="widget view/hiddenWidgets">
     <span tal:replace="structure widget/hidden"/>
   </tal:block>
