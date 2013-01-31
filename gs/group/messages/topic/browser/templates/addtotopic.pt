@@ -32,7 +32,7 @@
       A label
     </label>
     <div id="gs-group-messages-topic-add-file-files">
-      <div id="fileList" class="gs-group-messages-topic-add-file-files-list">
+      <div id="gs-group-messages-topic-add-file-files-list">
         <span style="display:none;">&#160;</span>
       </div><!--gs-group-messages-topic-add-file-files-list-->
       <div class="gs-group-messages-topic-add-file-files-widget"

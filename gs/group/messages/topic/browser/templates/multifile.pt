@@ -7,7 +7,9 @@
   <script type="text/javascript">
     jQuery.noConflict();
     jQuery(document).ready( function () {
-        GSFileUpload.init();
+        var uploader = GSFileUpload('#add-to-topic', '#form\\.uploadedFile',
+                            '#gs-group-messages-topic-add-file-files-list');
+        uploader.init();
     });
   </script>
   <!--END gs-group-messages-topic-javascript-multifile-->
