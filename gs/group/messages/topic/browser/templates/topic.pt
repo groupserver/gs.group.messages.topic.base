@@ -59,20 +59,9 @@
       </tal:block>
     </div><!--gs-group-messages-topic-body-->
 
-    <tal:block metal:fill-slot="javascript" >
-      <tal:block
-        content="structure provider:groupserver.TopicJavaScript">
-        The JavaScript that is specific to the Topic page.
-      </tal:block>
-      <script type="text/javascript">
-        jQuery(window).load(function () {
-          var h = null;
-          h = jQuery('#gs-group-messages-topic-add-privacy').html();
-          var d = {animation: true, html: true, placement: 'top', 
-                   trigger: 'click', content: h};
-          jQuery('#gs-group-messages-topic-add-privacy-summary').popover(d);
-        });
-      </script>
+    <tal:block metal:fill-slot="javascript" 
+               content="structure provider:groupserver.TopicJavaScript">
+      The JavaScript that is specific to the Topic page.
     </tal:block>
   </body>
 </html>
