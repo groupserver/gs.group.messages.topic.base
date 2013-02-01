@@ -1,5 +1,5 @@
 jQuery.noConflict();
-jQuery(document).ready(function(){
+jQuery(window).load(function(){
     var h = null;
     var d = null;
     h = jQuery('#gs-group-messages-topic-add-privacy').html();

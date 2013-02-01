@@ -34,7 +34,7 @@ GSFileUpload = function (formId, widgetId, listId) {
     };
 }; // GSFileUpload
 
-jQuery(document).ready( function () {
+jQuery(window).load( function () {
     var uploader = GSFileUpload('#add-to-topic', '#form\\.uploadedFile',
                                 '#gs-group-messages-topic-add-file-files-list');
     uploader.init();

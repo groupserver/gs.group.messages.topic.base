@@ -1,5 +1,5 @@
 jQuery.noConflict();
-jQuery(document).ready(function(){
+jQuery(window).load(function(){
     var buttons = null;
     var i = 0;
     var button = null;
