@@ -1,16 +1,4 @@
-<!--gs-group-messages-topic-javascript-stickytoggle-->
-<tal:block>
-  <script 
-    type="text/javascript"
-    src="/++resource++stickytoggle-20121219.js">&#160;</script>
-  <script type="text/javascript">
-    jQuery(window).load(function () {
-        var button = null;
-        button = jQuery('#gs-group-messages-topic-admin-stickytoggle-widget-checkbox');
-        button.button();
-        GSStickyTopicToggle.init();
-    });
-  </script>
-</tal:block>
-<!--END gs-group-messages-topic-javascript-stickytoggle-->
-
+<script id="gs-group-messages-topic-javascript-stickytoggle"
+        async="true"
+        type="text/javascript"
+        src="/++resource++stickytoggle-20121219.js">&#160;</script>

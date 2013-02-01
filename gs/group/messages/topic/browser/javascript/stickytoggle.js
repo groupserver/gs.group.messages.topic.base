@@ -85,3 +85,7 @@ var GSStickyTopicToggle = function () {
         }//init
     };
 }();
+
+jQuery(window).load(function () {
+    GSStickyTopicToggle.init();
+});
