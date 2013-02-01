@@ -12,9 +12,9 @@ var GSStickyTopicToggle = function (getBase, topicId, stickyToggle) {
 
         stickyToggle.button('loading');
         if (stickyToggle.hasClass('active')) {
-            sticky = '1';
-        } else {
             sticky = '0';
+        } else {
+            sticky = '1';
         }
         
         data = {

@@ -46,7 +46,8 @@ class StickySetter(StickyPage):
                             'inline; filename="%s"' % filename)
     
     def __call__(self):
-        sticky = self.request.get('sticky', None) == '1'
+        s = self.request.get('sticky', None)
+        sticky = s == '1'
         self.topicQuery.set_sticky(self.topicId, sticky)
         return u'-1'.encode('UTF-8')
 
