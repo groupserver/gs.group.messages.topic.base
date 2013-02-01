@@ -180,6 +180,7 @@
     provides=".interfaces.ITopicJavaScript"
     class="gs.viewlet.manager.WeightOrderedViewletManager"
     template="browser/templates/javascriptmanager.pt"/>
+
   <browser:viewlet name="gs-group-messages-topic-javascript-multifile"
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/multifile.pt"
@@ -187,6 +188,12 @@
     permission="zope2.View"
     weight="10"
     title="Multifile Extension" />
+  <browser:resource
+    name="gs-group-messages-topic-multifile-20130201.js"
+    file="browser/javascript/fileupload.js"
+    permission="zope2.Public" />
+  <!--The getter for the toggle-->
+
   <browser:viewlet name="gs-group-messages-topic-javascript-showhide"
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/showhide.pt"

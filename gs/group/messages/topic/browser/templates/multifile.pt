@@ -1,16 +1,10 @@
 <tal:block>
   <!--gs-group-messages-topic-javascript-multifile-->
   <script type="text/javascript"
-    src="/++resource++multiple_file_upload-1.48/jquery.MultiFile.js">&#160;</script>
+          src="/++resource++multiple_file_upload-1.48/jquery.MultiFile.js"
+          defer="true">&#160;</script>
   <script type="text/javascript"
-    src="/++resource++gsfileupload-20121206.js">&#160;</script>
-  <script type="text/javascript">
-    jQuery.noConflict();
-    jQuery(document).ready( function () {
-        var uploader = GSFileUpload('#add-to-topic', '#form\\.uploadedFile',
-                            '#gs-group-messages-topic-add-file-files-list');
-        uploader.init();
-    });
-  </script>
+          src="/++resource++gs-group-messages-topic-multifile-20130201.js"
+          defer="true">&#160;</script>
   <!--END gs-group-messages-topic-javascript-multifile-->
 </tal:block>
