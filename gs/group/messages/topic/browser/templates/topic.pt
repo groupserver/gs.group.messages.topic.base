@@ -23,7 +23,7 @@
         title string:Earlier topic: ${view/nextTopic/subject};" />
       <link rel="up" title="All topics" href="#"
         tal:attributes="title view/groupInfo/name;
-            href view/groupInfo/relativeURL"/>
+            href string:${view/groupInfo/relativeURL}/"/>
       <meta name="description"
             tal:attributes="content python:view.topic[0]['summary']" />
     </tal:block>
