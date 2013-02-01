@@ -149,11 +149,18 @@
   <browser:viewlet name="gs-group-messages-topic-hide-a-post"
     manager=".interfaces.ITopicPage"
     template="browser/templates/hide.pt"
-    class="gs.group.base.viewlet.GroupViewlet"
+    class="gs.group.member.base.viewlet.MemberViewlet"
     permission="zope2.View"
     weight="35"
-    show="True"
     title="Hide a Post" />
+  <browser:viewlet 
+    name="gs-group-messages-topic-hide-js"
+    manager=".interfaces.ITopicJavaScript"
+    template="browser/templates/hidejs.pt"
+    class="gs.group.member.base.viewlet.MemberViewlet"
+    permission="zope2.View"
+    weight="35"
+    title="Show and Hide Buttons" />
     
   <!--Add to Topic-->
   <browser:viewlet name="gs-group-messages-topic-add-to-topic"
@@ -181,10 +188,11 @@
     class="gs.viewlet.manager.WeightOrderedViewletManager"
     template="browser/templates/javascriptmanager.pt"/>
 
-  <browser:viewlet name="gs-group-messages-topic-javascript-multifile"
+  <browser:viewlet 
+    name="gs-group-messages-topic-javascript-multifile"
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/multifile.pt"
-    class="gs.group.base.viewlet.GroupViewlet"
+    class="gs.group.member.base.viewlet.MemberViewlet"
     permission="zope2.View"
     weight="10"
     title="Multifile Extension" />
@@ -194,13 +202,19 @@
     permission="zope2.Public" />
   <!--The getter for the toggle-->
 
-  <browser:viewlet name="gs-group-messages-topic-javascript-showhide"
+  <browser:viewlet 
+    name="gs-group-messages-topic-share-js"
     manager=".interfaces.ITopicJavaScript"
-    template="browser/templates/showhide.pt"
+    template="browser/templates/sharejs.pt"
     class="gs.group.base.viewlet.GroupViewlet"
     permission="zope2.View"
     weight="20"
-    title="Show and Hide Buttons" />
+    title="Share Buttons" />
+
+  <browser:resource
+    name="gs-group-messages-topic-share-20120201.js"
+    file="browser/javascript/share.js"
+    permission="zope2.Public" />
 
   <!--The Sticky Topic Tooggle-->
   <!-- TODO: Move to gs.group.messages.topic.sticky -->
