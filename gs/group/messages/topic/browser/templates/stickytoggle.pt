@@ -1,17 +1,7 @@
-<tal:block>
-  <div id="gs-group-messages-topic-admin-stickytoggle" class="btn-group">
-    <button type="button" class="btn" data-toggle="button"
-            data-loading-text="Changing&#8230;"
-            data-sticky-text="Now sticky"
-            data-normal-text="Now normal">Sticky</button>
-  </div><!--gs-group-messages-topic-admin-stickytoggle-->
-  <div id="gs-group-messages-topic-admin-stickytoggle-fuck-you-bootstrap" 
-       class="btn-group"  style="display:none;"> 
-    <input type="checkbox" value="on" name="form.sticky" 
-      id="gs-group-messages-topic-admin-stickytoggle-widget-checkbox"
-      class="checkboxType" />
-    <label for="gs-group-messages-topic-admin-stickytoggle-widget-checkbox"
-      title="Display this topic before all other topics in the Topics tab." 
-      class="checkboxLabel">Sticky</label>
-  </div>
-</tal:block>
+<div id="gs-group-messages-topic-admin-stickytoggle" class="btn-group"
+     role="form">
+  <button type="button" class="btn" data-toggle="button"
+          data-loading-text="Changing&#8230;"
+          data-sticky-text="Now sticky"
+          data-normal-text="Now normal">Sticky</button>
+</div><!--gs-group-messages-topic-admin-stickytoggle-->
