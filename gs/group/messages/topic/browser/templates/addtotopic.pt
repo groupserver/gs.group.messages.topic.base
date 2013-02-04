@@ -49,7 +49,7 @@
     <span id="gs-group-messages-topic-add-privacy-summary"
           title="Privacy"
           tal:attributes="title string:Privacy: ${view/privacy/visibility};">
-      <span class="muted">Post will be
+      <span class="muted" role="button" aria-haspopup="true" >Post will be
       <span class="vis"
             tal:content="view/privacy/visibility">lurid</span></span>
       (?)
