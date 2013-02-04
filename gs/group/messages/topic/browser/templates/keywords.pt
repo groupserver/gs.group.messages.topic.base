@@ -2,7 +2,7 @@
   <p>Keywords:</p>
   <ul>
     <tal:block repeat="keyword view/keywords">
-      <li class="keyword"><em tal:content="keyword">keyword</em></li>
+      <li class="keyword"><em rel="tag" tal:content="keyword">keyword</em></li>
     </tal:block>
   </ul>
 </div><!--gs-group-messages-topic-summary-keyowords-->
