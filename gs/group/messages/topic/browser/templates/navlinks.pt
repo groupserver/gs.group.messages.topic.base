@@ -1,4 +1,4 @@
-<div class="gs-group-messages-topic-navlinks btn-group">
+<div class="gs-group-messages-topic-navlinks btn-group" role="navigation">
   <span tal:condition="not:view/previousTopic/topicId"
         class="prev btn disabled">Prev</span>
   <a href="#" class="prev btn"

@@ -45,7 +45,8 @@
     <tal:block content="structure provider:groupserver.FormStatusMessage"
                define="errors view/errors; status view/status; widgets view/widgets"
                metal:fill-slot="messages">&#160;</tal:block>
-    <div id="gs-group-messages-topic-body" 
+    <div id="gs-group-messages-topic-body" role="main"
+         aria-labelledby="gs-group-messages-topic-title"
          metal:fill-slot="body"
          tal:define="topicList view/topic"
          tal:condition="topicList">
