@@ -22,8 +22,3 @@ class SummaryStats(GroupViewlet):
         aIds = set([post['author_id'] for post in self.topic])
         retval = len(aIds)
         return retval
-
-    @Lazy
-    def show(self):
-        retval = self.length > 1
-        return retval
