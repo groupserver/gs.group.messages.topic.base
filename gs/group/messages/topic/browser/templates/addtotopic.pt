@@ -4,14 +4,12 @@
   <h2>Post a reply</h2>
   <div id="gs-group-messages-topic-add-from" 
        tal:define="widget python:allWidgets[0]">
-    <p class="muted">
       <span tal:define="width string:18; height string:24;"
             tal:replace="structure provider:groupserver.UserImage">
         &#9786;
       </span>
-      Post as
-      <strong tal:content="view/loggedInUser/name" class="fn">you</strong>
-    </p>
+      <span class="muted">Post as
+      <strong tal:content="view/loggedInUser/name" class="fn">you</strong></span>
     <span tal:condition="python:hasattr(widget, 'tag')"
           tal:replace="structure widget">Widget</span>
     <span class="readonlyWidget"
