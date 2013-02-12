@@ -34,8 +34,15 @@ GSFileUpload = function (formId, widgetId, listId) {
     };
 }; // GSFileUpload
 
-jQuery(window).load( function () {
+var init_multifile = function () {
     var uploader = GSFileUpload('#add-to-topic', '#form\\.uploadedFile',
                                 '#gs-group-messages-topic-add-file-files-list');
     uploader.init();
+}
+
+jQuery(window).load( function () {
+    var url = '/++resource++multiple_file_upload-1.48/jquery.MultiFile.js';
+    if (jQuery('#add-to-topic').length != 0) {
+        gsJsLoader.with(url, init_multifile);
+    }
 });
