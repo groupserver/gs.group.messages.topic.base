@@ -34,7 +34,7 @@
       <li><a tal:attributes="title string:${view/siteInfo/name} Homepage"
              href="/" title="Home">&#8962;</a></li>
       <li>
-        <a tal:attributes="href view/groupInfo/relativeURL">
+        <a tal:attributes="href string:${view/groupInfo/relativeURL}/">
           <strong class="group" 
                   tal:content="view/groupInfo/name">This group</strong>
         </a>
