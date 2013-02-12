@@ -1,5 +1,5 @@
 jQuery.noConflict();
-jQuery(window).load(function(){
+var init_share = function () {
     var buttons = null;
     var i = 0;
     var button = null;
@@ -14,4 +14,8 @@ jQuery(window).load(function(){
         shareWidget = GSShareBox(button, public);
         shareWidget.init();
     }
+}
+
+jQuery(window).load(function(){
+    gsJsLoader.with('/++resource++sharebox-20121213.js', init_share);
 });

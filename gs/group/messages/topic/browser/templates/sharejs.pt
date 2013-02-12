@@ -1,11 +1,5 @@
-<tal:block>
-  <!--gs-group-messages-topic-share-js-->
-  <script type="text/javascript"
-          src="/++resource++sharebox-20121213.js"
-          defer="true">&#160;</script>
-  <script type="text/javascript"
+  <script id="gs-group-messages-topic-share-script"
+          type="text/javascript"
           src="/++resource++gs-group-messages-topic-share-20120201.js"
           defer="true">&#160;</script>
-  <!--END gs-group-messages-topic-share-js-->
-</tal:block>
 
