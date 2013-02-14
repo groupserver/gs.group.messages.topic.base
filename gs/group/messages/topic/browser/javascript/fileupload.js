@@ -1,15 +1,12 @@
 // GroupServer module for supporting multi-file uploads.
 jQuery.noConflict();
-GSFileUpload = function (formId, widgetId, listId) {
+function GSFileUpload(formId, widgetId, listId) {
     var remove = '<abbr class="muted" title="Remove this file from the list ' +
                  'of files">(remove)</abbr>';
     // Private methods
-    var renameFileInputs = function(event) {
-        var multiFiles = jQuery('.MultiFile-applied');
-        var oldId = ''
-        var newId = ''
-        var i = null;
-        var input = null;
+    function renameFileInputs(event) {
+        var multiFiles = jQuery('.MultiFile-applied'), oldId = '', newId = '',
+        i = null, input = null;
         for ( i=0; i < multiFiles.length; i++ ) {
             input = jQuery(multiFiles[i]);
             oldId = input.attr('id');
@@ -17,8 +14,6 @@ GSFileUpload = function (formId, widgetId, listId) {
             input.attr('id', newId).attr('name', newId);
         }
         return true;
-      };
-    var addMultiFile = function () {
     };
 
     // Public methods and properties
@@ -34,7 +29,7 @@ GSFileUpload = function (formId, widgetId, listId) {
     };
 }; // GSFileUpload
 
-var init_multifile = function () {
+function init_multifile() {
     var uploader = GSFileUpload('#add-to-topic', '#form\\.uploadedFile',
                                 '#gs-group-messages-topic-add-file-files-list');
     uploader.init();
@@ -43,6 +38,6 @@ var init_multifile = function () {
 jQuery(window).load( function () {
     var url = '/++resource++multiple_file_upload-1.48/jquery.MultiFile.js';
     if (jQuery('#add-to-topic').length != 0) {
-        gsJsLoader.with(url, init_multifile);
+        gsJsLoader.with_module(url, init_multifile);
     }
 });

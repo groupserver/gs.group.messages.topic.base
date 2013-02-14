@@ -1,21 +1,18 @@
 jQuery.noConflict();
-var init_share = function () {
-    var buttons = null;
-    var i = 0;
-    var button = null;
-    var public = false;
-    var shareWidget = null;
+function init_share() {
+    var buttons = null, i = 0, button = null, isPublic = false, 
+        shareWidget = null;
 
     buttons = jQuery('.gs-content-js-share');
     for (i=0;i<buttons.length;i++) {
         button = buttons[i];
-        // TODO: make public not sux. This is the one topic-specific part.
-        public = Boolean(Number(jQuery(button).attr('public')));
-        shareWidget = GSShareBox(button, public);
+        // TODO: make isPublic not sux. This is the one topic-specific part.
+        isPublic = Boolean(Number(jQuery(button).attr('public')));
+        shareWidget = GSShareBox(button, isPublic);
         shareWidget.init();
     }
 }
 
 jQuery(window).load(function(){
-    gsJsLoader.with('/++resource++sharebox-20121213.js', init_share);
+    gsJsLoader.with_module('/++resource++sharebox-20121213.js', init_share);
 });
