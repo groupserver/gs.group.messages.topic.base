@@ -1,5 +1,5 @@
 jQuery.noConflict();
-function init_share() {
+function init_topic_share() {
     var buttons = null, i = 0, button = null, isPublic = false, 
         shareWidget = null;
 
@@ -14,5 +14,6 @@ function init_share() {
 }
 
 jQuery(window).load(function(){
-    gsJsLoader.with_module('/++resource++sharebox-20121213.js', init_share);
+    gsJsLoader.with_module('/++resource++gs-content-js-sharebox-min-20130114.js', 
+                           init_topic_share);
 });
