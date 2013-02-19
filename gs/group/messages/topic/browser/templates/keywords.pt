@@ -1,6 +1,6 @@
 <div id="gs-group-messages-topic-summary-keyowords" class="muted">
   <p>Keywords:</p>
-  <ul>
+  <ul class="comma-inline-list">
     <tal:block repeat="keyword view/keywords">
       <li class="keyword"><em rel="tag" tal:content="keyword">keyword</em></li>
     </tal:block>
