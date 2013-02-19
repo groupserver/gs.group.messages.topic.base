@@ -203,11 +203,6 @@
     weight="20"
     title="Share Buttons" />
 
-  <browser:resource
-    name="gs-group-messages-topic-share-20120201.js"
-    file="browser/javascript/share.js"
-    permission="zope2.Public" />
-
   <!--The Sticky Topic Tooggle-->
   <!-- TODO: Move to gs.group.messages.topic.sticky -->
   <browser:viewlet 
