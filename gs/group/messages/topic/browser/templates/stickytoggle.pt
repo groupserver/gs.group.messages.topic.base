@@ -1,6 +1,6 @@
 <div id="gs-group-messages-topic-admin-stickytoggle" class="btn-group"
      role="form">
-  <button type="button" class="btn" data-toggle="button"
+  <button type="button" class="btn btn-small" data-toggle="button"
           data-loading-text="Changing&#8230;"
           data-sticky-text="Now sticky"
           data-normal-text="Now normal">Sticky</button>
