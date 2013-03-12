@@ -6,7 +6,4 @@ jQuery(window).load(function(){
     d = {animation: true, html: true, placement: 'top', trigger: 'click', 
          content: h};
     jQuery('#gs-group-messages-topic-add-privacy-summary').popover(d);
-
-    // Hack, put here for convenience
-    jQuery('#form\\.actions\\.post').addClass('btn');
 });

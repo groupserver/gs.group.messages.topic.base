@@ -23,7 +23,7 @@ class AddToTopic(GroupViewlet):
     def topicName(self):
         retval = self.view.topicName
         return retval
-        
+
     @Lazy
     def widgets(self):
         retval = self.view.widgets
@@ -31,14 +31,15 @@ class AddToTopic(GroupViewlet):
 
     @Lazy
     def visibleWidgets(self):
-        retval = [self.view.widgets['fromAddress'], self.view.widgets['message']]
+        retval = [self.view.widgets['fromAddress'],
+                    self.view.widgets['message']]
         return retval
 
     @Lazy
     def hiddenWidgets(self):
         retval = [self.view.widgets['inReplyTo']]
         return retval
-        
+
     @Lazy
     def availableActions(self):
         retval = self.view.availableActions
