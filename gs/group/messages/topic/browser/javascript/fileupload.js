@@ -30,14 +30,16 @@ function GSFileUpload(formId, widgetId, listId) {
 }; // GSFileUpload
 
 function init_multifile() {
-    var uploader = GSFileUpload('#add-to-topic', '#form\\.uploadedFile',
-                                '#gs-group-messages-topic-add-file-files-list');
+    var uploader = null;
+    uploader = GSFileUpload('.gs-group-messages-topic-add', 
+                            '#form\\.uploadedFile',
+                            '.gs-group-messages-topic-add-file-files-list');
     uploader.init();
 }
 
 jQuery(window).load( function () {
     var url = '/++resource++multiple_file_upload-1.48/jquery.MultiFile.js';
-    if (jQuery('#add-to-topic').length != 0) {
+    if (jQuery('.gs-group-messages-topic-add').length != 0) {
         gsJsLoader.with_module(url, init_multifile);
     }
 });

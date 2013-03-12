@@ -1,5 +1,6 @@
-<form enctype="multipart/form-data"  method="post" action="."
-  id="add-to-topic" tal:attributes="action request/URL"
+<form id="add-to-topic" class="gs-group-messages-topic-add"
+  enctype="multipart/form-data"  method="post" action="."
+  tal:attributes="action request/URL"
   tal:define="allWidgets view/visibleWidgets">
   <h2>Post a reply</h2>
   <div id="gs-group-messages-topic-add-from" 
@@ -29,8 +30,8 @@
       tal:content="widget/label">
       A label
     </label>
-    <div id="gs-group-messages-topic-add-file-files">
-      <div id="gs-group-messages-topic-add-file-files-list">
+    <div class="gs-group-messages-topic-add-file-files">
+      <div class="gs-group-messages-topic-add-file-files-list">
         <span style="display:none;">&#160;</span>
       </div><!--gs-group-messages-topic-add-file-files-list-->
       <div class="gs-group-messages-topic-add-file-files-widget"
