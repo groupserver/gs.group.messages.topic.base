@@ -141,7 +141,7 @@
   <browser:viewlet name="gs-group-messages-topic-hide-a-post"
     manager=".interfaces.ITopicPage"
     template="browser/templates/hide.pt"
-    class="gs.group.member.base.viewlet.MemberOnlyViewlet"
+    class="gs.group.member.viewlet.MemberOnlyViewlet"
     permission="zope2.View"
     weight="35"
     title="Hide a Post" />
@@ -149,7 +149,7 @@
     name="gs-group-messages-topic-hide-js"
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/hidejs.pt"
-    class="gs.group.member.base.viewlet.MemberOnlyViewlet"
+    class="gs.group.member.viewlet.MemberOnlyViewlet"
     permission="zope2.View"
     weight="35"
     title="Show and Hide Buttons" />
@@ -184,7 +184,7 @@
     name="gs-group-messages-topic-javascript-multifile"
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/multifile.pt"
-    class="gs.group.member.base.viewlet.MemberOnlyViewlet"
+    class="gs.group.member.viewlet.MemberOnlyViewlet"
     permission="zope2.View"
     weight="10"
     title="Multifile Extension" />
@@ -235,7 +235,7 @@
     name="gs-group-messages-topic-privacy-js"
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/privacyjs.pt"
-    class="gs.group.member.base.viewlet.MemberOnlyViewlet"
+    class="gs.group.member.viewlet.MemberOnlyViewlet"
     permission="zope2.View"
     weight="50"
     title="Privacy" />
