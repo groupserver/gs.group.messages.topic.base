@@ -192,6 +192,10 @@
     name="gs-group-messages-topic-multifile-20130201.js"
     file="browser/javascript/fileupload.js"
     permission="zope2.Public" />
+  <browser:resource
+    name="gs-group-messages-topic-multifile-min-20130201.js"
+    file="browser/javascript/fileupload-min.js"
+    permission="zope2.Public" />
   <!--The getter for the toggle-->
 
   <browser:viewlet 
