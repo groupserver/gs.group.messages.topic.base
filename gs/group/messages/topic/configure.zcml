@@ -222,6 +222,10 @@
     name="stickytoggle-20121219.js"
     file="browser/javascript/stickytoggle.js"
     permission="zope2.Public" />
+  <browser:resource 
+    name="stickytoggle-min-20121219.js"
+    file="browser/javascript/stickytoggle-min.js"
+    permission="zope2.Public" />
   <!--The getter for the toggle-->
   <browser:page 
     for="Products.XWFMailingListManager.interfaces.IGSMessagesFolder"
@@ -246,6 +250,10 @@
   <browser:resource
     name="gs-group-messages-topic-privacy-20130201.js"
     file="browser/javascript/privacy.js"
+    permission="zope2.Public" />
+  <browser:resource
+    name="gs-group-messages-topic-privacy-min-20130201.js"
+    file="browser/javascript/privacy-min.js"
     permission="zope2.Public" />
 
 
