@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from zope.cachedescriptors.property import Lazy
-from gs.group.base.viewlet import GroupViewlet
+from gs.group.base import GroupViewlet
 from queries import TopicQuery
 
 

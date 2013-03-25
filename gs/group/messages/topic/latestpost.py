@@ -1,7 +1,7 @@
 # coding=utf-8
 from zope.component import createObject
 from zope.cachedescriptors.property import Lazy
-from gs.group.base.viewlet import GroupViewlet
+from gs.group.base import GroupViewlet
 
 
 class LatestPost(GroupViewlet):

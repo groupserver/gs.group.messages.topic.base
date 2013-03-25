@@ -1,7 +1,7 @@
 # coding=utf-8
 from zope.cachedescriptors.property import Lazy
 from gs.group.privacy.interfaces import IGSGroupVisibility
-from gs.group.base.viewlet import GroupViewlet
+from gs.group.base import GroupViewlet
 
 
 class ShareBar(GroupViewlet):

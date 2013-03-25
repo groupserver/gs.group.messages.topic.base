@@ -1,6 +1,6 @@
 # coding=utf-8
 from zope.cachedescriptors.property import Lazy
-from gs.group.base.viewlet import GroupViewlet
+from gs.group.base import GroupViewlet
 from gs.group.messages.privacy import MessagesPrivacy
 # TODO: Move all post-creation code to gs.group.messages.add.base
 # TODO: Convert to z3c.form.
