@@ -2,13 +2,12 @@
 jQuery.noConflict();
 var GSStickyTopicToggle = function (getBase, topicId, stickyToggle) {
     // Constants
-    var AJAX_PAGE = getBase + 'gs-group-messages-topic-sticky-setter';
-    var GET_PAGE = getBase + 'gs-group-messages-topic-sticky-getter';
+    var AJAX_PAGE = getBase + 'gs-group-messages-topic-sticky-setter', 
+        GET_PAGE = getBase + 'gs-group-messages-topic-sticky-getter';
 
     // Private methods
-    var do_toggle = function () {
-        var data = null;
-        var sticky = null;
+    function do_toggle() {
+        var data = null, sticky = null;
 
         stickyToggle.button('loading');
         if (stickyToggle.hasClass('active')) {
@@ -24,25 +23,25 @@ var GSStickyTopicToggle = function (getBase, topicId, stickyToggle) {
         jQuery.post(AJAX_PAGE, data, show_done);
     };
 
-    var show_done = function(responseText, textStatus, request) {
+    function show_done(responseText, textStatus, request) {
         if (stickyToggle.hasClass('active')) {
             stickyToggle.button('sticky');
         } else {
             stickyToggle.button('normal');
         }
         window.setTimeout(set_normal, 5000);
-    };
+    }
 
-    var set_normal = function() {
+    function set_normal() {
         stickyToggle.button('reset');
-    };
+    }
 
-    var set_checkbox = function (responseText, textStatus, request) {
+    function set_checkbox(responseText, textStatus, request) {
         if (responseText == '1') {
             stickyToggle.button('toggle');
         }
         stickyToggle.removeAttr('disabled');
-    };
+    }
     
     return {
         init: function () {
@@ -53,11 +52,8 @@ var GSStickyTopicToggle = function (getBase, topicId, stickyToggle) {
 };
 
 jQuery(window).load(function (event) {
-    var toggle = null;
-    var baseUrl = null;
-    var getBase = null;
-    var stickyToggle = null;
-    var topicId = null;
+    var toggle = null, baseUrl = null, getBase = null, stickyToggle = null, 
+        topicId = null;
 
     baseUrl = jQuery('base').attr('href');
     getBase = baseUrl.slice(0, baseUrl.indexOf('topic'));
