@@ -7,7 +7,7 @@ The Topic page for a GroupServer Group
 
 :Author: `Michael JasonSmith`_
 :Contact: Michael JasonSmith <mpj17@onlinegroups.net>
-:Date: 2013-03-12
+:Date: 2013-03-25
 :Organization: `GroupServer.org`_
 :Copyright: This document is licensed under a
   `Creative Commons Attribution-Share Alike 3.0 New Zealand License`_
@@ -18,8 +18,8 @@ Introduction
 
 A *topic* is the core of the system that displays posts in GroupServer_.
 It is, at its most basic, a group of posts with a common subject. This
-product supplies the code for handling the traversal_ to the topic, and the
-page_ for rendering the topic.
+product supplies the code for handling the traversal_ to the topic, the
+page_ for rendering the topic, and some supporting JavaScript_.
 
 Traversal
 =========
@@ -63,13 +63,13 @@ List of Posts
 The list of posts, provided by the ``gs-group-messages-topic-list``
 viewlet, forms the bulk of the *Topic Page*. However, the list is simple,
 as most of the actual rendering of each post in the topic is done by the
-``gs.group.messages.post`` product.
+``gs.group.messages.post`` product [#post]_.
 
 Post a Reply
 ------------
 
 The *Topic Page* finishes with the *Post a reply* form. It is shown to
-everyone that can post (determined by ``gs.group.member.canpost``). It is a
+everyone that can post [#canpost]_. It is a
 non-stand form: 
 
 * The ``From`` field uses the user's name and profile photo in place of a
@@ -77,11 +77,26 @@ non-stand form:
 
 * The ``Message`` field is unlabelled.
 
-* The multi-file widget (provided by ``gs.content.js.multifile``) enables
+* The multi-file widget [#multifile]_ enables
   an arbitrary number of widgets to be submitted with the form.
 
 The lack of labels makes the *Post a reply* form more similar to a standard
 email client.
+
+JavaScript
+==========
+
+Three JavaScript resources are provided by this product.
+
+``/++resource++gs-group-messages-topic-multifile-20130201.js``:
+  Customisation to the MultiFile system [#multifile]_.
+
+``/++resource++stickytoggle-20121219.js``:
+  Client-side code to power the Sticky_ toggle.
+
+``/++resource++gs-group-messages-topic-privacy-20130201.js``: 
+  Creates a Popover_ from the privacy information in the `Post a Reply`_
+  form.
 
 Resources
 =========
@@ -96,3 +111,15 @@ Resources
 .. _Michael JasonSmith: http://groupserver.org/p/mpj17
 .. _Creative Commons Attribution-Share Alike 3.0 New Zealand License:
    http://creativecommons.org/licenses/by-sa/3.0/nz/
+
+.. [#post] See ``gs.group.messages.post``
+           <https://source.iopen.net/groupserver/gs.group.messages.post/>
+
+.. [#canpost] See ``gs.group.member.canpost``
+              <https://source.iopen.net/groupserver/gs.group.member.canpost/>
+
+.. [#multifile] See ``gs.content.js.multifile``
+                <https://source.iopen.net/groupserver/gs.content.js.multifile/>
+
+.. _Popover: http://twitter.github.com/bootstrap/javascript.html#popovers
+..  LocalWords:  MultiFile
