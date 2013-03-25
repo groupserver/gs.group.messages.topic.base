@@ -50,15 +50,17 @@ setup(name='gs.group.messages.topic',
         'gs.database',
         'gs.group.base',
         'gs.group.member.canpost',
+        'gs.group.member.viewlet',
         'gs.group.messages.add.base',
         'gs.group.messages.post',
         'gs.group.messages.privacy',
         'gs.group.privacy',
+        'gs.help',
         'gs.profile.email.base',
+        'gs.viewlet',
         'Products.XWFCore',
         'Products.XWFFileLibrary2',
         'Products.XWFMailingListManager',
-        # -*- Extra requirements: -*-
     ],
     entry_points="""
     # -*- Entry points: -*-
