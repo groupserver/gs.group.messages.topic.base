@@ -3,5 +3,10 @@
   <button type="button" class="btn btn-small" data-toggle="button"
           data-loading-text="Changing&#8230;"
           data-sticky-text="Now sticky"
-          data-normal-text="Now normal">Sticky</button>
+          data-normal-text="Now normal" title="Toggle sticky">
+    <div class="icon-alone">
+      <span aria-hidden="true" data-icon="&#x1f4cc;"></span>
+      <span class="screen-reader-text">Sticky</span>
+    </div>
+  </button>
 </div><!--gs-group-messages-topic-admin-stickytoggle-->
