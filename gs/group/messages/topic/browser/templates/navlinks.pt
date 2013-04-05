@@ -1,18 +1,24 @@
 <div class="gs-group-messages-topic-navlinks btn-group" role="navigation">
   <span tal:condition="not:view/previousTopic/topicId"
-        class="prev btn btn-small disabled">Prev</span>
+        class="prev btn btn-small disabled" data-icon="&#x25c3;">Prev</span>
   <a href="#" class="prev btn btn-small"
      tal:condition="view/previousTopic/topicId"
      tal:attributes="href view/previousTopic/topicId;
-                     title string:Later: ${view/previousTopic/subject};">Prev</a>
-  <a class="group up btn btn-small"
+                     title string:Later: ${view/previousTopic/subject};"
+     data-icon="&#x25c3;">Prev</a>
+  <a class="group up btn btn-small icon-alone"
      tal:attributes="title string:Group: ${view/groupInfo/name};
                      href string:${view/groupInfo/relativeURL}/;"
-     href="#">Up</a>
+   href="#">
+     <span aria-hidden="true" data-icon="&#x2b06;"></span>
+     <span class="screen-reader-text">Group</span>
+  </a>
   <span tal:condition="not:view/nextTopic/topicId"
-        class="next btn btn-small disabled">Next</span>
+        class="next btn btn-small disabled"
+        data-icon-after="&#x25b9;">Next</span>
   <a href="#" class="next btn btn-small"
      tal:condition="view/nextTopic/topicId" 
      tal:attributes="href view/nextTopic/topicId;
-                     title string:Earlier: ${view/nextTopic/subject};">Next</a>
+                     title string:Earlier: ${view/nextTopic/subject};"
+     data-icon-after="&#x25b9;">Next</a>
 </div><!--gs-group-messages-topic-navlinks-->
