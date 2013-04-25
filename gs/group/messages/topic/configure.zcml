@@ -120,7 +120,7 @@
     weight="20"
     title="Latest Post" />
   <browser:viewlet 
-    name="gs-group-message-topic-summary-latest"
+    name="gs-group-message-topic-summary-keywords"
     manager=".interfaces.ITopicFreeformSummary"
     template="browser/templates/keywords.pt"
     class=".keywords.Keywords"
