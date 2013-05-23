@@ -1,7 +1,8 @@
-<form id="add-to-topic" class="gs-group-messages-topic-add"
-  enctype="multipart/form-data"  method="post" action="."
-  tal:attributes="action request/URL"
-  tal:define="allWidgets view/visibleWidgets">
+<form id="add-to-topic" 
+      class="gs-group-messages-topic-add gs-content-js-required"
+      enctype="multipart/form-data"  method="post" action="."
+      tal:attributes="action request/URL"
+      tal:define="allWidgets view/visibleWidgets">
   <h2>Post a reply</h2>
   <div id="gs-group-messages-topic-add-from" 
        tal:define="widget python:allWidgets[0]">
