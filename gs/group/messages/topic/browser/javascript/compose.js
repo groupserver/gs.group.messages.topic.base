@@ -1,5 +1,6 @@
-// GroupServer module for supporting multi-file uploads.
+// GroupServer JavaScript for composing a post
 jQuery.noConflict();
+
 function GSFileUpload(formId, widgetId, listId) {
     var remove = '<abbr class="muted" title="Remove this file from the list ' +
                  'of files">(remove)</abbr>';
@@ -29,7 +30,7 @@ function GSFileUpload(formId, widgetId, listId) {
     };
 }; // GSFileUpload
 
-function init_multifile() {
+function gs_group_messages_topic_multifile_init () {
     var uploader = null;
     uploader = GSFileUpload('.gs-group-messages-topic-add', 
                             '#form\\.uploadedFile',
@@ -38,8 +39,16 @@ function init_multifile() {
 }
 
 jQuery(window).load( function () {
-    var url = '/++resource++multiple_file_upload-1.48/jquery.MultiFile.js';
-    if (jQuery('.gs-group-messages-topic-add').length != 0) {
-        gsJsLoader.with_module(url, init_multifile);
-    }
+    var h = null, d = null;
+ 
+   if (jQuery('.gs-group-messages-topic-add').length != 0) {
+       h = jQuery('#gs-group-messages-topic-add-privacy').html();
+       d = {animation: true, html: true, placement: 'top', trigger: 'click', 
+            content: h};
+       jQuery('#gs-group-messages-topic-add-privacy-summary').popover(d);
+
+       // Init the file uploader
+       gsJsLoader.with_module('/++resource++multiple_file_upload-1.48/jquery.MultiFile.js', 
+                              gs_group_messages_topic_multifile_init);
+   }
 });

@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <configure xmlns="http://namespaces.zope.org/zope"
-  xmlns:browser="http://namespaces.zope.org/browser"
-  xmlns:rdb="http://namespaces.zope.org/rdb"
-  xmlns:sqlos="http://namespaces.sqlobject.org/sqlos"
-  xmlns:five="http://namespaces.zope.org/five">
+           xmlns:browser="http://namespaces.zope.org/browser">
 
   <!-- The topic page, and its redirector. -->
   <class class=".traverse.GSTopicTraversal">
@@ -180,22 +177,6 @@
     class="gs.viewlet.manager.WeightOrderedViewletManager"
     template="browser/templates/javascriptmanager.pt"/>
 
-  <browser:viewlet 
-    name="gs-group-messages-topic-javascript-multifile"
-    manager=".interfaces.ITopicJavaScript"
-    template="browser/templates/multifile.pt"
-    class="gs.group.member.viewlet.MemberOnlyViewlet"
-    permission="zope2.View"
-    weight="10"
-    title="Multifile Extension" />
-  <browser:resource
-    name="gs-group-messages-topic-multifile-20130201.js"
-    file="browser/javascript/fileupload.js"
-    permission="zope2.Public" />
-  <browser:resource
-    name="gs-group-messages-topic-multifile-min-20130201.js"
-    file="browser/javascript/fileupload-min.js"
-    permission="zope2.Public" />
   <!--The getter for the toggle-->
 
   <browser:viewlet 
@@ -239,21 +220,22 @@
     class=".stickytopic.StickySetter" 
     permission="zope2.ManageProperties" />
 
+  <!-- JavaScript for composing a post -->
   <browser:viewlet 
-    name="gs-group-messages-topic-privacy-js"
+    name="gs-group-messages-topic-compose-js"
     manager=".interfaces.ITopicJavaScript"
-    template="browser/templates/privacyjs.pt"
+    template="browser/templates/composejs.pt"
     class="gs.group.member.viewlet.MemberOnlyViewlet"
     permission="zope2.View"
     weight="50"
-    title="Privacy" />
+    title="Compose" />
   <browser:resource
-    name="gs-group-messages-topic-privacy-20130201.js"
-    file="browser/javascript/privacy.js"
+    name="gs-group-messages-topic-compose-20130522.js"
+    file="browser/javascript/compose.js"
     permission="zope2.Public" />
   <browser:resource
-    name="gs-group-messages-topic-privacy-min-20130201.js"
-    file="browser/javascript/privacy-min.js"
+    name="gs-group-messages-topic-compose-min-20130522.js"
+    file="browser/javascript/compose-min.js"
     permission="zope2.Public" />
 
 
@@ -277,4 +259,3 @@
     permission="zope.Public"
     weight="11" />
 </configure>
-
