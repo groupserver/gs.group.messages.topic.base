@@ -2,17 +2,19 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:browser="http://namespaces.zope.org/browser">
 
+  <include package="zope.viewlet" file="meta.zcml" />
+
   <!-- The topic page, and its redirector. -->
   <class class=".traverse.GSTopicTraversal">
     <implements interface="zope.publisher.interfaces.IPublishTraverse"/>
   </class>
-  <browser:page 
-    for="Products.XWFMailingListManager.interfaces.IGSMessagesFolder" 
+  <browser:page
+    for="Products.XWFMailingListManager.interfaces.IGSMessagesFolder"
     name="topic"
     class=".traverse.GSTopicTraversal"
     permission="zope2.View" />
-  <browser:page 
-    for="Products.XWFMailingListManager.interfaces.IGSMessagesFolder" 
+  <browser:page
+    for="Products.XWFMailingListManager.interfaces.IGSMessagesFolder"
     name="gstopic"
     class=".topic.GSTopicView"
     permission="zope2.Public" />
@@ -26,7 +28,7 @@
     permission="zope2.View"/>
 
   <!-- Command Buttons -->
-  <browser:viewlet 
+  <browser:viewlet
     name="gs-group-messages-topic-tasks"
     manager=".interfaces.ITopicPage"
     template="browser/templates/tasks.pt"
@@ -41,7 +43,7 @@
     class="gs.viewlet.manager.WeightOrderedViewletManager"
     template="browser/templates/simpleviewletmanager.pt"/>
 
-  <browser:viewlet 
+  <browser:viewlet
     name="gs-group-messages-topic-navlinks"
     manager=".interfaces.ITopicTasks"
     template="browser/templates/navlinks.pt"
@@ -49,7 +51,7 @@
     permission="zope2.View"
     weight="10"
     title="Navigation Links" />
- <browser:viewlet 
+ <browser:viewlet
    name="gs-group-messages-topic-admin-stickytoggle"
    manager=".interfaces.ITopicTasks"
    template="browser/templates/stickytoggle.pt"
@@ -57,7 +59,7 @@
    permission="zope2.ManageProperties"
    weight="20"
    title="Sticky Toggle" />
-  <browser:viewlet 
+  <browser:viewlet
     name="gs-group-messages-topic-share"
     manager=".interfaces.ITopicTasks"
     template="browser/templates/sharebar.pt"
@@ -67,7 +69,7 @@
     title="Share bar" />
 
   <!--The navigation links appear twice, appear twice. -->
-  <browser:viewlet 
+  <browser:viewlet
     name="gs-group-messages-topic-navlinks-bottom"
     manager=".interfaces.ITopicPage"
     template="browser/templates/navlinks.pt"
@@ -95,11 +97,11 @@
     name="groupserver.TopicSummaryFreeformContent"
     provides=".interfaces.ITopicFreeformSummary"
     class="gs.viewlet.manager.WeightOrderedViewletManager"
-    template="browser/templates/topicsummarymanager.pt" 
+    template="browser/templates/topicsummarymanager.pt"
     permission="zope2.View"
     />
   <!--Summary Statistics -->
-  <browser:viewlet 
+  <browser:viewlet
     name="gs-group-message-topic-summary-stats"
     manager=".interfaces.ITopicSummary"
     template="browser/templates/summarystats.pt"
@@ -108,7 +110,7 @@
     weight="0"
     title="Topic Summary Statistics" />
   <!--Latest Post-->
-  <browser:viewlet 
+  <browser:viewlet
     name="gs-group-message-topic-summary-latest"
     manager=".interfaces.ITopicSummary"
     template="browser/templates/latestpost.pt"
@@ -116,15 +118,15 @@
     permission="zope2.View"
     weight="20"
     title="Latest Post" />
-  <browser:viewlet 
+  <browser:viewlet
     name="gs-group-message-topic-summary-keywords"
     manager=".interfaces.ITopicFreeformSummary"
     template="browser/templates/keywords.pt"
     class=".keywords.Keywords"
     weight="10"
-    title="Keywords" 
+    title="Keywords"
     permission="zope2.View" />
-  
+
   <!--Post List-->
   <browser:viewlet name="gs-group-messages-topic-list"
     manager=".interfaces.ITopicPage"
@@ -142,7 +144,7 @@
     permission="zope2.View"
     weight="35"
     title="Hide a Post" />
-  <browser:viewlet 
+  <browser:viewlet
     name="gs-group-messages-topic-hide-js"
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/hidejs.pt"
@@ -150,7 +152,7 @@
     permission="zope2.View"
     weight="35"
     title="Show and Hide Buttons" />
-    
+
   <!--Add to Topic-->
   <browser:viewlet name="gs-group-messages-topic-add-to-topic"
     manager=".interfaces.ITopicPage"
@@ -159,7 +161,7 @@
     permission="zope2.View"
     weight="50"
     title="Add To Topic" />
-    
+
   <!--Cannot Add-->
   <browser:viewlet name="gs-group-messages-topic-cannot-add"
     manager=".interfaces.ITopicPage"
@@ -179,7 +181,7 @@
 
   <!--The getter for the toggle-->
 
-  <browser:viewlet 
+  <browser:viewlet
     name="gs-group-messages-topic-share-js"
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/sharejs.pt"
@@ -190,7 +192,7 @@
 
   <!--The Sticky Topic Tooggle-->
   <!-- TODO: Move to gs.group.messages.topic.sticky -->
-  <browser:viewlet 
+  <browser:viewlet
     name="gs-group-messages-topic-javascript-stickytoggle"
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/stickytogglejs.pt"
@@ -199,29 +201,29 @@
     weight="40"
     title="Sticky Topic Toggle" />
   <!--The JavaScript library for the toggle-->
-  <browser:resource 
+  <browser:resource
     name="stickytoggle-20121219.js"
     file="browser/javascript/stickytoggle.js"
     permission="zope2.Public" />
-  <browser:resource 
+  <browser:resource
     name="stickytoggle-min-20121219.js"
     file="browser/javascript/stickytoggle-min.js"
     permission="zope2.Public" />
   <!--The getter for the toggle-->
-  <browser:page 
+  <browser:page
     for="Products.XWFMailingListManager.interfaces.IGSMessagesFolder"
     name="gs-group-messages-topic-sticky-getter"
-    class=".stickytopic.StickyGetter" 
+    class=".stickytopic.StickyGetter"
     permission="zope2.View" />
   <!--The getter for the toggle-->
-  <browser:page 
+  <browser:page
     for="Products.XWFMailingListManager.interfaces.IGSMessagesFolder"
     name="gs-group-messages-topic-sticky-setter"
-    class=".stickytopic.StickySetter" 
+    class=".stickytopic.StickySetter"
     permission="zope2.ManageProperties" />
 
   <!-- JavaScript for composing a post -->
-  <browser:viewlet 
+  <browser:viewlet
     name="gs-group-messages-topic-compose-js"
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/composejs.pt"
@@ -241,10 +243,10 @@
 
   <!--The error pages-->
   <!-- The Gone (410) page -->
-  <browser:page 
+  <browser:page
     for="Products.XWFMailingListManager.interfaces.IGSMessagesFolder"
     name="topic_hidden.html"
-    class=".hidden.TopicHidden" 
+    class=".hidden.TopicHidden"
     permission="zope2.Public" />
 
   <!--Help-->
