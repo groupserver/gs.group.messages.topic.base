@@ -9,15 +9,15 @@
   <a class="group up btn btn-small icon-alone"
      tal:attributes="title string:Group: ${view/groupInfo/name};
                      href string:${view/groupInfo/relativeURL}/;"
-   href="#">
-     <span aria-hidden="true" data-icon="&#x2b06;"></span>
-     <span class="screen-reader-text">Group</span>
+     href="#">
+    <span aria-hidden="true" data-icon="&#x2b06;"></span>
+    <span class="screen-reader-text">Group</span>
   </a>
   <span tal:condition="not:view/nextTopic/topicId"
         class="next btn btn-small disabled"
         data-icon-after="&#x25b9;">Next</span>
   <a href="#" class="next btn btn-small"
-     tal:condition="view/nextTopic/topicId" 
+     tal:condition="view/nextTopic/topicId"
      tal:attributes="href view/nextTopic/topicId;
                      title string:Earlier: ${view/nextTopic/subject};"
      data-icon-after="&#x25b9;">Next</a>

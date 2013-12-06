@@ -1,34 +1,34 @@
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       metal:use-macro="context/@@groupserver_layout/page">
   <head>
     <title metal:fill-slot="title">
       <span tal:define="retval view/update;"
-        tal:replace="view/topicName">
+            tal:replace="view/topicName">
         Standard Template for a Single Post
-      </span>:
-      <span tal:replace="view/groupInfo/name"/>:
-      <span tal:replace="view/siteInfo/name"/>
+        </span>:
+        <span tal:replace="view/groupInfo/name"/>:
+        <span tal:replace="view/siteInfo/name"/>
     </title>
-    <tal:block metal:fill-slot="metadata" 
-      tal:define="topicName view/topicName">
-      <link tal:condition="view/previousTopic/topicId" 
-        rel="prev" title="Previous topic" href="wibble"
-        tal:attributes="href view/previousTopic/topicId; 
-        title string:Later topic: ${view/previousTopic/subject}" />
-      <link tal:condition="view/nextTopic/topicId" 
-        rel="next" title="earlier topic" href="wibble"
-        tal:attributes="href view/nextTopic/topicId; 
-        title string:Earlier topic: ${view/nextTopic/subject};" />
+    <tal:block metal:fill-slot="metadata"
+               tal:define="topicName view/topicName">
+      <link tal:condition="view/previousTopic/topicId"
+            rel="prev" title="Previous topic" href="wibble"
+            tal:attributes="href view/previousTopic/topicId;
+                            title string:Later topic: ${view/previousTopic/subject}" />
+      <link tal:condition="view/nextTopic/topicId"
+            rel="next" title="earlier topic" href="wibble"
+            tal:attributes="href view/nextTopic/topicId;
+                            title string:Earlier topic: ${view/nextTopic/subject};" />
       <link rel="up" title="All topics" href="#"
-        tal:attributes="title view/groupInfo/name;
-            href string:${view/groupInfo/relativeURL}/"/>
+            tal:attributes="title view/groupInfo/name;
+                            href string:${view/groupInfo/relativeURL}/"/>
       <meta name="description"
             tal:attributes="content python:view.topic[0]['summary']" />
     </tal:block>
   </head>
-  
+
   <body>
     <ul metal:fill-slot="breadcrumb">
       <li>
@@ -40,15 +40,16 @@
       </li>
       <li>
         <a tal:attributes="href string:${view/groupInfo/relativeURL}/">
-          <strong class="group" 
+          <strong class="group"
                   tal:content="view/groupInfo/name">This group</strong>
         </a>
       </li>
       <li tal:content="structure view/shortTopicName">Topic</li>
     </ul>
-    
+
     <tal:block content="structure provider:groupserver.FormStatusMessage"
-               define="errors view/errors; status view/status; widgets view/widgets"
+               define="errors view/errors; status view/status;
+                       widgets view/widgets"
                metal:fill-slot="messages">&#160;</tal:block>
     <div id="gs-group-messages-topic-body" role="main"
          aria-labelledby="gs-group-messages-topic-title"
@@ -59,13 +60,13 @@
         <cite tal:attributes="id view/topicId"
               tal:content="view/topicName">This Topic</cite>
       </h1>
-      
+
       <tal:block replace="structure provider:groupserver.TopicPage">
         The bulk of the page
       </tal:block>
     </div><!--gs-group-messages-topic-body-->
 
-    <tal:block metal:fill-slot="javascript" 
+    <tal:block metal:fill-slot="javascript"
                content="structure provider:groupserver.TopicJavaScript">
       The JavaScript that is specific to the Topic page.
     </tal:block>

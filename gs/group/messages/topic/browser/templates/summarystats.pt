@@ -1,14 +1,14 @@
 <li id="gs-group-messages-topic-summary-stats" class="muted">
   <span id="gs-group-messages-topic-summary-stats-nposts">
-    <span class="val" tal:content="view/length">some</span> 
+    <span class="val" tal:content="view/length">some</span>
     <span tal:replace="python:'posts' if view.length != 1 else 'post'">
       posts
     </span>
   </span>
   <tal:block condition="python:view.lenAuthors != 1">
-    by 
+    by
     <span id="gs-group-messages-topic-summary-stats-nauthors">
-      <span class="val" tal:content="view/lenAuthors">some</span> 
+      <span class="val" tal:content="view/lenAuthors">some</span>
       <span tal:replace="python:'authors' if view.lenAuthors != 1 else 'author'">
         authors
       </span>

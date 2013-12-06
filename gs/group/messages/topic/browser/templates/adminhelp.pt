@@ -5,15 +5,15 @@
       A <em class="wordasword">sticky</em> topic is shown before all the
       other topics in the <cite class="tab">Topic</cite> tab on the
       group page.
-      An administrator can 
-      <a href="#gs-group-messages-topic-adminhelp-sticky-add">add a 
-        topic to the sticky topics,</a>
+      An administrator can
+      <a href="#gs-group-messages-topic-adminhelp-sticky-add">add a
+      topic to the sticky topics,</a>
       and
       <a href="#gs-group-messages-topic-adminhelp-sticky-remove">remove
-        a topics from the sticky topics.</a>
+      a topics from the sticky topics.</a>
     </p>
-    <div class="section" 
-      id="gs-group-messages-topic-adminhelp-sticky-add">
+    <div class="section"
+         id="gs-group-messages-topic-adminhelp-sticky-add">
       <h3>Add a Topic to the Sticky Topics</h3>
       <p>
         To add a topic to the list of sticky topics for the group carry
@@ -22,22 +22,21 @@
       <ol>
         <li>Vist the topic.</li>
         <li>Select the <samp class="checkbox">Sicky</samp> checkbox.
-          The topic will be added to the sicky topics.</li>
+        The topic will be added to the sicky topics.</li>
       </ol>
     </div><!--gs-group-messages-topic-adminhelp-sticky-add-->
     <div class="section"
-      id="gs-group-messages-topic-adminhelp-sticky-remove">
+         id="gs-group-messages-topic-adminhelp-sticky-remove">
       <h3>Remove a Topic to the Sticky Topics</h3>
       <p>
-        To remove a topic from the list of sticky topics for the group 
+        To remove a topic from the list of sticky topics for the group
         carry out the following tasks.
       </p>
       <ol>
         <li>Vist the topic.</li>
         <li>Deselect the <samp class="checkbox">Sicky</samp> checkbox.
-          The topic will be removed from the sicky topics.</li>
+        The topic will be removed from the sicky topics.</li>
       </ol>
     </div><!--gs-group-messages-topic-adminhelp-sticky-remove-->
   </div><!--gs-group-messages-topic-adminhelp-sticky-->
 </div><!--gs-group-messages-topic-adminhelp-->
-

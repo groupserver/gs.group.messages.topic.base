@@ -1,5 +1,4 @@
-<div id="gs-group-messages-topic-cannotadd" 
-  tal:content="structure provider:groupserver.CanPost">
-    Cannot Add a Post Information.
+<div id="gs-group-messages-topic-cannotadd"
+     tal:content="structure provider:groupserver.CanPost">
+  Cannot Add a Post Information.
 </div>
-

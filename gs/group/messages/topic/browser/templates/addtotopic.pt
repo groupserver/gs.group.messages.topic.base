@@ -1,17 +1,17 @@
-<form id="add-to-topic" 
+<form id="add-to-topic"
       class="gs-group-messages-topic-add gs-content-js-required"
       enctype="multipart/form-data"  method="post" action="."
       tal:attributes="action request/URL"
       tal:define="allWidgets view/visibleWidgets">
   <h2>Post a reply</h2>
-  <div id="gs-group-messages-topic-add-from" 
+  <div id="gs-group-messages-topic-add-from"
        tal:define="widget python:allWidgets[0]">
-      <span tal:define="size string:20;"
-            tal:replace="structure provider:groupserver.SquareUserImage">
-        &#9786;
-      </span>
-      <span class="muted">Post as
-      <strong tal:content="view/loggedInUser/name" class="fn">you</strong></span>
+    <span tal:define="size string:20;"
+          tal:replace="structure provider:groupserver.SquareUserImage">
+      &#9786;
+    </span>
+    <span class="muted">Post as
+    <strong tal:content="view/loggedInUser/name" class="fn">you</strong></span>
     <span tal:condition="python:hasattr(widget, 'tag')"
           tal:replace="structure widget">Widget</span>
     <span class="readonlyWidget"
@@ -22,13 +22,13 @@
   <tal:block define="widgets python:allWidgets[1:]">
     <tal:block replace="structure provider:groupserver.FormWidgets"/>
   </tal:block>
-  <div class="form-widget gs-group-messages-topic-add-file" 
-    tal:define="widget python:view.widgets['uploadedFile'];"
-    tal:attributes="id string:widget-${widget/name};">
+  <div class="form-widget gs-group-messages-topic-add-file"
+       tal:define="widget python:view.widgets['uploadedFile'];"
+       tal:attributes="id string:widget-${widget/name};">
     <label id="gs-group-messages-topic-add-file-label"
-      for="abc123" title="The hint for the widget"
-      tal:attributes="for widget/name; title widget/hint"
-      tal:content="widget/label">
+           for="abc123" title="The hint for the widget"
+           tal:attributes="for widget/name; title widget/hint"
+           tal:content="widget/label">
       A label
     </label>
     <div class="gs-group-messages-topic-add-file-files">
@@ -56,7 +56,7 @@
     </span>
     <div class="formelementbutton"
          tal:define="actions view/availableActions">
-      <span 
+      <span
         tal:replace="structure python:actions[0].render()">Button</span>
     </div>
   </div><!--buttons-->

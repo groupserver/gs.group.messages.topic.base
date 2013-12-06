@@ -1,16 +1,15 @@
 <li tal:define="munge_date python:modules['Products.XWFCore.XWFUtils'].munge_date"
     id="gs-group-messages-topic-summary-lastpost" class="muted">
-  <a title="View the latest post" 
+  <a title="View the latest post"
      id="gs-group-messages-topic-summary-lastpost-link"
      tal:attributes="href view/relativeUrl"
      href="#">Last post</a> by
-  <a tal:omit-tag="view/authorInfo/anonymous" 
+  <a tal:omit-tag="view/authorInfo/anonymous"
      tal:attributes="href view/authorInfo/url">
     <em class="fn" tal:content="view/authorInfo/name">Me!</em>
   </a>
   at
-  <em class="date" 
-    tal:define="date python:munge_date(view.context, view.lastPostDate)"
-    tal:content="date">Today, Tomorrow, Timaru</em>
+  <em class="date"
+      tal:define="date python:munge_date(view.context, view.lastPostDate)"
+      tal:content="date">Today, Tomorrow, Timaru</em>
 </li>
-

@@ -2,6 +2,6 @@
   <ul id="gs-group-messages-topic-summary-simple">
     <tal:block content="structure provider:groupserver.TopicSummaryContent"/>
   </ul>
-  <tal:block 
+  <tal:block
     content="structure provider:groupserver.TopicSummaryFreeformContent"/>
 </div><!--gs-group-messages-topic-summary-->
