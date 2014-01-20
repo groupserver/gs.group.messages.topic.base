@@ -32,9 +32,9 @@ class LatestPost(GroupViewlet):
         retval = ''
         if self.topic:
             lastPost = self.topic[-1]
-            url = '{groupUrl}/messages/topic/{lastPost}#post-{lastPost}'
+            url = '{groupUrl}/messages/topic/{lastPostId}/#post-{lastPostId}'
             retval = url.format(groupUrl=self.groupInfo.relativeURL,
-                                lastPost=lastPost['post_id'])
+                                lastPostId=lastPost['post_id'])
         return retval
 
     @Lazy
