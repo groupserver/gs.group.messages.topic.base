@@ -1,13 +1,26 @@
-// GroupServer module for providing the Topics tab in a group.
+"use strict";
+// GroupServer module for providing the Sticky topics button.
+//
+// Copyright © 2014 OnlineGroups.net and Contributors.
+// All Rights Reserved.
+//
+// This software is subject to the provisions of the Zope Public License,
+// Version 2.1 (ZPL). http://groupserver.org/downloads/license/
+//
+// THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+// WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+// WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND
+// FITNESS FOR A PARTICULAR PURPOSE.
 jQuery.noConflict();
-var GSStickyTopicToggle = function (getBase, topicId, stickyToggle) {
+
+function GSStickyTopicToggle(getBase, topicId, stickyToggle) {
     // Constants
     var AJAX_PAGE = getBase + 'gs-group-messages-topic-sticky-setter', 
         GET_PAGE = getBase + 'gs-group-messages-topic-sticky-getter';
 
     // Private methods
     function do_toggle() {
-        var data = null, sticky = null;
+        var data=null, sticky=null;
 
         stickyToggle.button('loading');
         if (stickyToggle.hasClass('active')) {
@@ -49,11 +62,11 @@ var GSStickyTopicToggle = function (getBase, topicId, stickyToggle) {
             jQuery.post(GET_PAGE, {'topicId': topicId}, set_checkbox);
         }//init
     };
-};
+}
 
 jQuery(window).load(function (event) {
-    var toggle = null, baseUrl = null, getBase = null, stickyToggle = null, 
-        topicId = null;
+    var toggle=null, baseUrl=null, getBase=null, stickyToggle=null, 
+        topicId=null;
 
     baseUrl = jQuery('base').attr('href');
     getBase = baseUrl.slice(0, baseUrl.indexOf('topic'));
