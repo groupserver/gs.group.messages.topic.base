@@ -1,4 +1,16 @@
+"use strict";
 // GroupServer JavaScript for composing a post
+//
+// Copyright © 2013, 2014 OnlineGroups.net and Contributors.
+// All Rights Reserved.
+//
+// This software is subject to the provisions of the Zope Public License,
+// Version 2.1 (ZPL). http://groupserver.org/downloads/license/
+//
+// THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+// WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+// WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND
+// FITNESS FOR A PARTICULAR PURPOSE.
 jQuery.noConflict();
 
 function GSFileUpload(formId, widgetId, listId) {
@@ -6,8 +18,8 @@ function GSFileUpload(formId, widgetId, listId) {
                  'of files">(remove)</abbr>';
     // Private methods
     function renameFileInputs(event) {
-        var multiFiles = jQuery('.MultiFile-applied'), oldId = '', newId = '',
-        i = null, input = null;
+        var multiFiles=null, oldId='', newId='', i=null, input=null;
+        multiFiles = jQuery('.MultiFile-applied');
         for ( i=0; i < multiFiles.length; i++ ) {
             input = jQuery(multiFiles[i]);
             oldId = input.attr('id');
@@ -15,7 +27,7 @@ function GSFileUpload(formId, widgetId, listId) {
             input.attr('id', newId).attr('name', newId);
         }
         return true;
-    };
+    }
 
     // Public methods and properties
     return {
@@ -28,10 +40,10 @@ function GSFileUpload(formId, widgetId, listId) {
             jQuery(formId).submit(renameFileInputs);
         }
     };
-}; // GSFileUpload
+} // GSFileUpload
 
 function gs_group_messages_topic_multifile_init () {
-    var uploader = null;
+    var uploader=null;
     uploader = GSFileUpload('.gs-group-messages-topic-add', 
                             '#form\\.uploadedFile',
                             '.gs-group-messages-topic-add-file-files-list');
@@ -39,7 +51,7 @@ function gs_group_messages_topic_multifile_init () {
 }
 
 jQuery(window).load( function () {
-    var h = null, d = null;
+    var h=null, d=null;
  
    if (jQuery('.gs-group-messages-topic-add').length != 0) {
        h = jQuery('#gs-group-messages-topic-add-privacy').html();
