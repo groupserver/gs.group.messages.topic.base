@@ -38,8 +38,8 @@ class StickyGetter(StickyPage):
         filename = '%s-%s-%s-get.txt' % (self.siteInfo.id,
                                             self.groupInfo.id,
                                             self.topicId)
-        response.setHeader('Content-Disposition',
-                            'inline; filename="%s"' % filename)
+        response.setHeader(to_ascii('Content-Disposition'),
+                            to_ascii('inline; filename="%s"' % filename))
 
     def __call__(self):
         if self.topicQuery.topic_sticky(self.topicId):
