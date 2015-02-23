@@ -9,7 +9,7 @@ CREATE TABLE topic (
     original_subject  TEXT                     NOT NULL,
     first_post_id     TEXT                     NOT NULL REFERENCES post (post_id),
     last_post_id      TEXT                     NOT NULL REFERENCES post (post_id),
-    last_post_date    TIMESTAMP WITH TIME ZONE NOT NULL,
+    last_post_date    TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
     num_posts         INTEGER                  NOT NULL CHECK (num_posts > 0),
     hidden            TIMESTAMP WITH TIME ZONE DEFAULT NULL,
     sticky            TIMESTAMP WITH TIME ZONE DEFAULT NULL,

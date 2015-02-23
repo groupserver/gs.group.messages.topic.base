@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-# Copyright © 2013 OnlineGroups.net and Contributors.
+# Copyright © 2013, 2015 OnlineGroups.net and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -24,7 +24,7 @@ with codecs.open('README.rst', encoding='utf-8') as f:
 with codecs.open(os.path.join("docs", "HISTORY.rst"), encoding='utf-8') as f:
     long_description += '\n' + f.read()
 
-setup(name='gs.group.messages.topic',
+setup(name='gs.group.messages.topic.base',
     version=version,
     description="Topics in a GroupServer Group",
     long_description=long_description,
@@ -35,7 +35,7 @@ setup(name='gs.group.messages.topic',
         "Intended Audience :: Developers",
         'License :: OSI Approved :: Zope Public License',
         "Natural Language :: English",
-        "Operating System :: POSIX :: Linux"
+        "Operating System :: POSIX :: Linux",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: JavaScript",
@@ -50,7 +50,8 @@ setup(name='gs.group.messages.topic',
     url='https://source.iopen.net/groupserver/gs.group.messages.topic/',
     license='ZPL 2.1',
     packages=find_packages(exclude=['ez_setup']),
-    namespace_packages=['gs', 'gs.group', 'gs.group.messages'],
+    namespace_packages=['gs', 'gs.group', 'gs.group.messages', 
+                        'gs.group.messages.topic'],
     include_package_data=True,
     zip_safe=False,
     install_requires=[
