@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+\# -*- coding: utf-8 -*-
 ##############################################################################
 #
 # Copyright © 2013, 2015 OnlineGroups.net and Contributors.
@@ -47,7 +47,7 @@ setup(name='gs.group.messages.topic.base',
     keywords='groupserver, message, post, topic',
     author='Michael JasonSmith',
     author_email='mpj17@onlinegroups.net',
-    url='https://source.iopen.net/groupserver/gs.group.messages.topic/',
+    url='https://github.com/groupserver/gs.group.messages.topic.base',
     license='ZPL 2.1',
     packages=find_packages(exclude=['ez_setup']),
     namespace_packages=['gs', 'gs.group', 'gs.group.messages', 
