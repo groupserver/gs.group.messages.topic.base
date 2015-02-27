@@ -1,4 +1,5 @@
 <div id="gs-group-messages-topic-cannotadd"
+     xmlns:tal="http://xml.zope.org/namespaces/tal"
      tal:content="structure provider:groupserver.CanPost">
   Cannot Add a Post Information.
 </div>

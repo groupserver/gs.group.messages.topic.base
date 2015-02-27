@@ -1,12 +1,19 @@
 <div id="gs-group-messages-topic-admin-stickytoggle" class="btn-group"
+     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+     i18n:domain="gs.group.messages.topic.base"
      role="form">
   <button type="button" class="btn btn-small" data-toggle="button"
           data-loading-text="Changing&#8230;"
           data-sticky-text="Now sticky"
-          data-normal-text="Now normal" title="Toggle sticky">
+          data-normal-text="Now normal" title="Toggle sticky"
+          i18n:attributes="data-loading-text sticky-changing;
+                           data-sticky-text sticky-set;
+                           data-normal-text sticky-unset;
+                           title sticky-toggle">
     <div class="icon-alone">
       <span aria-hidden="true" data-icon="&#x1f4cc;"></span>
-      <span class="screen-reader-text">Sticky</span>
+      <span class="screen-reader-text"
+            i18n:translate="sticky">Sticky</span>
     </div>
   </button>
 </div><!--gs-group-messages-topic-admin-stickytoggle-->

@@ -1,6 +1,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="gs.group.messages.topic.base"
       metal:use-macro="context/@@groupserver_layout/page">
   <head>
     <title metal:fill-slot="title">
@@ -35,7 +37,8 @@
         <a tal:attributes="title string:${view/siteInfo/name} Homepage"
            href="/" title="Home" class="icon-alone">
           <span aria-hidden="true" data-icon="&#x2302;"></span>
-          <span class="screen-reader-text">Site home page</span>
+          <span class="screen-reader-text"
+                i18n:translate="site-home-link">Site home page</span>
         </a>
       </li>
       <li>

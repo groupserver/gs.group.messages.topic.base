@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+############################################################################
 #
-# Copyright © 2013 OnlineGroups.net and Contributors.
+# Copyright © 2013, 2015 OnlineGroups.net and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -11,8 +11,8 @@
 # WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
 # FOR A PARTICULAR PURPOSE.
 #
-##############################################################################
-from __future__ import unicode_literals
+############################################################################
+from __future__ import absolute_import, unicode_literals
 from zope.cachedescriptors.property import Lazy
 from zope.component import createObject
 from gs.group.base import GroupViewlet
@@ -32,7 +32,8 @@ class LatestPost(GroupViewlet):
         retval = ''
         if self.topic:
             lastPost = self.topic[-1]
-            url = '{groupUrl}/messages/topic/{lastPostId}/#post-{lastPostId}'
+            url = '{groupUrl}/messages/topic/{lastPostId}/'\
+                  '#post-{lastPostId}'
             retval = url.format(groupUrl=self.groupInfo.relativeURL,
                                 lastPostId=lastPost['post_id'])
         return retval
@@ -45,7 +46,7 @@ class LatestPost(GroupViewlet):
         else:
             authorId = ''
         retval = createObject('groupserver.UserFromId', self.context,
-                                authorId)
+                              authorId)
         return retval
 
     @Lazy

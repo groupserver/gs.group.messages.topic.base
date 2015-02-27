@@ -1,4 +1,18 @@
-# coding=utf-8
+# -*- coding: utf-8 -*-
+############################################################################
+#
+# Copyright © 2013, 2015 OnlineGroups.net and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+############################################################################
+from __future__ import absolute_import, unicode_literals
 from zope.security.interfaces import Unauthorized
 from zope.cachedescriptors.property import Lazy
 from zope.component import getMultiAdapter, createObject
@@ -10,19 +24,20 @@ from gs.group.base.form import GroupForm
 from gs.group.member.canpost.interfaces import IGSPostingUser
 from gs.group.messages.add.base import add_a_post
 from gs.profile.email.base.emailuser import EmailUser
-from interfaces import IGSAddToTopicFields
-from error import NoIDError
+from .interfaces import IGSAddToTopicFields
+from .error import NoIDError
+from . import GSMessageFactory as _
 
 
 class GSTopicView(GroupForm):
     """View of a single GroupServer Topic"""
-    label = u'Topic View'
+    label = 'Topic view'
     pageTemplateFileName = 'browser/templates/topic.pt'
     template = ZopeTwoPageTemplateFile(pageTemplateFileName)
     form_fields = form.Fields(IGSAddToTopicFields, render_context=False)
 
     def __init__(self, context, request):
-        GroupForm.__init__(self, context, request)
+        super(GSTopicView, self).__init__(context, request)
         self.postId = self.request.get('postId', None)
         if not self.postId:
             raise NoIDError('No ID Specified')
@@ -41,9 +56,9 @@ class GSTopicView(GroupForm):
             else:
                 fromAddr = ''
         data = {
-          'fromAddress': fromAddr,
-          'message': u'',
-          'inReplyTo': self.lastPostId,
+            'fromAddress': fromAddr,
+            'message': '',
+            'inReplyTo': self.lastPostId,
         }
         self.widgets = form.setUpWidgets(
             self.form_fields, self.prefix, self.context,
@@ -51,14 +66,15 @@ class GSTopicView(GroupForm):
             ignore_request=ignore_request)
         assert self.widgets
 
-    @form.action(label=u'Post', failure='handle_action_failure')
+    @form.action(label=_('post-button', 'Post'), name="post",
+                 failure='handle_action_failure')
     def handle_add(self, action, data):
         if self.__inReplyTo != data['inReplyTo']:
             # --=mpj17=-- Formlib sometimes submits twice submits twice
             self.__inReplyTo = data['inReplyTo']
             uploadedFiles = [self.request[k] for k in self.request.form
                              if (('form.uploadedFile' in k)
-                                     and self.request[k])]
+                                 and self.request[k])]
 
             r = add_a_post(
                 groupId=self.groupInfo.id,
@@ -77,15 +93,16 @@ class GSTopicView(GroupForm):
                 #   messages before posting them.
                 self.status = r['message']
             else:
-                self.status = u'<a href="%(id)s#(id)s">%(message)s</a>' % r
+                self.status = '<a href="%(id)s#(id)s">%(message)s</a>' % r
         assert self.status
         assert type(self.status) == unicode
 
     def handle_action_failure(self, action, data, errors):
         if len(errors) == 1:
-            self.status = u'<p>There is an error:</p>'
+            s = 'There is an error:'
         else:
-            self.status = u'<p>There are errors:</p>'
+            s = 'There are errors:'
+        self.status = '<p>{0)</p>'.format(s)
 
     @Lazy
     def userInfo(self):
@@ -133,11 +150,12 @@ class GSTopicView(GroupForm):
         if ((self.__topic is None) or self.status):
             self.__topic = self.messageQuery.topic_posts(self.topicId)
             if self.__topic[0]['group_id'] != self.groupInfo.id:
-                raise Unauthorized('You are not authorized to access '
-                    'this topic in the group %s' % self.groupInfo.name)
+                m = 'You are not authorized to access this topic in the '\
+                    'group %s' % self.groupInfo.name
+                raise Unauthorized(m)
         assert type(self.__topic) == list
         assert len(self.__topic) >= 1, \
-          "No posts in the topic %s" % self.topicId
+            "No posts in the topic %s" % self.topicId
         return self.__topic
 
     @property

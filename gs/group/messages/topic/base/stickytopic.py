@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-##############################################################################
+############################################################################
 #
-# Copyright © 2013 OnlineGroups.net and Contributors.
+# Copyright © 2013, 2015 OnlineGroups.net and Contributors.
 # All Rights Reserved.
 #
 # This software is subject to the provisions of the Zope Public License,
@@ -11,7 +11,7 @@
 # WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
 # FOR A PARTICULAR PURPOSE.
 #
-##############################################################################
+############################################################################
 from __future__ import absolute_import, unicode_literals
 from zope.cachedescriptors.property import Lazy
 from gs.core import to_ascii
@@ -27,19 +27,18 @@ class StickyPage(GroupPage):
 
 
 class StickyGetter(StickyPage):
-
     def __init__(self, virtualMailingListFolder, request):
-        StickyPage.__init__(self, virtualMailingListFolder, request)
+        super(StickyGetter, self).__init__(virtualMailingListFolder,
+                                           request)
         self.topicId = request.get('topicId', None)
 
         response = self.request.response
-        response.setHeader(to_ascii("Content-Type"),
-                            to_ascii('text/plain; charset=UTF-8'))
+        response.setHeader(b"Content-Type", b'text/plain; charset=UTF-8')
         filename = '%s-%s-%s-get.txt' % (self.siteInfo.id,
-                                            self.groupInfo.id,
-                                            self.topicId)
-        response.setHeader(to_ascii('Content-Disposition'),
-                            to_ascii('inline; filename="%s"' % filename))
+                                         self.groupInfo.id,
+                                         self.topicId)
+        response.setHeader(b'Content-Disposition',
+                           to_ascii('inline; filename="%s"' % filename))
 
     def __call__(self):
         if self.topicQuery.topic_sticky(self.topicId):
@@ -52,17 +51,17 @@ class StickyGetter(StickyPage):
 class StickySetter(StickyPage):
 
     def __init__(self, virtualMailingListFolder, request):
-        StickyPage.__init__(self, virtualMailingListFolder, request)
+        super(StickySetter, self).__init__(virtualMailingListFolder,
+                                           request)
         self.topicId = request.get('topicId', None)
 
         response = self.request.response
-        response.setHeader(to_ascii("Content-Type"),
-                            to_ascii('text/plain; charset=UTF-8'))
+        response.setHeader(b"Content-Type", b'text/plain; charset=UTF-8')
         filename = '%s-%s-%s-set.txt' % (self.siteInfo.id,
-                                            self.groupInfo.id,
-                                            self.topicId)
-        response.setHeader(to_ascii('Content-Disposition'),
-                            to_ascii('inline; filename="%s"' % filename))
+                                         self.groupInfo.id,
+                                         self.topicId)
+        response.setHeader(b'Content-Disposition',
+                           to_ascii('inline; filename="%s"' % filename))
 
     def __call__(self):
         s = self.request.get('sticky', None)

@@ -1,4 +1,7 @@
-<li tal:define="munge_date python:modules['Products.XWFCore.XWFUtils'].munge_date"
+<li xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="gs.group.messages.topic.base"
+    tal:define="munge_date python:modules['Products.XWFCore.XWFUtils'].munge_date"
     id="gs-group-messages-topic-summary-lastpost" class="muted">
   <a title="View the latest post"
      id="gs-group-messages-topic-summary-lastpost-link"

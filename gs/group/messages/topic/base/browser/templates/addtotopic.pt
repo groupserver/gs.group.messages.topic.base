@@ -1,17 +1,21 @@
-<form id="add-to-topic"
+<form xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="gs.group.messages.topic.base"
+      id="add-to-topic"
       class="gs-group-messages-topic-add gs-content-js-required"
       enctype="multipart/form-data"  method="post" action="."
       tal:attributes="action request/URL"
       tal:define="allWidgets view/visibleWidgets">
-  <h2>Post a reply</h2>
+  <h2 i18n:translate="add-to-topic-heading">Post a reply</h2>
   <div id="gs-group-messages-topic-add-from"
        tal:define="widget python:allWidgets[0]">
     <span tal:define="size string:20;"
           tal:replace="structure provider:groupserver.SquareUserImage">
       &#9786;
     </span>
-    <span class="muted">Post as
-    <strong tal:content="view/loggedInUser/name" class="fn">you</strong></span>
+    <span class="muted" i18n:translate="add-to-topic-from">Post as
+    <strong tal:content="view/loggedInUser/name" class="fn"
+            i18n:name="authorName">you</strong></span>
     <span tal:condition="python:hasattr(widget, 'tag')"
           tal:replace="structure widget">Widget</span>
     <span class="readonlyWidget"
@@ -49,8 +53,9 @@
     <span id="gs-group-messages-topic-add-privacy-summary"
           title="Privacy"
           tal:attributes="title string:Privacy: ${view/privacy/visibility};">
-      <span class="muted" role="button" aria-haspopup="true" >Post will be
-      <span class="vis"
+      <span class="muted" role="button" aria-haspopup="true"
+            i18n:translate="add-to-topic-privacy">Post will be
+      <span class="vis" i18n:name="privacySetting"
             tal:content="view/privacy/visibility">lurid</span></span>
       (?)
     </span>

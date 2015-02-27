@@ -1,24 +1,32 @@
-<div class="gs-group-messages-topic-navlinks btn-group" role="navigation">
+<div xmlns:tal="http://xml.zope.org/namespaces/tal"
+     xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+     i18n:domain="gs.group.messages.topic.base"
+     class="gs-group-messages-topic-navlinks btn-group" role="navigation">
   <span tal:condition="not:view/previousTopic/topicId"
+        i18n:translate="previous-button"
         class="prev btn btn-small disabled" data-icon="&#x25c3;">Prev</span>
   <a href="#" class="prev btn btn-small"
      tal:condition="view/previousTopic/topicId"
      tal:attributes="href view/previousTopic/topicId;
                      title string:Later: ${view/previousTopic/subject};"
+     i18n:translate="previous-button"
      data-icon="&#x25c3;">Prev</a>
   <a class="group up btn btn-small icon-alone"
-     tal:attributes="title string:Group: ${view/groupInfo/name};
+     tal:attributes="title view/groupInfo/name;
                      href string:${view/groupInfo/relativeURL}/;"
      href="#">
     <span aria-hidden="true" data-icon="&#x2b06;"></span>
-    <span class="screen-reader-text">Group</span>
+    <span class="screen-reader-text"
+          i18n:translate="group-button">Group</span>
   </a>
   <span tal:condition="not:view/nextTopic/topicId"
         class="next btn btn-small disabled"
+        i18n:translate="next-button"
         data-icon-after="&#x25b9;">Next</span>
   <a href="#" class="next btn btn-small"
      tal:condition="view/nextTopic/topicId"
      tal:attributes="href view/nextTopic/topicId;
                      title string:Earlier: ${view/nextTopic/subject};"
+     i18n:translate="next-button"
      data-icon-after="&#x25b9;">Next</a>
 </div><!--gs-group-messages-topic-navlinks-->

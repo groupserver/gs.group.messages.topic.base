@@ -1,17 +1,22 @@
-<li id="gs-group-messages-topic-summary-stats" class="muted">
+<li id="gs-group-messages-topic-summary-stats" class="muted"
+    xmlns:tal="http://xml.zope.org/namespaces/tal"
+    xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+    i18n:domain="gs.group.messages.topic.base">
   <span id="gs-group-messages-topic-summary-stats-nposts">
-    <span class="val" tal:content="view/length">some</span>
-    <span tal:replace="python:'posts' if view.length != 1 else 'post'">
-      posts
-    </span>
+    <span tal:condition="python:view.length == 1"
+          i18n:translate="number-of-posts-1">1 post</span>
+    <span tal:condition="python:view.length != 1"
+          i18n:translate="number-of-posts-multiple">
+      <span i18n:name="nPosts" class="val"
+            tal:content="view/length">some</span> posts</span>
   </span>
-  <tal:block condition="python:view.lenAuthors != 1">
+  <tal:block condition="python:view.lenAuthors != 1"
+             i18n:translate="number-of-authors">
     by
     <span id="gs-group-messages-topic-summary-stats-nauthors">
-      <span class="val" tal:content="view/lenAuthors">some</span>
-      <span tal:replace="python:'authors' if view.lenAuthors != 1 else 'author'">
-        authors
-      </span>
+      <span i18n:name="nAuthors" class="val"
+            tal:content="view/lenAuthors">some</span>
+      authors
     </span>
   </tal:block>
 </li><!--gs-group-messages-topic-summary-stats-->
