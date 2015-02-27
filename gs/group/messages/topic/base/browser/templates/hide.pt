@@ -7,9 +7,9 @@
             aria-hidden="true">×</button>
     <h3 i18n:translate="hide-dialog-title">Hide the post</h3>
   </div><!--modal-header-->
-  <div class="modal-body"
-       i18n:translate="hide-dialog-loading">
-    <div id="hide-the-post-loading">
+  <div class="modal-body">
+    <div id="hide-the-post-loading"
+         i18n:translate="hide-dialog-loading">
       <span i18n:name="loadingIcon"
             data-icon="&#xe619;" aria-hidden="true"
             class="loading"> </span >Loading…
