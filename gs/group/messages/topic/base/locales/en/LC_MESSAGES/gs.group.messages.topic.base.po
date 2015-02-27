@@ -1,0 +1,131 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2015-02-27 00:19+0000\n"
+"PO-Revision-Date: 2015-02-26 16:22-0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#. Default: "Post as ${authorName}"
+#: ./browser/templates/addtotopic.pt:17
+msgid "add-to-topic-from"
+msgstr "Post as ${authorName}"
+
+#. Default: "Post a reply"
+#: ./browser/templates/addtotopic.pt:9
+msgid "add-to-topic-heading"
+msgstr "Post a reply"
+
+#. Default: "Post will be ${privacySetting}"
+#: ./browser/templates/addtotopic.pt:58
+msgid "add-to-topic-privacy"
+msgstr "Post will be ${privacySetting}"
+
+#. Default: "Email from"
+#: ./interfaces.py:44
+msgid "from-address"
+msgstr "Email from"
+
+#. Default: "The email address that you want in the \"From\" line in the email you send."
+#: ./interfaces.py:45
+msgid "from-address-help"
+msgstr "The email address that you want in the \\\"From\\\" line in the email you send."
+
+#. Default: "Group"
+#: ./browser/templates/navlinks.pt:19
+msgid "group-button"
+msgstr "Group"
+
+#. Default: "${loadingIcon}Loading…"
+#: ./browser/templates/hide.pt:13
+msgid "hide-dialog-loading"
+msgstr "${loadingIcon} Loading…"
+
+#. Default: "Hide the post"
+#: ./browser/templates/hide.pt:8
+msgid "hide-dialog-title"
+msgstr "Hide the post"
+
+#. Default: "Message"
+#: ./interfaces.py:52
+msgid "message"
+msgstr "Message"
+
+#. Default: "The message you want to post to this topic."
+#: ./interfaces.py:53
+msgid "message-help"
+msgstr ""
+
+#. Default: "Next"
+#: ./browser/templates/navlinks.pt:22
+msgid "next-button"
+msgstr "Next"
+
+#. Default: "by <span id=\"gs-group-messages-topic-summary-stats-nauthors\"> ${nAuthors} authors </span>"
+#: ./browser/templates/summarystats.pt:17
+msgid "number-of-authors"
+msgstr "by <span id=\\\"gs-group-messages-topic-summary-stats-nauthors\\\"> ${nAuthors} authors </span>"
+
+#. Default: "1 post"
+#: ./browser/templates/summarystats.pt:6
+msgid "number-of-posts-1"
+msgstr "1 post"
+
+#. Default: "${nPosts} posts"
+#: ./browser/templates/summarystats.pt:10
+msgid "number-of-posts-multiple"
+msgstr "${nPosts} posts"
+
+#. Default: "Post"
+#: ./topic.py:69
+msgid "post-button"
+msgstr "Post"
+
+#. Default: "Prev"
+#: ./browser/templates/navlinks.pt:5
+msgid "previous-button"
+msgstr "Prev"
+
+#. Default: "Share"
+#: ./browser/templates/sharebar.pt:1
+msgid "share"
+msgstr "Share"
+
+#. Default: "Site home page"
+#: ./browser/templates/topic.pt:40
+msgid "site-home-link"
+msgstr "Site home page"
+
+#. Default: "Sticky"
+#: ./browser/templates/stickytoggle.pt:15
+msgid "sticky"
+msgstr "Sticky"
+
+#. Default: "Changing…"
+#: ./browser/templates/stickytoggle.pt:5
+msgid "sticky-changing"
+msgstr "Changing…"
+
+#. Default: "Now sticky"
+#: ./browser/templates/stickytoggle.pt:5
+msgid "sticky-set"
+msgstr "Now sticky"
+
+#. Default: "Toggle sticky"
+#: ./browser/templates/stickytoggle.pt:5
+msgid "sticky-toggle"
+msgstr "Toggle sticky"
+
+#. Default: "Now normal"
+#: ./browser/templates/stickytoggle.pt:5
+msgid "sticky-unset"
+msgstr "Now normal"
+

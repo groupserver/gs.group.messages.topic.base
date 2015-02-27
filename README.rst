@@ -110,8 +110,12 @@ Three JavaScript resources are provided by this product.
 Resources
 =========
 
-- Code repository: https://github.com/groupserver/gs.group.messages.topic.base
-- Questions and comments to http://groupserver.org/groups/development
+- Code repository:
+  https://github.com/groupserver/gs.group.messages.topic.base
+- Translations:
+  https://www.transifex.com/projects/p/gs-group-messages-topic-base/
+- Questions and comments to
+  http://groupserver.org/groups/development
 - Report bugs at https://redmine.iopen.net/projects/groupserver
 
 .. _GroupServer: http://groupserver.org/
