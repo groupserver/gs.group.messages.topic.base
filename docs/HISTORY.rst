@@ -5,7 +5,10 @@ Changelog
 ------------------
 
 * Renaming the product `gs.group.messages.topic.base`_
+* Adding Transifex_ support
 
+.. _Transifex:
+   https://www.transifex.com/projects/p/gs-group-messages-topic-base/
 .. _gs.group.messages.topic.base:
    https://github.com/groupserver/gs.group.messages.topic.base
 
@@ -167,4 +170,4 @@ were displayed by `Products.XWFMailingListManager`_
 .. _Products.XWFMailingListManager:
    https://github.com/groupserver/Products.XWFMailingListManager
 
-..  LocalWords:  Changelog viewlets
+..  LocalWords:  Changelog viewlets Transifex
