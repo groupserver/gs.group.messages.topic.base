@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2015-02-27 00:19+0000\n"
-"PO-Revision-Date: 2015-02-26 16:22-0800\n"
+"PO-Revision-Date: 2015-03-11 17:06-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -37,7 +37,7 @@ msgstr "Email from"
 #. Default: "The email address that you want in the \"From\" line in the email you send."
 #: ./interfaces.py:45
 msgid "from-address-help"
-msgstr "The email address that you want in the \\\"From\\\" line in the email you send."
+msgstr "The email address that you want in the \"From\" line in the email you send."
 
 #. Default: "Group"
 #: ./browser/templates/navlinks.pt:19
@@ -62,7 +62,7 @@ msgstr "Message"
 #. Default: "The message you want to post to this topic."
 #: ./interfaces.py:53
 msgid "message-help"
-msgstr ""
+msgstr "The message you want to post to this topic."
 
 #. Default: "Next"
 #: ./browser/templates/navlinks.pt:22
@@ -72,7 +72,7 @@ msgstr "Next"
 #. Default: "by <span id=\"gs-group-messages-topic-summary-stats-nauthors\"> ${nAuthors} authors </span>"
 #: ./browser/templates/summarystats.pt:17
 msgid "number-of-authors"
-msgstr "by <span id=\\\"gs-group-messages-topic-summary-stats-nauthors\\\"> ${nAuthors} authors </span>"
+msgstr "by <span id=\"gs-group-messages-topic-summary-stats-nauthors\"> ${nAuthors} authors </span>"
 
 #. Default: "1 post"
 #: ./browser/templates/summarystats.pt:6
