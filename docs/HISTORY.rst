@@ -1,6 +1,16 @@
 Changelog
 =========
 
+4.0.2 (2015-10-14)
+------------------
+
+* [EN] Using *Older* and *Newer* for the navigation buttons
+* [DE] Adding a German translation, thanks to Cousin Clara
+* Following the changes to `gs.group.messages.post.base`_
+
+.. _gs.group.messages.post.base:
+   https://github.com/groupserver/gs.group.messages.post.base
+
 4.0.1 (2015-03-11)
 ------------------
 
