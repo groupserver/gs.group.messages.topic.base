@@ -12,7 +12,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ############################################################################
-from gs.group.messages.post.error import NoIDError as PostNoIDError
+from gs.group.messages.post.page.error import NoIDError as PostNoIDError
 
 
 class NoIDError(PostNoIDError):
