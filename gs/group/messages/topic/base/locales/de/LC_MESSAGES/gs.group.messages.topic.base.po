@@ -1,12 +1,13 @@
 # 
 # Translators:
+# Clara Adele von Randow <cvrandow@freenet.de>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: gs.group.messages.topic.base\n"
 "POT-Creation-Date: 2015-02-27 00:19+0000\n"
-"PO-Revision-Date: 2015-03-12 00:06+0000\n"
+"PO-Revision-Date: 2015-10-14 23:17+0000\n"
 "Last-Translator: Michael JasonSmith <mpj17@onlinegroups.net>\n"
-"Language-Team: German (http://www.transifex.com/projects/p/gs-group-messages-topic-base/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/groupserver/gs-group-messages-topic-base/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -20,53 +21,53 @@ msgstr ""
 #. Default: "Post as ${authorName}"
 #: ./browser/templates/addtotopic.pt:17
 msgid "add-to-topic-from"
-msgstr ""
+msgstr "Beitragen als ${authorName}"
 
 #. Default: "Post a reply"
 #: ./browser/templates/addtotopic.pt:9
 msgid "add-to-topic-heading"
-msgstr ""
+msgstr "Antworten"
 
 #. Default: "Post will be ${privacySetting}"
 #: ./browser/templates/addtotopic.pt:58
 msgid "add-to-topic-privacy"
-msgstr ""
+msgstr "Beitrag wird ${privacySetting} sein"
 
 #. Default: "Email from"
 #: ./interfaces.py:44
 msgid "from-address"
-msgstr ""
+msgstr "E-Mail von"
 
 #. Default: "The email address that you want in the \"From\" line in the email
 #. you send."
 #: ./interfaces.py:45
 msgid "from-address-help"
-msgstr ""
+msgstr "Die E-Mail-Adresse, die Sie in der \"Von\"-Zeile in der E-Mail haben möchten."
 
 #. Default: "Group"
 #: ./browser/templates/navlinks.pt:19
 msgid "group-button"
-msgstr ""
+msgstr "Gruppe"
 
 #. Default: "${loadingIcon}Loading…"
 #: ./browser/templates/hide.pt:13
 msgid "hide-dialog-loading"
-msgstr ""
+msgstr "${loadingIcon} wird geladen..."
 
 #. Default: "Hide the post"
 #: ./browser/templates/hide.pt:8
 msgid "hide-dialog-title"
-msgstr ""
+msgstr "Beitrag ausblenden"
 
 #. Default: "Message"
 #: ./interfaces.py:52
 msgid "message"
-msgstr ""
+msgstr "Nachricht"
 
 #. Default: "The message you want to post to this topic."
 #: ./interfaces.py:53
 msgid "message-help"
-msgstr ""
+msgstr "Die Nachricht, die Sie zu diesem Thema beitragen möchten."
 
 #. Default: "Next"
 #: ./browser/templates/navlinks.pt:22
@@ -77,22 +78,22 @@ msgstr ""
 #. ${nAuthors} authors </span>"
 #: ./browser/templates/summarystats.pt:17
 msgid "number-of-authors"
-msgstr ""
+msgstr "von <span id=\"gs-group-messages-topic-summary-stats-nauthors\"> ${nAuthors} Autoren </span>"
 
 #. Default: "1 post"
 #: ./browser/templates/summarystats.pt:6
 msgid "number-of-posts-1"
-msgstr ""
+msgstr "1 Beitrag"
 
 #. Default: "${nPosts} posts"
 #: ./browser/templates/summarystats.pt:10
 msgid "number-of-posts-multiple"
-msgstr ""
+msgstr "${nPosts} Beiträge"
 
 #. Default: "Post"
 #: ./topic.py:69
 msgid "post-button"
-msgstr ""
+msgstr "Beitrag"
 
 #. Default: "Prev"
 #: ./browser/templates/navlinks.pt:5
@@ -102,34 +103,34 @@ msgstr ""
 #. Default: "Share"
 #: ./browser/templates/sharebar.pt:1
 msgid "share"
-msgstr ""
+msgstr "Teilen"
 
 #. Default: "Site home page"
 #: ./browser/templates/topic.pt:40
 msgid "site-home-link"
-msgstr ""
+msgstr "Startseite"
 
 #. Default: "Sticky"
 #: ./browser/templates/stickytoggle.pt:15
 msgid "sticky"
-msgstr ""
+msgstr "Ankündigung"
 
 #. Default: "Changing…"
 #: ./browser/templates/stickytoggle.pt:5
 msgid "sticky-changing"
-msgstr ""
+msgstr "Wird geändert..."
 
 #. Default: "Now sticky"
 #: ./browser/templates/stickytoggle.pt:5
 msgid "sticky-set"
-msgstr ""
+msgstr "Erscheint nun als Ankündigung"
 
 #. Default: "Toggle sticky"
 #: ./browser/templates/stickytoggle.pt:5
 msgid "sticky-toggle"
-msgstr ""
+msgstr "Umschalten auf Ankündigung"
 
 #. Default: "Now normal"
 #: ./browser/templates/stickytoggle.pt:5
 msgid "sticky-unset"
-msgstr ""
+msgstr "Jetzt normal"

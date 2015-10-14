@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2015-02-27 00:19+0000\n"
-"PO-Revision-Date: 2015-03-11 17:06-0700\n"
+"PO-Revision-Date: 2015-10-14 15:35-0700\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -67,7 +67,7 @@ msgstr "The message you want to post to this topic."
 #. Default: "Next"
 #: ./browser/templates/navlinks.pt:22
 msgid "next-button"
-msgstr "Next"
+msgstr "Older"
 
 #. Default: "by <span id=\"gs-group-messages-topic-summary-stats-nauthors\"> ${nAuthors} authors </span>"
 #: ./browser/templates/summarystats.pt:17
@@ -92,7 +92,7 @@ msgstr "Post"
 #. Default: "Prev"
 #: ./browser/templates/navlinks.pt:5
 msgid "previous-button"
-msgstr "Prev"
+msgstr "Newer"
 
 #. Default: "Share"
 #: ./browser/templates/sharebar.pt:1
