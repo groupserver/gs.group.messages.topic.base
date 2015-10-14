@@ -1,11 +1,12 @@
 # 
 # Translators:
 # Clara Adele von Randow <cvrandow@freenet.de>, 2015
+# Michael JasonSmith <mpj17@onlinegroups.net>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: gs.group.messages.topic.base\n"
 "POT-Creation-Date: 2015-02-27 00:19+0000\n"
-"PO-Revision-Date: 2015-10-14 23:17+0000\n"
+"PO-Revision-Date: 2015-10-14 23:20+0000\n"
 "Last-Translator: Michael JasonSmith <mpj17@onlinegroups.net>\n"
 "Language-Team: German (http://www.transifex.com/groupserver/gs-group-messages-topic-base/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -72,7 +73,7 @@ msgstr "Die Nachricht, die Sie zu diesem Thema beitragen möchten."
 #. Default: "Next"
 #: ./browser/templates/navlinks.pt:22
 msgid "next-button"
-msgstr ""
+msgstr "Älter"
 
 #. Default: "by <span id=\"gs-group-messages-topic-summary-stats-nauthors\">
 #. ${nAuthors} authors </span>"
@@ -98,7 +99,7 @@ msgstr "Beitrag"
 #. Default: "Prev"
 #: ./browser/templates/navlinks.pt:5
 msgid "previous-button"
-msgstr ""
+msgstr "Neuer"
 
 #. Default: "Share"
 #: ./browser/templates/sharebar.pt:1
