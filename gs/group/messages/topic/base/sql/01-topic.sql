@@ -15,7 +15,7 @@ CREATE TABLE topic (
     sticky            TIMESTAMP WITH TIME ZONE DEFAULT NULL,
     -- A PostgreSQL dependency is created by the TEXT array and tsvector.
     fts_vectors       tsvector
-);  
+);
 
 -- ALTER TABLE topic ADD column hidden TIMESTAMP WITH TIME ZONE;
 
@@ -43,10 +43,17 @@ CREATE OR REPLACE FUNCTION topic_body (topic_id TEXT)
       subject TEXT;
       retval TEXT;
   BEGIN
-    SELECT string_agg(post.body, ' ') INTO topic_text
-      FROM post 
-      WHERE post.topic_id = topic_body.topic_id
-        AND post.hidden IS NULL;
+    -- The order of posts in the topic is backwards (most recent
+    -- to oldest) and is limited to the 127 most recent
+    -- posts. This is fine as the text is only used in the TF-IDF
+    -- algorithm, which is naive.
+    SELECT string_agg(p.body, ' ') INTO topic_text
+      FROM (SELECT post.body, post.date
+              FROM post
+              WHERE post.topic_id = '6FXydqL1Z6kNwGGgRLMw0l'
+                    AND post.hidden IS NULL
+              ORDER BY post.date DESC
+              LIMIT 127) as p;
     SELECT COALESCE(post.subject, '') INTO subject
       FROM post WHERE post.topic_id = topic_body.topic_id LIMIT 1;
     retval := left(subject || ' ' || topic_text, 1048575); -- Max for a vector
@@ -60,11 +67,11 @@ $$ LANGUAGE 'plpgsql';
 -- ALTER TABLE topic ADD COLUMN fts_vectors tsvector;
 -- DROP TABLE topic_word_count;
 -- DROP TABLE word_count;
--- 
+--
 -- Installs up to and including GS 12.05 will need to populate the
 -- full-text retrieval column of the topic table.
--- CREATE OR REPLACE FUNCTION topic_ftr_populate () 
---   RETURNS void AS $$ 
+-- CREATE OR REPLACE FUNCTION topic_ftr_populate ()
+--   RETURNS void AS $$
 --     DECLARE
 --       total_topics REAL;
 --       trecord RECORD;
@@ -78,7 +85,7 @@ $$ LANGUAGE 'plpgsql';
 --       FOR trecord IN SELECT * FROM topic WHERE fts_vectors IS NULL LOOP
 --         RAISE NOTICE 'Topic %', trecord.topic_id;
 --         topic_vector := to_tsvector('english', topic_body(trecord.topic_id));
---         UPDATE topic SET fts_vectors = topic_vector 
+--         UPDATE topic SET fts_vectors = topic_vector
 --           WHERE topic.topic_id = trecord.topic_id;
 --         i := i + 1;
 --         p := (i / total_topics) * 100;
@@ -97,9 +104,8 @@ CREATE OR REPLACE FUNCTION topic_fts_update ()
       topic_text := topic_body(NEW.topic_id);
       NEW.fts_vectors := to_tsvector('english', topic_text);
       RETURN NEW;
-    END;  
+    END;
 $$ LANGUAGE 'plpgsql';
 CREATE TRIGGER topic_update_trigger_01
   BEFORE INSERT OR UPDATE ON topic
   FOR EACH ROW EXECUTE PROCEDURE topic_fts_update ();
-
