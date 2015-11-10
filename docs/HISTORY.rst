@@ -1,6 +1,12 @@
 Changelog
 =========
 
+4.0.3 (2015-11-10)
+------------------
+
+* Generating the topic-keywords from the most recent 127 posts,
+  rather than from the entire topic
+
 4.0.2 (2015-10-14)
 ------------------
 
