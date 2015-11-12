@@ -1,6 +1,17 @@
 Changelog
 =========
 
+4.0.4 (2015-11-12)
+------------------
+
+* Following the updates to `gs.content.js.sharebox`_
+* Running `gjslint`_ over the JavaScript resources
+
+.. _gs.content.js.sharebox:
+   https://github.com/groupserver/gs.content.js.sharebox
+.. _gjslint:
+   https://developers.google.com/closure/utilities/docs/linter_howto
+
 4.0.3 (2015-11-10)
 ------------------
 
@@ -95,7 +106,7 @@ Changelog
 * Minifying some JavaScript resources
 * Following the member-viewlet code to `gs.group.member.viewlet`_
 
-.. _gs.group.member.viewlet
+.. _gs.group.member.viewlet:
    https://github.com/groupserver/gs.group.member.viewlet
 
 3.1.1 (2013-03-15)
@@ -171,7 +182,7 @@ Changelog
 1.2.0 (2011-06-07)
 ------------------
 
-* Adding a ``:`` to the title of the *Topic page
+* Adding a ``:`` to the title of the *Topic* page
 * Moving the can-post code to `gs.group.member.canpost`_
 
 .. _gs.group.member.canpost:
