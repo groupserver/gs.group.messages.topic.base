@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 // GroupServer module for providing the Sticky topics button.
 //
 // Copyright © 2014 OnlineGroups.net and Contributors.
@@ -15,12 +15,12 @@ jQuery.noConflict();
 
 function GSStickyTopicToggle(getBase, topicId, stickyToggle) {
     // Constants
-    var AJAX_PAGE = getBase + 'gs-group-messages-topic-sticky-setter', 
+    var AJAX_PAGE = getBase + 'gs-group-messages-topic-sticky-setter',
         GET_PAGE = getBase + 'gs-group-messages-topic-sticky-getter';
 
     // Private methods
     function do_toggle() {
-        var data=null, sticky=null;
+        var data = null, sticky = null;
 
         stickyToggle.button('loading');
         if (stickyToggle.hasClass('active')) {
@@ -28,10 +28,10 @@ function GSStickyTopicToggle(getBase, topicId, stickyToggle) {
         } else {
             sticky = '1';
         }
-        
+
         data = {
-            'topicId':    topicId,
-            'sticky':     sticky
+            'topicId': topicId,
+            'sticky': sticky
         };
         jQuery.post(AJAX_PAGE, data, show_done);
     };
@@ -55,18 +55,18 @@ function GSStickyTopicToggle(getBase, topicId, stickyToggle) {
         }
         stickyToggle.removeAttr('disabled');
     }
-    
+
     return {
-        init: function () {
+        init: function() {
             stickyToggle.click(do_toggle);
             jQuery.post(GET_PAGE, {'topicId': topicId}, set_checkbox);
         }//init
     };
 }
 
-jQuery(window).load(function (event) {
-    var toggle=null, baseUrl=null, getBase=null, stickyToggle=null, 
-        topicId=null;
+jQuery(window).load(function(event) {
+    var toggle = null, baseUrl = null, getBase = null, stickyToggle = null,
+        topicId = null;
 
     baseUrl = jQuery('base').attr('href');
     getBase = baseUrl.slice(0, baseUrl.indexOf('topic'));
