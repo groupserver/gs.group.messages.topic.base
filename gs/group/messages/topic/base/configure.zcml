@@ -216,11 +216,11 @@
     title="Sticky Topic Toggle" />
   <!--The JavaScript library for the toggle-->
   <browser:resource
-    name="stickytoggle-20121219.js"
+    name="stickytoggle-20151112.js"
     file="browser/javascript/stickytoggle.js"
     permission="zope2.Public" />
   <browser:resource
-    name="stickytoggle-min-20140327.js"
+    name="stickytoggle-min-20151112.js"
     file="browser/javascript/stickytoggle-min.js"
     permission="zope2.Public" />
   <!--The getter for the toggle-->
@@ -246,11 +246,11 @@
     weight="50"
     title="Compose" />
   <browser:resource
-    name="gs-group-messages-topic-compose-20140327.js"
+    name="gs-group-messages-topic-compose-20151112.js"
     file="browser/javascript/compose.js"
     permission="zope2.Public" />
   <browser:resource
-    name="gs-group-messages-topic-compose-min-20140327.js"
+    name="gs-group-messages-topic-compose-min-20151112.js"
     file="browser/javascript/compose-min.js"
     permission="zope2.Public" />
 
