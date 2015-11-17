@@ -50,7 +50,7 @@ CREATE OR REPLACE FUNCTION topic_body (topic_id TEXT)
     SELECT string_agg(p.body, ' ') INTO topic_text
       FROM (SELECT post.body, post.date
               FROM post
-              WHERE post.topic_id = '6FXydqL1Z6kNwGGgRLMw0l'
+              WHERE post.topic_id = topic_body.topic_id
                     AND post.hidden IS NULL
               ORDER BY post.date DESC
               LIMIT 127) as p;
@@ -60,7 +60,6 @@ CREATE OR REPLACE FUNCTION topic_body (topic_id TEXT)
     RETURN retval;
   END;
 $$ LANGUAGE 'plpgsql';
-
 
 -- Installs up to and including GS 12.05 will need to update the topic
 -- table:
