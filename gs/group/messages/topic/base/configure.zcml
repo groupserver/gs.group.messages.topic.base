@@ -69,7 +69,7 @@
    name="gs-group-messages-topic-admin-stickytoggle"
    manager=".interfaces.ITopicTasks"
    template="browser/templates/stickytoggle.pt"
-   class="gs.group.base.viewlet.GroupViewlet"
+   class="gs.group.base.GroupViewlet"
    permission="zope2.ManageProperties"
    weight="20"
    title="Sticky Toggle" />
@@ -154,7 +154,7 @@
   <browser:viewlet name="gs-group-messages-topic-hide-a-post"
     manager=".interfaces.ITopicPage"
     template="browser/templates/hide.pt"
-    class="gs.group.member.viewlet.MemberOnlyViewlet"
+    class="gs.group.base.GroupViewlet"
     permission="zope2.View"
     weight="35"
     title="Hide a Post" />
@@ -162,7 +162,7 @@
     name="gs-group-messages-topic-hide-js"
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/hidejs.pt"
-    class="gs.group.member.viewlet.MemberOnlyViewlet"
+    class="gs.group.base.GroupViewlet"
     permission="zope2.View"
     weight="35"
     title="Show and Hide Buttons" />
@@ -199,7 +199,7 @@
     name="gs-group-messages-topic-share-js"
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/sharejs.pt"
-    class="gs.group.base.viewlet.GroupViewlet"
+    class="gs.group.base.GroupViewlet"
     permission="zope2.View"
     weight="20"
     title="Share Buttons" />
@@ -210,7 +210,7 @@
     name="gs-group-messages-topic-javascript-stickytoggle"
     manager=".interfaces.ITopicJavaScript"
     template="browser/templates/stickytogglejs.pt"
-    class="gs.group.base.viewlet.GroupViewlet"
+    class="gs.group.base.GroupViewlet"
     permission="zope2.ManageProperties"
     weight="40"
     title="Sticky Topic Toggle" />
