@@ -1,6 +1,11 @@
 Changelog
 =========
 
+4.0.5 (2015-11-19)
+------------------
+
+* Fixing the Hide JavaScript, so it is present in the page more often.
+
 4.0.4 (2015-11-12)
 ------------------
 
