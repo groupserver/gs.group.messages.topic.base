@@ -1,7 +1,7 @@
 'use strict';
 // GroupServer JavaScript for composing a post
 //
-// Copyright © 2013, 2014 OnlineGroups.net and Contributors.
+// Copyright © 2013, 2014, 2016 OnlineGroups.net and Contributors.
 // All Rights Reserved.
 //
 // This software is subject to the provisions of the Zope Public License,
@@ -59,10 +59,11 @@ jQuery(window).load(function() {
        d = {animation: true, html: true, placement: 'top', trigger: 'click',
             content: h};
        jQuery('#gs-group-messages-topic-add-privacy-summary').popover(d);
-
+       // TODO: Add HTML5 multiple-file support
+       // jQuery('#form\\.uploadedFile').attr('multiple', 'multiple');
        // Init the file uploader
        gsJsLoader.with_module(
-           '/++resource++multiple_file_upload-1.48/jquery.MultiFile.js',
+           '/++resource++multiple_file_upload-2.2.1/jquery.MultiFile.js',
            gs_group_messages_topic_multifile_init);
    }
 });
