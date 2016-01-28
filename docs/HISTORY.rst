@@ -1,6 +1,14 @@
 Changelog
 =========
 
+4.0.6 (2016-01-28)
+------------------
+
+* Following the changes to `gs.content.js.multifile`_
+
+.. _gs.content.js.multifile:
+   https://github.com/groupserver/gs.content.js.multifile
+
 4.0.5 (2015-11-19)
 ------------------
 
