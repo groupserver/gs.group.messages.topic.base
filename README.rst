@@ -97,15 +97,11 @@ JavaScript
 
 Three JavaScript resources are provided by this product.
 
-``/++resource++gs-group-messages-topic-multifile-20130201.js``:
+``/++resource++gs-group-messages-topic-multifile-20160127.js``:
   Customisation to the MultiFile system [#multifile]_.
 
-``/++resource++stickytoggle-20121219.js``:
+``/++resource++stickytoggle-20151112.js``:
   Client-side code to power the Sticky_ toggle.
-
-``/++resource++gs-group-messages-topic-privacy-20130201.js``: 
-  Creates a Popover_ from the privacy information in the `Post a Reply`_
-  form.
 
 Resources
 =========
@@ -132,5 +128,4 @@ Resources
 .. [#multifile] See ``gs.content.js.multifile``
                 <https://github.com/groupserver/gs.content.js.multifile/>
 
-.. _Popover: http://twitter.github.com/bootstrap/javascript.html#popovers
 ..  LocalWords:  MultiFile
