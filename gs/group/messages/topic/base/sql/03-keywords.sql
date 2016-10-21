@@ -43,6 +43,9 @@ CREATE OR REPLACE FUNCTION topic_tf (topic_id TEXT)
       RETURN QUERY SELECT cw.word AS stem,
                      CAST(cw.nentry  / most_frequent_word_count AS REAL) AS tf
         FROM (SELECT ts.word, ts.nentry FROM ts_stat(ts_stat_inner) AS ts
+                WHERE ts.word NOT LIKE '%@%'  -- Drop email addresses
+                  AND ts.word NOT LIKE '%://%'  -- Drop URIs
+                  AND ts.word NOT LIKE 'www.%'  -- Drop these URIs, too
                 ORDER BY nentry DESC LIMIT 16) as cw; -- Power of 2;
     END;
 $$ LANGUAGE plpgsql;
