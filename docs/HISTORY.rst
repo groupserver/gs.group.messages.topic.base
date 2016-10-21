@@ -1,6 +1,15 @@
 Changelog
 =========
 
+4.0.7 (2016-10-21)
+------------------
+
+* Dropping email addresses from keywords, closing `Bug 3919`_
+* Dropping URIs from keywords, closing `Bug 4028`_
+
+.. _Bug 3919: https://redmine.iopen.net/issues/3939
+.. _Bug 4028: https://redmine.iopen.net/issues/4028
+
 4.0.6 (2016-01-28)
 ------------------
 
