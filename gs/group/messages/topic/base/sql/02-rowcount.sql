@@ -11,7 +11,7 @@ BEGIN;
    CREATE TRIGGER count_topic_rows
       AFTER INSERT OR DELETE on topic
       FOR EACH ROW EXECUTE PROCEDURE count_rows();
-   
+
    -- Initialise the row count record
    DELETE FROM rowcount WHERE table_name = 'topic';
 

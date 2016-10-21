@@ -13,7 +13,7 @@ SET CLIENT_MIN_MESSAGES = WARNING;
 --
 --   The core of the TF-IDF algorithm, the term frequency is
 --
---   TF (term frequency) = 
+--   TF (term frequency) =
 --                 Count of the word in the topic
 --     _________________________________________________________
 --      Count of the most frequently occuring word in the topic
@@ -37,7 +37,7 @@ CREATE OR REPLACE FUNCTION topic_tf (topic_id TEXT)
       most_frequent_word_count REAL;
     BEGIN
       ts_stat_inner := 'SELECT fts_vectors FROM topic WHERE topic_id = ''' || topic_id || '''';
-      SELECT CAST(ts.nentry AS REAL) INTO most_frequent_word_count 
+      SELECT CAST(ts.nentry AS REAL) INTO most_frequent_word_count
         FROM ts_stat(ts_stat_inner) as ts
         ORDER BY nentry DESC LIMIT 1;
       RETURN QUERY SELECT cw.word AS stem,
@@ -77,15 +77,15 @@ CREATE OR REPLACE FUNCTION topic_tf_idf (topic_id TEXT)
     DECLARE
       total_topics REAL;
     BEGIN
-      SELECT CAST(total_rows AS REAL) INTO total_topics 
+      SELECT CAST(total_rows AS REAL) INTO total_topics
         FROM rowcount WHERE table_name = 'topic';
       -- The cast of the ttf.stem to tsquery, rather than calling "to_tsquery"
       -- is deliberate.
-      RETURN QUERY 
+      RETURN QUERY
         SELECT ttf.stem,
-               CAST(ttf.tf * 
-                    LOG(total_topics / 
-                        (SELECT COUNT(*) FROM topic 
+               CAST(ttf.tf *
+                    LOG(total_topics /
+                        (SELECT COUNT(*) FROM topic
                            WHERE fts_vectors @@ CAST(ttf.stem AS tsquery)))
                     AS REAL)
                   AS tf_idf
@@ -97,17 +97,17 @@ CREATE OR REPLACE FUNCTION topic_tf_idf (topic_id TEXT)
       -- query, and a syntax error is raised. In that case lets just go
       -- with the TF values. It ain't as good as the TF-IDF values, but it
       -- will do.
-      --   
+      --
       -- Similarly, binary blobs can make it into the database, in which
       -- case we can get division-by-zero errors. Once again, just return
       -- the TF values.
       WHEN syntax_error OR division_by_zero THEN
         RAISE NOTICE 'Caught syntax error';
-        RETURN QUERY 
+        RETURN QUERY
           SELECT ttf.stem, ttf.tf AS tf_idf
             FROM topic_tf(topic_id) as ttf
             ORDER BY tf_idf DESC
-            LIMIT 5;    
+            LIMIT 5;
     END;
 $$ LANGUAGE 'plpgsql';
 
@@ -173,7 +173,7 @@ CREATE OR REPLACE FUNCTION topic_keywords (topic_id TEXT, topic_text TEXT)
   RETURNS TABLE(word TEXT, stem TEXT, tf_idf REAL) AS $$
     BEGIN
       RETURN QUERY SELECT tw.word, tw.stem, tfidf.tf_idf
-                     FROM topic_tf_idf(topic_id) AS tfidf, 
+                     FROM topic_tf_idf(topic_id) AS tfidf,
                           topic_words(topic_text) AS tw
                      WHERE tfidf.stem = tw.stem
                      ORDER BY tfidf.tf_idf DESC;
@@ -198,14 +198,14 @@ CREATE OR REPLACE FUNCTION topic_keywords_update ()
         INTO new_keywords;
 
       IF (TG_OP = 'UPDATE') THEN
-        UPDATE topic_keywords SET keywords = new_keywords 
+        UPDATE topic_keywords SET keywords = new_keywords
           WHERE topic_id = NEW.topic_id;
       ELSIF (TG_OP = 'INSERT') THEN
         INSERT INTO topic_keywords VALUES(NEW.topic_id, new_keywords);
       END IF;
 
       RETURN NULL; -- The NULL is ignored, as this function is an after-trigger
-    END;  
+    END;
 $$ LANGUAGE 'plpgsql';
 CREATE TRIGGER topic_update_trigger_02
   AFTER INSERT OR UPDATE ON topic
@@ -214,8 +214,8 @@ CREATE TRIGGER topic_update_trigger_02
 
 -- Installs up to and including GS 12.05 will need to populate the
 -- full-text retrieval column, and hte keyword column of the topic table.
--- CREATE OR REPLACE FUNCTION topic_keywords_populate () 
---   RETURNS void AS $$ 
+-- CREATE OR REPLACE FUNCTION topic_keywords_populate ()
+--   RETURNS void AS $$
 --     DECLARE
 --       total_topics REAL;
 --       trecord RECORD;
@@ -229,7 +229,7 @@ CREATE TRIGGER topic_update_trigger_02
 --       FOR trecord IN SELECT * FROM topic WHERE keywords IS NULL LOOP
 --         RAISE NOTICE 'Topic %', trecord.topic_id;
 --         topic_text = topic_body(trecord.topic_id);
---         SELECT ARRAY(SELECT word 
+--         SELECT ARRAY(SELECT word
 --                        FROM topic_keywords(trecord.topic_id, topic_text))
 --           INTO new_keywords;
 --         UPDATE topic SET keywords = new_keywords
